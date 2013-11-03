@@ -65,26 +65,26 @@ Fork this repo.
 
 1. Make sure the core network backbone is in place. In my
    case that's as simple as:
-1.1 Ensure my internet router is wired up correctly to hosts
-1.2 DHCP is turned off
-1.3 A WiFi network configured
-1.4 IPv6 enabled (LAN side only, since my ISP doesn't
-    support IPv6 yet)
+  1. Ensure my internet router is wired up correctly to hosts
+  2. DHCP is turned off
+  3. A WiFi network configured
+  4. IPv6 enabled (LAN side only, since my ISP doesn't
+     support IPv6 yet)
 2. Have an idea of how you want your hardware to be used
-2.1 Select the first node to re-install, the bootstrap
-    node responsible for providing various key network
-    services like automated remote installation. The
-    rest of the network builds out from this node.
+  1. Select the first node to re-install, the bootstrap
+     node responsible for providing various key network
+     services like automated remote installation. The
+     rest of the network builds out from this node.
     
-    These services are all containerised in virtual machines
-    so they can trivially be migrated to other hosts in
-    future.
+     These services are all containerised in virtual machines
+     so they can trivially be migrated to other hosts in
+     future.
 
-    This node runs Fedora Linux in my configuration since
-    it also doubles up as a desktop and i've recently
-    switched from Ubuntu for my desktop of choice
-2.2 Make the install USB/CD/DVD for the first node and kick
-    off the automated installation
+     This node runs Fedora Linux in my configuration since
+     it also doubles up as a desktop and i've recently
+     switched from Ubuntu for my desktop of choice
+  2. Make the install USB/CD/DVD for the first node and kick
+     off the automated installation
 3. Ansible will now apply the configuration to this node
    which involves bringing up various virtual machines. One
    of these is a Cobbler network installation service. It
