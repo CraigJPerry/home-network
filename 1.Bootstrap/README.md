@@ -40,5 +40,7 @@ And i changed the default line at the top:
 
     default kickstart
 
+Make the iso image:
 
+    $ sudo mkisofs -o ~/f19-bootstrap-node.iso -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table -R -J -v -T .
 
