@@ -26,21 +26,10 @@ i used on a linux box were:
     $ mkdir fedora19-bootstrap-node
     $ cp -a /mnt/. fedora19-bootstrap-node  # NB: The . is required
     $ sudo umount /mnt
-    $ cp ~/bootstrap-node.ks fedora-19-bootstrap-node
-    $ vi fedora19-bootstrap-node/isolinux/isolinux.cfg
-
-I added the below stanza to the isolinux.cfg file:
-
-    label kickstart
-      menu label Kickstart Bootstrap Node with F19
-      kernel vmlinuz
-      append initrd=initrd.img inst.stage2=hd:LABEL=Fedora\x2019\x20x86_64 text ks=cdrom:/bootstrap-node.ks
-
-And i changed the default line at the top:
-
-    default kickstart
+    $ cp ~/d1.ks fedora-19-bootstrap-node
+    $ cp ~/isolinux.cfg fedora-19-bootstrap-node
 
 Make the iso image:
-
-    $ sudo mkisofs -o ~/f19-bootstrap-node.iso -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table -R -J -v -T .
+    $ cd fedora-19-bootstrap-node
+    $ mkisofs -R -J -T -v -no-emul-boot -boot-load-size4 -boot-info-table -V "Fedora 19 x86_64" -b isolinux/isolinux.bin -c isolinux/boot.cat -o ~/f19-bootstrap-node.iso .
 
