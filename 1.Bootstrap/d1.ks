@@ -10,6 +10,9 @@
 #    1) /boot, 256M RAID1 ext4
 #    2) pv.11, 200Gb RAID1 LVM PV (/, /var, /home etc.)
 #    3) pv.20, Remainder RAID0 LVM PV (/scratch)
+#  b) Hostname
+#  c) Root account with default password (changed on first reboot)
+#
 
 cdrom
 
@@ -49,27 +52,21 @@ logvol /scratch --fstype="ext4" --size=30000 --label="d1-vgfast-lvsrv" --name=sr
 # Users
 auth --enableshadow --passalgo=sha512
 rootpw --iscrypted $6$JSdgnAXgP16EA7MR$HQ4isREWMEgyKP3can3iaTr678f4HPgAhp3eUp7SAYBzSPevGyooLpQ0LapodSvXU27kvOJZA6Xt9M66//x5X/
-group --gid=1000 --name="craig"
-user --groups=craig,wheel --homedir=/home/craig --name=craig --password=$6$0L978wPXIBXN3yyU$WCkkYXz3jF21jo1/zvn/rBYiPjBTTQPZBAD4.VOyXFjFyM4z8EedAxUNQ1.pze64zUQy4c5QYgNofsW03eDPu/ --iscrypted --gecos="Craig Perry" --uid=1000
 
 # Network information
-network  --bootproto=dhcp --device=eth0 --activate --hostname="d1.local"
 network  --bootproto=dhcp --device=enp8s0 --activate --hostname="d1.local"
 
 xconfig  --startxonboot
 
 # No packages specified here, we want a minimal install, ansible
-# will handle installing the right packages later
+# will handle installing the appropriate packages later
 %packages
 %end
 
+# There are a couple of required packages to let ansible function
+# however depending on the install media used, they may only be
+# available over the network, easiest to grab during post install
 %post
-echo "%wheel ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/wheel-nopass
-chmod 0440 /etc/sudoers.d/wheel-nopass
-
-# Depending on the install media used, not all packages are
-# guaranteed to be present. Easy workaround is just to install
-# over the network at the end of the installation process.
 yum -y update
 yum -y install git
 yum -y install ansible
