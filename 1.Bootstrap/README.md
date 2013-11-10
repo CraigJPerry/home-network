@@ -31,3 +31,14 @@ i used on a linux box were:
     $ cd f19
     $ mkisofs -R -J -T -v -no-emul-boot -boot-load-size4 -boot-info-table -V "Fedora 19 x86_64" -b isolinux/isolinux.bin -c isolinux/boot.cat -o ~/f19-d1.iso .
 
+## Installation ##
+
+Boot the DVD and wait until it's complete.
+
+The core installation DVD functionality remains intact, there's
+now an extra menu option (the default) to supply a kickstart file.
+
+This means the same DVD can still be used for other installs, the
+installation should be a "minimal install" anyway, we want all
+configuration to be tracked in ansible.
+
