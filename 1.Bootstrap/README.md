@@ -23,13 +23,11 @@ i used on a linux box were:
 
     $ wget http://download.fedoraproject.org/pub/fedora/linux/releases/19/Fedora/x86_64/iso/Fedora-19-x86_64-DVD.iso
     $ sudo mount -o loop Fedora-19-x86_64-DVD.iso /mnt
-    $ mkdir fedora19-bootstrap-node
-    $ cp -a /mnt/. fedora19-bootstrap-node  # NB: The . is required
+    $ mkdir f19
+    $ cp -a /mnt/. f19  # NB: The . is required
     $ sudo umount /mnt
-    $ cp ~/d1.ks fedora-19-bootstrap-node
-    $ cp ~/isolinux.cfg fedora-19-bootstrap-node
-
-Make the iso image:
-    $ cd fedora-19-bootstrap-node
-    $ mkisofs -R -J -T -v -no-emul-boot -boot-load-size4 -boot-info-table -V "Fedora 19 x86_64" -b isolinux/isolinux.bin -c isolinux/boot.cat -o ~/f19-bootstrap-node.iso .
+    $ cp ~/d1.ks f19
+    $ cp ~/isolinux.cfg f19
+    $ cd f19
+    $ mkisofs -R -J -T -v -no-emul-boot -boot-load-size4 -boot-info-table -V "Fedora 19 x86_64" -b isolinux/isolinux.bin -c isolinux/boot.cat -o ~/f19-d1.iso .
 
