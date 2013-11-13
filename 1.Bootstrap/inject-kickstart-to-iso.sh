@@ -6,6 +6,7 @@
 # Configuration
 WORKING_DIR="/var/tmp/$(basename ${0} ".sh").$$.workdir"
 SOURCE_ISO_MOUNTPOINT="/media/src-iso"
+SHELL_CMD="bash"
 
 function usage
 {
@@ -13,18 +14,32 @@ function usage
     exit ${1}
 }
 
-# Process & remove command line options
-if [[ "x${1}" == "x--help" || "x${1}" == "x-h" ]]; then
-    usage 0
-elif [[ "x${1}" == "x--tempdir" || "x${1}" == "x-t" ]]; then
-    WORKING_DIR=${1}
-    shift
-elif [[ "x${1}" == "x--dry-run" || "x${1}" == "x-d" ]]; then
-    SHELL_CMD="cat -"
-    shift
-else
-    SHELL_CMD="bash"
-fi
+# Process command line options
+ARGS=$(getopt -o hdt: -l "help,dry-run,tempdir:" -n "$(basename $0)" -- "${@}")
+[[ ${?} -ne 0 ]] && usage 1
+
+eval set -- "$ARGS"
+
+while true; do
+    case "${1}" in
+        -h|--help )
+            usage 0
+        ;;
+        -d|--dry-run )
+            shift
+            SHELL_CMD="cat -"
+        ;;
+        -t|--tempdir )
+            shift
+            WORKING_DIR=${1}
+            shift
+        ;;
+        * )
+            shift
+            break
+        ;;
+    esac
+done
 
 # Basic sanity check of parameters
 if [[ ${#} -ne 2 || ! -r ${1} || ! -r ${2} ]]; then
@@ -36,14 +51,10 @@ _SOURCE_ISO=${1}
 _KICKSTART=${2}
 _DEST_ISO="${WORKING_DIR}/iso"
 _VOLUME_NAME="$(isoinfo -d -i ${1} | grep 'Volume id' | cut -f3- -d' ')"
-_VOLUME_NAME_ISOLINUX=$(echo ${_VOLUME_NAME} | sed 's/ /\\x20/g')
+_VOLUME_NAME_ISOLINUX=$(echo ${_VOLUME_NAME} | sed 's/ /\\\\\\x20/g')
 _OUTPUT_NAME="$(basename ${1} '.iso').patched.iso"
 _ISOLINUX_CFG="${_DEST_ISO}/isolinux/isolinux.cfg"
-_STANZA="label kickstart
-    menu label ^Kickstart
-    menu default
-    kernel vmlinuz
-    append initrd=initrd.img inst.stage2=hd:LABEL=${_VOLUME_NAME_ISOLINUX} ks=hd:LABEL=${_VOLUME_NAME_ISOLINUX}:/${_KICKSTART} text"
+_STANZA="label kickstart\n  menu label ^Kickstart\n  menu default\n  kernel vmlinuz\n  append initrd=initrd.img inst.stage2=hd:LABEL=${_VOLUME_NAME_ISOLINUX} ks=hd:LABEL=${_VOLUME_NAME_ISOLINUX}:/${_KICKSTART} text"
 
 # Do the ISO patching
 ${SHELL_CMD} <<-COMMANDS
@@ -61,8 +72,8 @@ ${SHELL_CMD} <<-COMMANDS
 	cp ${_KICKSTART} ${_DEST_ISO}/
 
     # Patch isolinux.cfg
-	sed -i "s/menu default//" ${_ISOLINUX_CFG}
-	sed -i "s/^label linux/label linux\n${_STANZA}/" ${_ISOLINUX_CFG}
+    sed -i "s/^\s\+menu default//" ${_ISOLINUX_CFG}
+    sed -i "s#^label linux#${_STANZA}\n\nlabel linux#" ${_ISOLINUX_CFG}
 
     # Build ISO image
 	mkisofs -R -J -T -v -no-emul-boot -boot-load-size4 -boot-info-table -V "${_VOLUME_NAME}" -b isolinux/isolinux.bin -c isolinux/boot.cat -o "${WORKING_DIR}/${_OUTPUT_NAME}" ${_DEST_ISO}
