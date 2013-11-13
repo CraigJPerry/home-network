@@ -6,11 +6,17 @@
 
 # --dry-run command line param does not action any changes
 [[ "x${1}" == "x--dry-run" ]] && shift && DEFANG="echo "
-CP="${DEFANG}/bin/cp"
-WGET="${DEFANG}/usr/bin/wget"
-SUDO="${DEFANG}/usr/bin/sudo"
-MKISOFS="${DEFANG}/usr/bin/mkisofs"
-MKDIR="${DEFANG}/usr/bin/mkdir"
+CP="${DEFANG}cp"
+WGET="${DEFANG}wget"
+SUDO="${DEFANG}sudo"
+MKISOFS="${DEFANG}mkisofs"
+MKDIR="${DEFANG}mkdir"
+RMDIR="${DEFANG}rmdir"
+CHOWN="${DEFANG}chown"
+
+_TEMP_DIR="/var/tmp/$(basename ${0}).$$.tmp"
+_TEMP_MOUNT="/media/src-iso"
+
 
 function die
 {
@@ -37,6 +43,24 @@ function usage
 CAT
 }
 
+function mount_iso
+{
+    ${MKDIR} -p ${_TEMP_MOUNT}
+    ${SUDO} mount -o loop,ro $1 ${_TEMP_MOUNT}
+}
+
+function unmount_iso
+{
+    ${SUDO} umount ${_TEMP_MOUNT}
+    ${RMDIR} ${_TEMP_MOUNT}
+}
+
+function main
+{
+    mount_iso $1
+    unmount_iso
+}
+
 
 case "${1}" in
 
@@ -45,7 +69,7 @@ case "${1}" in
     ;;
 
     * )
-        die "Not implemented"
+        main "${@}"
     ;;
 esac
 
