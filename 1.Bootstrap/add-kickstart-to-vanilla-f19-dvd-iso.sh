@@ -13,7 +13,7 @@ MKISOFS="${DEFANG}mkisofs"
 MKDIR="${DEFANG}mkdir"
 RMDIR="${DEFANG}rmdir"
 
-_TEMP_DIR="/var/tmp/$(basename ${0}).$$.tmp"
+_TEMP_DIR="/var/tmp/$(basename ${0} ".sh").$$.workdir"
 _TEMP_MOUNT="/media/src-iso"
 
 
@@ -44,6 +44,7 @@ CAT
 
 function mount_iso
 {
+    [[ ! -r ${1} ]] && die "Cannot read source iso \"${1}\""
     ${SUDO} mkdir -p ${_TEMP_MOUNT}
     ${SUDO} mount -o loop,ro $1 ${_TEMP_MOUNT}
 }
@@ -56,11 +57,15 @@ function unmount_iso
 
 function main
 {
-    mount_iso $1
+    cd $(dirname ${0})
+    mount_iso ${1}
     ${MKDIR} $_TEMP_DIR
     ${SUDO} cp -a ${_TEMP_MOUNT}/. ${_TEMP_DIR}
     ${SUDO} chown -R ${UID} ${_TEMP_DIR}
-
+    read
+    ${CP} d1.ks ${_TEMP_DIR}/
+    ${CP} isolinux.cfg ${_TEMP_DIR}/isolinux/
+    read
     ${RMDIR} ${_TEMP_DIR}
     unmount_iso
 }
