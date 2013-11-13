@@ -56,7 +56,6 @@ function unmount_iso
 function main
 {
     mount_iso $1
-    read
     unmount_iso
 }
 
