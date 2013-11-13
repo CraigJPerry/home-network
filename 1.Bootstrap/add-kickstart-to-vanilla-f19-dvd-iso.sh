@@ -11,6 +11,7 @@ WGET="${DEFANG}wget"
 SUDO="${DEFANG}sudo"
 MKISOFS="${DEFANG}mkisofs"
 CHOWN="${DEFANG}chown"
+MKDIR="${DEFANG}mkdir"
 
 _TEMP_DIR="/var/tmp/$(basename ${0}).$$.tmp"
 _TEMP_MOUNT="/media/src-iso"
@@ -56,6 +57,8 @@ function unmount_iso
 function main
 {
     mount_iso $1
+    ${MKDIR} $_TEMP_DIR
+    ${SUDO} cp -a ${_TEMP_MOUNT}/. ${_TEMP_DIR}
     unmount_iso
 }
 
