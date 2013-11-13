@@ -1,94 +1,57 @@
 #!/bin/bash
 #
-# Extract ISO file, insert kickstart, patch isolinux.cfg, rebuild iso
+# Extract _ISO file, insert kickstart & isolinux.cfg, rebuild iso
 #
 
-
-# --dry-run command line param does not action any changes
-[[ "x${1}" == "x--dry-run" ]] && shift && DEFANG="echo "
-CP="${DEFANG}cp"
-WGET="${DEFANG}wget"
-SUDO="${DEFANG}sudo"
-MKISOFS="${DEFANG}mkisofs"
-MKDIR="${DEFANG}mkdir"
-RMDIR="${DEFANG}rm -rf"
-CHMOD="${DEFANG}chmod"
-ISOINFO="${DEFANG}isoinfo"
-
-_TEMP_DIR="/var/tmp/$(basename ${0} ".sh").$$.workdir"
-_ISO_DIR="${_TEMP_DIR}/iso"
-_TEMP_MOUNT="/media/src-iso"
-
-
-function die
-{
-    echo "FATAL: ${@}" > /dev/stderr
-    exit 1
-}
-
-function warn
-{
-    echo "WARNING: ${@}" > /dev/stderr
-}
+# CONFIGURATION
+WORKING_DIR="/var/tmp/$(basename ${0} ".sh").$$.workdir"
+SOURCE_ISO_MOUNTPOINT="/media/src-iso"
+# END CONFIGURATION
 
 function usage
 {
-    cat - <<-CAT
-	USAGE: $(basename ${0}) [OPTIONS] <iso_file>
-
-	OPTIONS:
-	    --dry-run    Just print out commands instead of executing them
-
-	REQUIRED PARAMETERS:
-	    iso_file     Path to valid Fedora / RedHat / Centos .ISO image
-
-CAT
+    echo "usage: $(basename $0) [-h|--help] [--dry-run] [-t|--tempdir dir] <distro-image.iso> <kickstart.ks>" > /dev/stderr
+    exit ${1}
 }
 
-function mount_iso
-{
-    [[ ! -r ${1} ]] && die "Cannot read source iso \"${1}\""
-    ${SUDO} mkdir -p ${_TEMP_MOUNT}
-    ${SUDO} mount -o loop,ro $1 ${_TEMP_MOUNT}
-}
+# Process & remove options
+if [[ "x${1}" == "x--help" || "x${1}" == "x-h" ]]; then
+    usage 0
+elif [[ "x${1}" == "x--tempdir" || "x${1}" == "x-t" ]]; then
+    WORKING_DIR=${1}
+    shift
+elif [[ "x${1}" == "x--dry-run" ]]; then
+    shift
+    SHELL_CMD="cat -"
+else
+    SHELL_CMD="bash"
+fi
 
-function unmount_iso
-{
-    ${SUDO} umount ${_TEMP_MOUNT}
-    ${SUDO} rmdir ${_TEMP_MOUNT}
-}
+# Check parameters
+if [[ ${#} -ne 2 || ! -r ${1} || ! -r ${2} ]]; then
+    usage 1
+fi
 
-function write_iso
-{
-    VOLUME_NAME="$(${ISOINFO} -d -i ${1} | grep 'Volume id' | cut -f3- -d' ')"
-    OUTPUT_NAME="$(basename ${1} '.iso').patched.iso"
-    ${MKISOFS} -R -J -T -v -no-emul-boot -boot-load-size4 -boot-info-table -V "${VOLUME_NAME}" -b isolinux/isolinux.bin -c isolinux/boot.cat -o "${_TEMP_DIR}/${OUTPUT_NAME}" ${_ISO_DIR}
-}
+# Calculated values
+_ISO_DIR="${WORKING_DIR}/iso"
+_THIS_DIR="$(dirname ${0})"
+_VOLUME_NAME="$(isoinfo -d -i ${1} | grep 'Volume id' | cut -f3- -d' ')"
+_OUTPUT_NAME="$(basename ${1} '.iso').patched.iso"
 
-function main
-{
-    cd $(dirname ${0})
-    mount_iso ${1}
-    ${MKDIR} -p ${_ISO_DIR}
-    ${SUDO} cp -a ${_TEMP_MOUNT}/. ${_ISO_DIR}
-    ${SUDO} chown -R ${UID} ${_ISO_DIR}
-    ${CHMOD} -R u+rw ${_ISO_DIR}
-    ${CP} d1.ks ${_ISO_DIR}/
-    ${CP} isolinux.cfg ${_ISO_DIR}/isolinux/
-    write_iso ${1}
-    ${RMDIR} ${_ISO_DIR}
-    unmount_iso
-}
-
-
-case "${1}" in
-
-    -h|--help )
-        usage
-    ;;
-
-    * )
-        main "${@}"
-    ;;
-esac
+# Do the patching
+${SHELL_CMD} <<-COMMANDS
+	cd ${_THIS_DIR}
+	sudo mkdir -p ${SOURCE_ISO_MOUNTPOINT}
+	sudo mount -o loop,ro $1 ${SOURCE_ISO_MOUNTPOINT}
+	mkdir -p ${_ISO_DIR}
+	sudo cp -a ${WORKING_DIR}/. ${_ISO_DIR}
+	sudo chown -R ${UID} ${_ISO_DIR}
+	chmod -R u+rw ${_ISO_DIR}
+	cp d1.ks ${_ISO_DIR}/
+	cp isolinux.cfg ${_ISO_DIR}/isolinux/
+	mkisofs -R -J -T -v -no-emul-boot -boot-load-size4 -boot-info-table -V "${_VOLUME_NAME}" -b isolinux/isolinux.bin -c isolinux/boot.cat -o "${WORKING_DIR}/${_OUTPUT_NAME}" ${_ISO_DIR}
+	rm -rf ${_ISO_DIR}
+	sudo umount ${SOURCE_ISO_MOUNTPOINT}
+	sudo rmdir ${SOURCE_ISO_MOUNTPOINT}
+COMMANDS
 
