@@ -10,8 +10,8 @@ CP="${DEFANG}cp"
 WGET="${DEFANG}wget"
 SUDO="${DEFANG}sudo"
 MKISOFS="${DEFANG}mkisofs"
-CHOWN="${DEFANG}chown"
 MKDIR="${DEFANG}mkdir"
+RMDIR="${DEFANG}rmdir"
 
 _TEMP_DIR="/var/tmp/$(basename ${0}).$$.tmp"
 _TEMP_MOUNT="/media/src-iso"
@@ -59,6 +59,9 @@ function main
     mount_iso $1
     ${MKDIR} $_TEMP_DIR
     ${SUDO} cp -a ${_TEMP_MOUNT}/. ${_TEMP_DIR}
+    ${SUDO} chown -R ${UID} ${_TEMP_DIR}
+
+    ${RMDIR} ${_TEMP_DIR}
     unmount_iso
 }
 
