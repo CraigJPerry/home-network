@@ -50,7 +50,7 @@ function mount_iso
 function unmount_iso
 {
     ${SUDO} umount ${_TEMP_MOUNT}
-    ${SUDO} mkdir ${_TEMP_MOUNT}
+    ${SUDO} rmdir ${_TEMP_MOUNT}
 }
 
 function main
