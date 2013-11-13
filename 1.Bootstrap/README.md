@@ -9,34 +9,25 @@
 
 ## Remastering The Fedora DVD ##
 
-We will install the "bootstrap node" using the vanilla
-Fedora 19 DVD from the Fedora site. We will remaster the
-ISO image to include our own kickstart file. You could
-just as easily use the network install CD or whatever
-but the DVD is what i already had laying around on my HD.
+I've captured the steps for adding a kickstart file and a default
+entry to the isolinux boot menu, in the ``inject-kickstart-to-iso.sh``
+script:
 
-Finally, we'll copy the ISO onto a USB drive, although
-burning an actual DVD would also be fine.
+    $ inject-kickstart-to-iso.sh -h
+    usage: inject-kickstart-to-iso.sh [-h|--help] [-d|--dry-run] [-t|--tempdir dir] <distro-image.iso> <kickstart.ks>
 
-Download the installer ISO and extract it. The steps
-i used on a linux box were:
+    $ inject-kickstart-to-iso.sh Fedora-19-x86_64-DVD.iso d1.ks
+    ... <output snipped> ...
+    Finished: /var/tmp/inject-kickstart-to-iso.21167.workdir/Fedora-19-x86_64-DVD.patched.iso
 
-    $ wget http://download.fedoraproject.org/pub/fedora/linux/releases/19/Fedora/x86_64/iso/Fedora-19-x86_64-DVD.iso
-    $ sudo mount -o loop Fedora-19-x86_64-DVD.iso /mnt
-    $ mkdir f19
-    $ cp -a /mnt/. f19  # NB: The . is required
-    $ sudo umount /mnt
-    $ cp ~/d1.ks f19
-    $ cp ~/isolinux.cfg f19
-    $ cd f19
-    $ mkisofs -R -J -T -v -no-emul-boot -boot-load-size4 -boot-info-table -V "Fedora 19 x86_64" -b isolinux/isolinux.bin -c isolinux/boot.cat -o ~/f19-d1.iso .
+You can either burn this image to a DVD or just copy it to a pen drive.
 
 ## Installation ##
 
-Boot the DVD and wait until it's complete.
+Boot the DVD / pen drive and wait until it's complete.
 
 The core installation DVD functionality remains intact, there's
-now an extra menu option (the default) to supply a kickstart file.
+now an extra menu option (the default) to use a kickstart file.
 
 This means the same DVD can still be used for other installs, the
 installation should be a "minimal install" anyway, we want all
