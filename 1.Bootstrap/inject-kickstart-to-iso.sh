@@ -9,7 +9,7 @@ SOURCE_ISO_MOUNTPOINT="/media/src-iso"
 
 function usage
 {
-    echo "usage: $(basename $0) [-h|--help] [--dry-run] [-t|--tempdir dir] <distro-image.iso> <kickstart.ks>" > /dev/stderr
+    echo "usage: $(basename $0) [-h|--help] [-d|--dry-run] [-t|--tempdir dir] <distro-image.iso> <kickstart.ks>" > /dev/stderr
     exit ${1}
 }
 
@@ -19,7 +19,7 @@ if [[ "x${1}" == "x--help" || "x${1}" == "x-h" ]]; then
 elif [[ "x${1}" == "x--tempdir" || "x${1}" == "x-t" ]]; then
     WORKING_DIR=${1}
     shift
-elif [[ "x${1}" == "x--dry-run" ]]; then
+elif [[ "x${1}" == "x--dry-run" || "x${1}" == "x-d" ]]; then
     SHELL_CMD="cat -"
     shift
 else
