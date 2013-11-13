@@ -11,7 +11,8 @@ WGET="${DEFANG}wget"
 SUDO="${DEFANG}sudo"
 MKISOFS="${DEFANG}mkisofs"
 MKDIR="${DEFANG}mkdir"
-RMDIR="${DEFANG}rmdir"
+RMDIR="${DEFANG}rm -rf"
+CHMOD="${DEFANG}chmod"
 
 _TEMP_DIR="/var/tmp/$(basename ${0} ".sh").$$.workdir"
 _TEMP_MOUNT="/media/src-iso"
@@ -62,10 +63,9 @@ function main
     ${MKDIR} $_TEMP_DIR
     ${SUDO} cp -a ${_TEMP_MOUNT}/. ${_TEMP_DIR}
     ${SUDO} chown -R ${UID} ${_TEMP_DIR}
-    read
+    ${CHMOD} -R u+rw ${_TEMP_DIR}
     ${CP} d1.ks ${_TEMP_DIR}/
     ${CP} isolinux.cfg ${_TEMP_DIR}/isolinux/
-    read
     ${RMDIR} ${_TEMP_DIR}
     unmount_iso
 }
