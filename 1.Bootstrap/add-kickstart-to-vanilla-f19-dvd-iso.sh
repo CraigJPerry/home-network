@@ -10,8 +10,6 @@ CP="${DEFANG}cp"
 WGET="${DEFANG}wget"
 SUDO="${DEFANG}sudo"
 MKISOFS="${DEFANG}mkisofs"
-MKDIR="${DEFANG}mkdir"
-RMDIR="${DEFANG}rmdir"
 CHOWN="${DEFANG}chown"
 
 _TEMP_DIR="/var/tmp/$(basename ${0}).$$.tmp"
@@ -45,19 +43,20 @@ CAT
 
 function mount_iso
 {
-    ${MKDIR} -p ${_TEMP_MOUNT}
+    ${SUDO} mkdir -p ${_TEMP_MOUNT}
     ${SUDO} mount -o loop,ro $1 ${_TEMP_MOUNT}
 }
 
 function unmount_iso
 {
     ${SUDO} umount ${_TEMP_MOUNT}
-    ${RMDIR} ${_TEMP_MOUNT}
+    ${SUDO} mkdir ${_TEMP_MOUNT}
 }
 
 function main
 {
     mount_iso $1
+    read
     unmount_iso
 }
 
