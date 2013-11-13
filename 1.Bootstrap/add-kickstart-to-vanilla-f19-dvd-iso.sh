@@ -4,26 +4,26 @@
 #
 
 
-# Commands
-FAKE_CP="echo cp"
-REAL_CP="/bin/cp"
-CP="${FAKE_CP}"
+# --dry-run command line param does not action any changes
+[[ "x${1}" == "x--dry-run" ]] && shift && DEFANG="echo "
+CP="${DEFANG}/bin/cp"
+WGET="${DEFANG}/usr/bin/wget"
+SUDO="${DEFANG}/usr/bin/sudo"
+MKISOFS="${DEFANG}/usr/bin/mkisofs"
+MKDIR="${DEFANG}/usr/bin/mkdir"
 
-FAKE_WGET="echo wget"
-REAL_WGET="/usr/bin/wget"
-WGET="${FAKE_WGET}"
+function die
+{
+    echo "FATAL: ${@}" > /dev/stderr
+    exit 1
+}
 
-FAKE_SUDO="echo sudo"
-REAL_SUDO="/usr/bin/sudo"
-SUDO="${FAKE_SUDO}"
+function warn
+{
+    echo "WARNING: ${@}" > /dev/stderr
+}
 
-FAKE_MKISOFS="echo mkisofs"
-REAL_MKISOFS="/usr/bin/mkisofs"
-MKISOFS="${FAKE_MKISOFS}"
 
-FAKE_MKDIR="echo mkdir"
-REAL_MKDIR="/usr/bin/mkdir"
-MKDIR="${FAKE_MKDIR}"
 
 # From notes:
 #    $ wget http://download.fedoraproject.org/pub/fedora/linux/releases/19/Fedora/x86_64/iso/Fedora-19-x86_64-DVD.iso
