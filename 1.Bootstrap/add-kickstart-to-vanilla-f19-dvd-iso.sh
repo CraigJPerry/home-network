@@ -23,7 +23,31 @@ function warn
     echo "WARNING: ${@}" > /dev/stderr
 }
 
+function usage
+{
+    cat - <<-CAT
+	USAGE: $(basename ${0}) [OPTIONS] <iso_file>
 
+	OPTIONS:
+	    --dry-run    Just print out commands instead of executing them
+
+	REQUIRED PARAMETERS:
+	    iso_file     Path to valid Fedora / RedHat / Centos .ISO image
+
+CAT
+}
+
+
+case "${1}" in
+
+    -h|--help )
+        usage
+    ;;
+
+    * )
+        die "Not implemented"
+    ;;
+esac
 
 # From notes:
 #    $ wget http://download.fedoraproject.org/pub/fedora/linux/releases/19/Fedora/x86_64/iso/Fedora-19-x86_64-DVD.iso
