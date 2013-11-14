@@ -1,35 +1,31 @@
-## Bootstrapping A Network ##
-
-Buildout of the network is in 2 stages:
-
-1. Install a *bootstrap* or *seed* host. This should use an automated
-   installation method. I've chosen kickstart since i'm using Fedora.
-2. Various services are installed on the first node, such as a cobbler
-   instance to allow network install of further virtual machines,
-   phyiscal nodes and other OSs.
-
-
 ### Auto Installation Media via Kickstart ###
 
-I write a DVD ISO to a USB pendrive. You could burn a CD / DVD instead.
+This should work with recent versions of Fedora, RHEL & Centos.
 
-Download a vanilla source ISO. I'm using Fedora 19 (either netinst CD or
-full DVD will work). The script should work with other versions of Fedora.
-It should even work with other Redhat derived distributions such as RHEL,
-Centos & Scientific, without any changes.
+The ``inject-kickstart-to-iso.sh`` script captures the steps required
+to remaster an ISO (netinst CD or full DVD, it doesn't matter) with a
+kickstart file included and the boot menu updated to include a kickstart
+install as the default option.
 
     $ inject-kickstart-to-iso.sh -h
     usage: inject-kickstart-to-iso.sh [-h|--help] [-d|--dry-run] [-t|--tempdir dir] <distro-image.iso> <kickstart.ks>
 
-The ``--dry-run`` option prints out the commands instead of running
-them. The ``--tempdir`` sets the working directory, you can need almost
-10GB of space in the case of using a DVD.
+* ``--dry-run`` prints out the commands instead of running them
+* ``--tempdir`` sets the working directory. Remastering DVD ISOs
+  can take over 9Gb of disk space.
+
+An example run:
 
     $ inject-kickstart-to-iso.sh Fedora-19-x86_64-DVD.iso d1.ks
     ... <output snipped> ...
     Finished: /var/tmp/inject-kickstart-to-iso.21167.workdir/Fedora-19-x86_64-DVD.patched.iso
 
-You can either burn this image to a DVD or just copy it to a pen drive.
+You can either burn this image to a DVD or just copy it to a pen drive:
+
+    $ dd if=Fedora-19-x86_64-DVD.patched.iso of=/dev/usbkey
+
+As noted above, Fedora netinst CD or even RHEL / Centos images should
+work here too.
 
 
 ### Alternative Installations ###
