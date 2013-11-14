@@ -8,5 +8,6 @@
       - name: Install ansible pull-mode crontab entry
         cron: name="ansible-pull site.yml" special_time="hourly" job="ansible-pull -U https://github.com/CraigJPerry/home-network -d home-network -i 2.Config/hosts 2.Config/site.yml > /tmp/ansible-pull.$LOGNAME.crontab 2>&1"
 
-  - include: desktops.yml
+
+- include: desktops.yml
 
