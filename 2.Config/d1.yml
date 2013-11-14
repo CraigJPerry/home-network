@@ -1,0 +1,11 @@
+---
+
+- hosts: d1.local
+  connection: local
+  sudo: yes
+
+  tasks:
+
+    - name: Hello World
+      shell: echo "Hello, World!" > /tmp/ansible.d1
+
