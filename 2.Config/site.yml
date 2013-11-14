@@ -2,7 +2,6 @@
 
 - hosts: all
   connection: local
-  sudo: no
 
   tasks:
 
