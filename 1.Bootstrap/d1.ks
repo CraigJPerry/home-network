@@ -77,7 +77,11 @@ yum -y install git ansible
 useradd -c "Ansible Config Management" -G wheel -m -r -U ansible
 echo "Defaults: ansible !requiretty" > /etc/sudoers.d/ansible
 echo "ansible ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/ansible
-su -c "ansible-pull -U https://github.com/CraigJPerry/home-network -d home-network -i 2.Config/hosts 2.Config/site.yml" - ansible
+cat - > /tmp/ansible.cron <<CAT
+#Ansible: ansible-pull site.yml
+@hourly ansible-pull -U https://github.com/CraigJPerry/home-network -d home-network -i 2.Config/hosts 2.Config/site.yml > /tmp/ansible-pull.$LOGNAME.crontab 2>&1
+CAT
+crontab -u ansible /tmp/ansible.cron
 %end
 
 reboot --eject
