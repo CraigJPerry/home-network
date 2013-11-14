@@ -55,33 +55,43 @@ auth --enableshadow --passalgo=sha512
 rootpw --iscrypted $6$JSdgnAXgP16EA7MR$HQ4isREWMEgyKP3can3iaTr678f4HPgAhp3eUp7SAYBzSPevGyooLpQ0LapodSvXU27kvOJZA6Xt9M66//x5X/
 
 # Network information
-# BUG: Fedora 19 https://bugzilla.redhat.com/show_bug.cgi?id=981934
-#      manual workaround in %post below
-network  --bootproto=dhcp --device=eth0 --activate --hostname=d1.local --activate
+network --bootproto=dhcp --device=eth0 --activate
+# BUG: Fedora 19 manual workaround in %post below
+network --hostname=d1.local
 
 xconfig  --startxonboot
 
-# No packages specified here, we want a minimal install, ansible
-# will handle installing the appropriate packages later
+# No packages specified here (@core implied) as we want a
+# minimal install. Ansible will handle packages post-install
 %packages
 %end
 
-# There are a couple of required packages to let ansible function
-# however depending on the install media used, they may only be
-# available over the network, easiest to grab during post install
 %post
+
+# Workaround https://bugzilla.redhat.com/show_bug.cgi?id=981934
 echo "d1.local" > /etc/hostname
 echo "HOSTNAME=\"d1.local\"" > /etc/sysconfig/network
-yum -y update
-yum -y install git ansible
+
+# Ansible setup
 useradd -c "Ansible Config Management" -G wheel -m -r -U ansible
-echo "Defaults: ansible !requiretty" > /etc/sudoers.d/ansible
-echo "ansible ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/ansible
-cat - > /tmp/ansible.cron <<CAT
+
+cat - > /etc/sudoers.d/ansible <<SUDO
+Defaults: ansible !requiretty
+ansible ALL=(ALL) NOPASSWD: ALL
+SUDO
+
+cat - > /tmp/ansible.cron <<CRON
 #Ansible: ansible-pull site.yml
 @hourly ansible-pull -U https://github.com/CraigJPerry/home-network -d home-network -i 2.Config/hosts 2.Config/site.yml > /tmp/ansible-pull.$LOGNAME.crontab 2>&1
-CAT
+CRON
+
 crontab -u ansible /tmp/ansible.cron
+
+# Ansible isn't available on the install DVD. Easiest workaround is to
+# grab over the network after the installation completes.
+yum -y update
+yum -y install git ansible
+
 %end
 
 reboot --eject
