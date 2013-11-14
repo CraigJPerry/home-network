@@ -75,9 +75,10 @@ echo "HOSTNAME=\"d1.local\"" > /etc/sysconfig/network
 yum -y update
 yum -y install git ansible
 yum -y install avahi avahi-tools nss-mdns # TODO: Move to ansible
-echo "%wheel ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/wheel-no-password
 useradd -c "Ansible Config Management" -G wheel -m -r -U ansible
-su -c "ansible-pull -U https://github.com/CraigJPerry/home-network -d home-network -i 2.Config/hosts 2.Config/setup-pull-mode.yml" - ansible
+echo "Defaults: ansible !requiretty" > /etc/sudoers.d/ansible
+echo "ansible ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/ansible
+su -c "ansible-pull -U https://github.com/CraigJPerry/home-network -d home-network -i 2.Config/hosts 2.Config/site.yml" - ansible
 %end
 
 reboot --eject
