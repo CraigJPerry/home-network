@@ -6,5 +6,5 @@
   tasks:
 
     - name: Install crontab entry
-      command: crontab ansible-pull.crontab
+      cron: name="ansible-pull site.yml" special_time="hourly" job="*/30 * * * * ( ansible-pull -U https://github.com/CraigJPerry/home-network -d home-network -i 2.Config/hosts 2.Config/site.yml ) > /tmp/ansible-pull.$LOGNAME.crontab 2>&1"
 
