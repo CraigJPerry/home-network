@@ -82,10 +82,10 @@ SUDO
 
 # Running ansible from the %post env fails, install in cron and will run
 # after the first reboot. NB: Ansible manages this cron entry, see
-# site.yml
+# site.yml - on first run it will change from */5 to @hourly
 cat - > /tmp/ansible.cron <<CRON
 #Ansible: ansible-pull site.yml
-@hourly ansible-pull -U https://github.com/CraigJPerry/home-network -d home-network -i 2.Config/hosts 2.Config/site.yml > /tmp/ansible-pull.\$LOGNAME.crontab 2>&1
+*/5 * * * * ansible-pull -U https://github.com/CraigJPerry/home-network -d home-network -i 2.Config/hosts 2.Config/site.yml > /tmp/ansible-pull.\$LOGNAME.crontab 2>&1
 CRON
 
 crontab -u ansible /tmp/ansible.cron
