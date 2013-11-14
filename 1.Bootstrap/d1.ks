@@ -74,7 +74,6 @@ echo "d1.local" > /etc/hostname
 echo "HOSTNAME=\"d1.local\"" > /etc/sysconfig/network
 yum -y update
 yum -y install git ansible
-yum -y install avahi avahi-tools nss-mdns # TODO: Move to ansible
 useradd -c "Ansible Config Management" -G wheel -m -r -U ansible
 echo "Defaults: ansible !requiretty" > /etc/sudoers.d/ansible
 echo "ansible ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/ansible
