@@ -85,7 +85,7 @@ SUDO
 # site.yml
 cat - > /tmp/ansible.cron <<CRON
 #Ansible: ansible-pull site.yml
-@hourly ansible-pull -U https://github.com/CraigJPerry/home-network -d home-network -i 2.Config/hosts 2.Config/site.yml > /tmp/ansible-pull.$LOGNAME.crontab 2>&1
+@hourly ansible-pull -U https://github.com/CraigJPerry/home-network -d home-network -i 2.Config/hosts 2.Config/site.yml > /tmp/ansible-pull.\$LOGNAME.crontab 2>&1
 CRON
 
 crontab -u ansible /tmp/ansible.cron
