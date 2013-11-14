@@ -2,7 +2,6 @@
 
 - hosts: d1.local
   connection: local
-  sudo: yes
 
   tasks:
 
