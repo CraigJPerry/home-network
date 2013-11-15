@@ -13,9 +13,15 @@
       # Ansible v1.4+ only:
       #file: state="touch" dest="/etc/sudoers.d/ansible" owner="root" group="root" mode="0440"
 
-    - name: Grant sudo permissions to ansible user
+    - name: Add warning comment to ansible sudoers file
       lineinfile: state="present" dest="/etc/sudoers.d/ansible" insertbefore="BOF" regexp="^(#|\s*)" line="## Automatically Managed by Ansible, Manual Changes Will Be Lost!"
+
+    - name: Disable requiretty restriction on ansible user
+      # NB: Full line in quotes due to : char, see ansible YAML disclaimer
       lineinfile: 'state="present" dest="/etc/sudoers.d/ansible" regexp="^Defaults" line="Defaults: ansible !requiretty"'
+
+    - name: Allow ansible user full sudo privs
+      # NB: Full line in quotes due to : char, see ansible YAML disclaimer
       lineinfile: 'state="present" dest="/etc/sudoers.d/ansible" regexp="^ansible" line="ansible ALL=(ALL) NOPASSWD: ALL"'
 
     - name: Install ansible pull-mode crontab entry
