@@ -9,12 +9,14 @@
       user: state="present" name="ansible" system="yes" createhome="yes" generate_ssh_key="yes" comment="Ansible Configuration Management"
 
     - name: Create sudoers include file for ansible
-      file: state="file" dest="/etc/sudoers.d/ansible" owner="root" group="root" mode="0440"
+      copy: src="/dev/null" dest="/etc/sudoers.d/ansible" owner="root" group="root" mode="0440"
+      # Ansible v1.4+ only:
+      #file: state="touch" dest="/etc/sudoers.d/ansible" owner="root" group="root" mode="0440"
 
     - name: Grant sudo permissions to ansible user
       lineinfile: state="present" dest="/etc/sudoers.d/ansible" insertbefore="BOF" regexp="^(#|\s*)" line="## Automatically Managed by Ansible, Manual Changes Will Be Lost!"
-      lineinfile: state="present" dest="/etc/sudoers.d/ansible" regexp="^Defaults" line="Defaults{{colon}} ansible !requiretty"
-      lineinfile: state="present" dest="/etc/sudoers.d/ansible" regexp="^ansible" line="ansible ALL=(ALL) NOPASSWD{{colon}} ALL"
+      lineinfile: 'state="present" dest="/etc/sudoers.d/ansible" regexp="^Defaults" line="Defaults: ansible !requiretty"'
+      lineinfile: 'state="present" dest="/etc/sudoers.d/ansible" regexp="^ansible" line="ansible ALL=(ALL) NOPASSWD: ALL"'
 
     - name: Install ansible pull-mode crontab entry
       cron: state="present" name="ansible-pull site.yml" user="ansible" special_time="hourly" job="ansible-pull -U https://github.com/CraigJPerry/home-network -d home-network -i 2.Config/hosts 2.Config/site.yml > /tmp/ansible-pull.$LOGNAME.crontab 2>&1"
