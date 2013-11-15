@@ -76,9 +76,8 @@ echo "HOSTNAME=\"v1.local\"" > /etc/sysconfig/network
 # yum -y update - testing, takes too long, add --skip-broken
 yum -y install git ansible
 
-# Cue up ansible-pull installation for 2 mins after reboot (atd service
-# will start running at reboot)
-ansible-pull -U https://github.com/CraigJPerry/home-network -C switch-to-atd-postinst -d home-network -i 2.Config/hosts 2.Config/install-pull-mode.yml
+# Attempt to install ansible-pull mode, every 5 mins after reboot
+echo "*/5 * * * * root ansible-pull -U https://github.com/CraigJPerry/home-network -C switch-to-atd-postinst -d home-network -i 2.Config/hosts 2.Config/install-pull-mode.yml" > /etc/cron.d/ansible-pull-install
 
 %end
 
