@@ -9,7 +9,7 @@
       user: state="present" name="ansible" system="yes" createhome="yes" generate_ssh_key="yes" comment="Ansible Configuration Management"
 
     - name: Create sudoers include file for ansible
-      file: state="present" dest="/etc/sudoers.d/ansible" owner="root" group="root" mode="0440"
+      file: state="file" dest="/etc/sudoers.d/ansible" owner="root" group="root" mode="0440"
 
     - name: Grant sudo permissions to ansible user
       lineinfile: state="present" dest="/etc/sudoers.d/ansible" insertbefore="BOF" regexp="^(#|\s*)" line="## Automatically Managed by Ansible, Manual Changes Will Be Lost!"
