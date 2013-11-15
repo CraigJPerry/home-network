@@ -5,6 +5,20 @@
 
   tasks:
 
+    - name: Install ansible and deps (Redhat)
+      yum: state=latest pkg=$item
+      with_items:
+        - git
+        - ansible
+      only_if: "'$ansible_pkg_mgr' == 'yum'"
+
+    - name: Install ansible and deps (Debian)
+      yum: state=latest pkg=$item
+      with_items:
+        - git
+        - ansible
+      only_if: "'$ansible_pkg_mgr' == 'apt'"
+
     - name: Create ansible user
       user: state="present" name="ansible" system="yes" createhome="yes" generate_ssh_key="yes" comment="Ansible Configuration Management"
 
