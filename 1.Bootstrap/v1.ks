@@ -70,17 +70,17 @@ xconfig  --startxonboot
 echo "v1.local" > /etc/hostname
 echo "HOSTNAME=\"v1.local\"" > /etc/sysconfig/network
 
+# Ansible isn't available on the install DVD. Easiest workaround is to
+# grab over the network after the installation completes. May as well
+# update at all packages at the same time
+# yum -y update - testing, takes too long, add --skip-broken
+yum -y install git ansible at
+
 # Cue up ansible-pull installation for 2 mins after reboot (atd service
 # will start running at reboot)
 at now + 2 minutes <<FIRSTBOOT
 ansible-pull -U https://github.com/CraigJPerry/home-network -C switch-to-atd-postinst -d home-network -i 2.Config/hosts 2.Config/install-pull-mode.yml
 FIRSTBOOT
-
-# Ansible isn't available on the install DVD. Easiest workaround is to
-# grab over the network after the installation completes. May as well
-# update at all packages at the same time
-yum -y update
-yum -y install git ansible
 
 %end
 
