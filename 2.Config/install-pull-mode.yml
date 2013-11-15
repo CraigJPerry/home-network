@@ -9,7 +9,8 @@
       user: state="present" name="ansible" system="yes" createhome="yes" generate_ssh_key="yes" comment="Ansible Configuration Management"
 
     - name: Grant sudo permissions to ansible user
-      lineinfile: state="present" dest="/etc/sudoers.d/ansible" create="yes" insertbefore="BOF" regexp="^(#|\s*)" line="## Automatically Managed by Ansible, Manual Changes Will Be Lost!"
+      file: state="present" dest="/etc/sudoers.d/ansible" owner="root" group="root" mode="0440"
+      lineinfile: state="present" dest="/etc/sudoers.d/ansible" insertbefore="BOF" regexp="^(#|\s*)" line="## Automatically Managed by Ansible, Manual Changes Will Be Lost!"
       lineinfile: state="present" dest="/etc/sudoers.d/ansible" regexp="^Defaults" line="Defaults{{colon}} ansible !requiretty"
       lineinfile: state="present" dest="/etc/sudoers.d/ansible" regexp="^ansible" line="ansible ALL=(ALL) NOPASSWD{{colon}} ALL"
 
