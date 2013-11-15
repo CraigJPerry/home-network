@@ -10,8 +10,8 @@
 
     - name: Grant sudo permissions to ansible user
       lineinfile: state="present" dest="/etc/sudoers.d/ansible" create="yes" insertbefore="BOF" line="## Automatically Managed by Ansible, Manual Changes Will Be Lost!"
-      lineinfile: state="present" dest="/etc/sudoers.d/ansible" line="Defaults: ansible !requiretty"
-      lineinfile: state="present" dest="/etc/sudoers.d/ansible" line="ansible ALL=(ALL) NOPASSWD: ALL"
+      lineinfile: state="present" dest="/etc/sudoers.d/ansible" line="Defaults{{colon}} ansible !requiretty"
+      lineinfile: state="present" dest="/etc/sudoers.d/ansible" line="ansible ALL=(ALL) NOPASSWD{{colon}} ALL"
 
     - name: Install ansible pull-mode crontab entry
       cron: state="present" name="ansible-pull site.yml" user="ansible" special_time="hourly" job="ansible-pull -U https://github.com/CraigJPerry/home-network -d home-network -i 2.Config/hosts 2.Config/site.yml > /tmp/ansible-pull.$LOGNAME.crontab 2>&1"
