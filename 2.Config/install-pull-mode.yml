@@ -2,7 +2,6 @@
 
 - hosts: pull-mode-hosts
   connection: local
-  user: root
 
   tasks:
 
