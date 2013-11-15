@@ -80,8 +80,6 @@ yum -y install git ansible
 echo "*/5 * * * * root ansible-pull -U https://github.com/CraigJPerry/home-network -d home-network -i 2.Config/hosts 2.Config/install-pull-mode.yml > /tmp/install-pull-mode.cron 2>&1" > /etc/cron.d/ansible-pull-install
 %end
 
-shutdown
-
 %end
 
 reboot --eject
