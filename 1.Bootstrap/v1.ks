@@ -74,13 +74,11 @@ echo "HOSTNAME=\"v1.local\"" > /etc/sysconfig/network
 # grab over the network after the installation completes. May as well
 # update at all packages at the same time
 # yum -y update - testing, takes too long, add --skip-broken
-yum -y install git ansible at
+yum -y install git ansible
 
 # Cue up ansible-pull installation for 2 mins after reboot (atd service
 # will start running at reboot)
-at now + 2 minutes <<FIRSTBOOT
 ansible-pull -U https://github.com/CraigJPerry/home-network -C switch-to-atd-postinst -d home-network -i 2.Config/hosts 2.Config/install-pull-mode.yml
-FIRSTBOOT
 
 %end
 
