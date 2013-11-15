@@ -84,5 +84,5 @@ FIRSTBOOT
 
 %end
 
-reboot --eject
+shutdown
 
