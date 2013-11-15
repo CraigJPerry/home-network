@@ -70,26 +70,15 @@ xconfig  --startxonboot
 echo "v1.local" > /etc/hostname
 echo "HOSTNAME=\"v1.local\"" > /etc/sysconfig/network
 
-# Ansible setup
-useradd -c "Ansible Config Management" -G wheel -m -r -U ansible
-
-cat - > /etc/sudoers.d/ansible <<SUDO
-Defaults: ansible !requiretty
-ansible ALL=(ALL) NOPASSWD: ALL
-SUDO
-
-# Running ansible from the %post env fails, install in cron and will run
-# after the first reboot. NB: Ansible manages this cron entry, see
-# site.yml - on first run it will change from */5 to @hourly
-cat - > /tmp/ansible.cron <<CRON
-#Ansible: ansible-pull site.yml
-*/5 * * * * ansible-pull -U https://github.com/CraigJPerry/home-network -d home-network -i 2.Config/hosts 2.Config/site.yml > /tmp/ansible-pull.\$LOGNAME.crontab 2>&1
-CRON
-
-crontab -u ansible /tmp/ansible.cron
+# Cue up ansible-pull installation for 2 mins after reboot (atd service
+# will start running at reboot)
+at now + 2 minutes <<FIRSTBOOT
+ansible-pull -U https://github.com/CraigJPerry/home-network -C switch-to-atd-postinst -d home-network -i localhost, 2.Config/install-pull-mode.yml
+FIRSTBOOT
 
 # Ansible isn't available on the install DVD. Easiest workaround is to
-# grab over the network after the installation completes.
+# grab over the network after the installation completes. May as well
+# update at all packages at the same time
 yum -y update
 yum -y install git ansible
 
