@@ -9,3 +9,8 @@
     - name: Create ansible user
       user: state="present" name="ansible" system="yes" createhome="yes" generate_ssh_key="yes" comment="Ansible Configuration Management"
 
+    - name: Grant sudo permissions to ansible user
+      lineinfile: state="present" dest="/etc/sudoers.d/ansible" create="yes" insertbefore="BOF" line="## Automatically Managed by Ansible, Manual Changes Will Be Lost!"
+      lineinfile: state="present" dest="/etc/sudoers.d/ansible" line="Defaults: ansible !requiretty"
+      lineinfile: state="present" dest="/etc/sudoers.d/ansible" line="ansible ALL=(ALL) NOPASSWD: ALL"
+
