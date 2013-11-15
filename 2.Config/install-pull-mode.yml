@@ -1,0 +1,32 @@
+---
+
+- hosts: pull-mode-hosts
+  connection: local
+
+  tasks:
+
+    - name: Create ansible user
+      user: state="present" name="ansible" system="yes" createhome="yes" generate_ssh_key="yes" comment="Ansible Configuration Management"
+
+    - name: Create sudoers include file for ansible
+      copy: src="/dev/null" dest="/etc/sudoers.d/ansible" owner="root" group="root" mode="0440"
+      # Ansible v1.4+ only:
+      #file: state="touch" path="/etc/sudoers.d/ansible" owner="root" group="root" mode="0440"
+
+    - name: Add warning comment to ansible sudoers file
+      lineinfile: state="present" dest="/etc/sudoers.d/ansible" insertbefore="BOF" regexp="^(#|\s*)" line="## Automatically Managed by Ansible, Manual Changes Will Be Lost!"
+
+    - name: Disable requiretty restriction on ansible user
+      # NB: Full line in quotes due to : char, see ansible YAML disclaimer
+      lineinfile: 'state="present" dest="/etc/sudoers.d/ansible" regexp="^Defaults" line="Defaults: ansible !requiretty"'
+
+    - name: Allow ansible user full sudo privs
+      # NB: Full line in quotes due to : char, see ansible YAML disclaimer
+      lineinfile: 'state="present" dest="/etc/sudoers.d/ansible" regexp="^ansible" line="ansible ALL=(ALL) NOPASSWD: ALL"'
+
+    - name: Install ansible pull-mode crontab entry
+      cron: state="present" name="ansible-pull site.yml" user="ansible" special_time="hourly" job="ansible-pull -U https://github.com/CraigJPerry/home-network -d home-network -i 2.Config/hosts 2.Config/site.yml > /tmp/ansible-pull.$LOGNAME.crontab 2>&1"
+
+    - name: Remove kickstart cronjob if present
+      file: state=absent path="/etc/cron.d/ansible-pull-install"
+

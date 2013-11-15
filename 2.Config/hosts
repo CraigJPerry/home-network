@@ -4,3 +4,7 @@ d1.local
 [virtual-machines]
 v1.local
 
+[pull-mode-hosts:children]
+desktops
+virtual-machines
+
