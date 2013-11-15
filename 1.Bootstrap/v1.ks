@@ -73,7 +73,7 @@ echo "HOSTNAME=\"v1.local\"" > /etc/sysconfig/network
 # Cue up ansible-pull installation for 2 mins after reboot (atd service
 # will start running at reboot)
 at now + 2 minutes <<FIRSTBOOT
-ansible-pull -U https://github.com/CraigJPerry/home-network -C switch-to-atd-postinst -d home-network -i localhost, 2.Config/install-pull-mode.yml
+ansible-pull -U https://github.com/CraigJPerry/home-network -C switch-to-atd-postinst -d home-network -i 2.Config/hosts 2.Config/install-pull-mode.yml
 FIRSTBOOT
 
 # Ansible isn't available on the install DVD. Easiest workaround is to
