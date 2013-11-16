@@ -8,6 +8,7 @@ Testing of "Ansible Testing Framework" itself.
 
 
 import unittest
+from os.path import join
 from StringIO import StringIO
 from tests import FileSystemAssertsMixin, AnsiblePlayTestCase
 
@@ -30,11 +31,11 @@ class TestFileSystemAssertsMixin(unittest.TestCase, FileSystemAssertsMixin):
 
 class TestAnsiblePlayTestCase(AnsiblePlayTestCase):
 
+    PLAYBOOK = join(AnsiblePlayTestCase.FIXTURES_DIR, "simple-echo.yml")
+
     def test_can_invoke_playbook(self):
-        logfile = StringIO()
-        self.play("TestAnsiblePlayTestCase.yml", logfile)
-        logfile.seek(0)
-        self.assertIn('ok: [localhost] => {"msg": "Hello, World!"}', logfile.read())
+        output = self.play()
+        self.assertIn('ok: [localhost] => {"msg": "Hello, World!"}', output)
 
 
 if __name__ == '__main__':

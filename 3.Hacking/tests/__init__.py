@@ -9,8 +9,8 @@ Testing of Ansible playbooks.
 
 import re
 import unittest
+import subprocess
 from os.path import dirname, join, abspath, exists, isfile, isdir, islink
-from sh import ansible_playbook
 
 
 class FileSystemAssertsMixin(object):
@@ -44,8 +44,16 @@ class AnsiblePlayTestCase(unittest.TestCase, FileSystemAssertsMixin):
     "TestCase for ansible play testing"
 
     FIXTURES_DIR = abspath(join(dirname(__file__), "fixtures"))
+    INVENTORY = join(FIXTURES_DIR, "testing-inventory")
+    PLAYBOOK = ""
 
-    def play(self, playbook, logfile="/dev/null"):
-        playbook_path = join(self.FIXTURES_DIR, playbook)
-        ansible_playbook(playbook_path, inventory_file="localhost,", _out=logfile, _err=logfile)
+    def play(self):
+        cmdline = ["ansible-playbook", "--connection=local", "--inventory-file=" + self.INVENTORY, self.PLAYBOOK]
+        output = ""
+        try:
+            output = subprocess.check_output(cmdline, stderr=subprocess.STDOUT)
+        except subprocess.CalledProcessError as ex:
+            msg = "ansible-playbook failed with return code [{0}] because [{1}]".format(ex.returncode, ex.output)
+            self.fail(msg)
+        return output.splitlines()
 

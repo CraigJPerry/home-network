@@ -1,6 +1,6 @@
 ---
 
-- hosts: localhost
+- hosts: testcasehost
   connection: local
 
   tasks:

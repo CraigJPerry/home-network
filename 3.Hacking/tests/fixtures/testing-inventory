@@ -1,0 +1,5 @@
+# Replace all real groups used in playbooks with localhost during testing
+
+[testcasehost]
+localhost
+
