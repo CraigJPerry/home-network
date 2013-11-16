@@ -2,7 +2,7 @@
 
 
 """
-Testing of Ansible playbooks.
+Lightweight library for testing ansible playbooks.
    Craig J Perry <craigp84@gmail.com>
 """
 
