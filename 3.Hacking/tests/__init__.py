@@ -13,6 +13,14 @@ import subprocess
 from os.path import dirname, join, abspath, exists, isfile, isdir, islink
 
 
+class Pep8TestCase(unittest.TestCase):
+    "Improve consistency by exposing PEP8 compliant test func names"
+
+    assert_equal = unittest.TestCase.assertEqual
+    assert_raises = unittest.TestCase.assertRaises
+    assert_true = unittest.TestCase.assertTrue
+
+
 class FileSystemAssertsMixin(object):
     "Mix this class into your TestCase to get some file system assertions"
 
@@ -40,7 +48,7 @@ class FileSystemAssertsMixin(object):
         return self.assertFileContains(filepath, 0, regex)
 
 
-class AnsiblePlayTestCase(unittest.TestCase, FileSystemAssertsMixin):
+class AnsiblePlayTestCase(Pep8TestCase, FileSystemAssertsMixin):
     "TestCase for ansible play testing"
 
     FIXTURES_DIR = abspath(join(dirname(__file__), "fixtures"))
