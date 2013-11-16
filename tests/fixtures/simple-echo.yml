@@ -1,7 +1,6 @@
 ---
 
 - hosts: testcasehost
-  connection: local
 
   tasks:
 

@@ -34,5 +34,5 @@ class TestAnsiblePlayTestCase(AnsiblePlayTestCase):
 
     def test_can_invoke_playbook(self):
         output = self.play()
-        self.assertIn('ok: [localhost] => {"msg": "Hello, World!"}', output)
+        self.assertIn('ok: [10.10.10.100] => {"msg": "Hello, World!"}', output)
 
