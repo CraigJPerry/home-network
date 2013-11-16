@@ -68,5 +68,15 @@ class AnsiblePlayTestCase(unittest.TestCase, FileSystemAssertsMixin):
 
     FIXTURES_DIR = abspath(join(dirname(__file__), "fixtures"))
 
-    pass
+    def play(self, playbook, logfile="/dev/null"):
+        playbook_path = join(self.FIXTURES_DIR, playbook)
+        ansible_playbook(playbook_path, inventory_file="localhost,", _out=logfile, _err=logfile)
+
+class TestAnsiblePlayTestCase(AnsiblePlayTestCase):
+
+    def test_can_invoke_playbook(self):
+        logfile = StringIO()
+        self.play("TestAnsiblePlayTestCase.yml", logfile)
+        logfile.seek(0)
+        self.assertIn('ok: [localhost] => {"msg": "Hello, World!"}', logfile.read())
 
