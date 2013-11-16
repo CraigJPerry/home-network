@@ -29,3 +29,7 @@ class FileSystemAssertsMixin(object):
         elif "link" in kind.lower():
             self.assertTrue(islink(filepath))
 
+    def assertFileNotExists(self, filepath):
+        "Confirm filepath doesn't exist"
+        self.assertTrue(not exists(filepath))
+
