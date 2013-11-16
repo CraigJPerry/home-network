@@ -8,6 +8,7 @@ Testing of Ansible playbooks.
 
 
 import sys
+import unittest
 from os.path import dirname, join, abspath, exists, isfile, isdir, islink
 
 
@@ -32,4 +33,13 @@ class FileSystemAssertsMixin(object):
     def assertFileNotExists(self, filepath):
         "Confirm filepath doesn't exist"
         self.assertTrue(not exists(filepath))
+
+
+class TestFileSystemAssertsMixin(unittest.TestCase, FileSystemAssertsMixin):
+
+    def test_file_exists(self):
+        self.assertFileExists(__file__)
+
+    def test_file_doesnt_exist(self):
+        self.assertFileNotExists("foo")
 
