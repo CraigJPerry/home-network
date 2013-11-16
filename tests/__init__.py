@@ -10,7 +10,11 @@ Lightweight library for testing ansible playbooks.
 import re
 import unittest
 import subprocess
-from os.path import dirname, join, abspath, exists, isfile, isdir, islink
+from os.path import dirname, join, abspath, pardir, exists, isfile, isdir, islink
+
+
+FIXTURES_DIR = abspath(join(dirname(__file__), "fixtures"))
+ROOT_DIR = abspath(join(dirname(__file__), pardir))
 
 
 class Pep8TestCase(unittest.TestCase):
@@ -54,8 +58,7 @@ class FileSystemAssertsMixin(object):
 class AnsiblePlayTestCase(Pep8TestCase, FileSystemAssertsMixin):
     "TestCase for ansible play testing"
 
-    FIXTURES_DIR = abspath(join(dirname(__file__), "fixtures"))
-    INVENTORY = join(FIXTURES_DIR, "testing-inventory")
+    INVENTORY = join(ROOT_DIR, "hosts-testing")
     PLAYBOOK = ""
 
     def play(self):
