@@ -15,11 +15,6 @@ from sh import ansible_playbook
 from StringIO import StringIO
 
 
-def setUpPackage():
-    "Ensure tests package is importable from within tests"
-    sys.path.insert(0, abspath(join(dirname(__file__), "..")))
-
-
 class FileSystemAssertsMixin(object):
     "Mix this class into your TestCase to get some file system assertions"
 
