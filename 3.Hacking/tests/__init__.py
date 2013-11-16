@@ -8,11 +8,24 @@ Testing of Ansible playbooks.
 
 
 import sys
-from os.path import dirname, join, abspath
+from os.path import dirname, join, abspath, exists, isfile, isdir, islink
 
 
 def setUpPackage():
     "Ensure tests package is importable from within tests"
     sys.path.insert(0, abspath(join(dirname(__file__), "..")))
 
+
+class FileSystemAssertsMixin(object):
+    "Mix this class into your TestCase to get some file system assertions"
+
+    def assertFileExists(self, filepath, kind="any"):
+        "Check if filepath exists and is a <file|dir|link>"
+        self.assertTrue(exists(filepath))
+        if "file" in kind.lower():
+            self.assertTrue(isfile(filepath))
+        elif "dir" in kind.lower():
+            self.assertTrue(isdir(filepath))
+        elif "link" in kind.lower():
+            self.assertTrue(islink(filepath))
 
