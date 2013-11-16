@@ -30,7 +30,7 @@ class TestFileSystemAssertsMixin(Pep8TestCase, FileSystemAssertsMixin):
 
 class TestAnsiblePlayTestCase(AnsiblePlayTestCase):
 
-    PLAYBOOK = join(FIXTURES_DIR, "simple-echo.yml")
+    PLAYBOOK = join(FIXTURES_DIR, "TestAnsiblePlayTestCase.yml")
 
     def test_can_invoke_playbook(self):
         output = self.play()
