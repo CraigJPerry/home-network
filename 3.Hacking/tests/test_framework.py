@@ -30,11 +30,11 @@ class TestFileSystemAssertsMixin(unittest.TestCase, FileSystemAssertsMixin):
 
 class TestAnsiblePlayTestCase(AnsiblePlayTestCase):
 
+    PLAYBOOK = "TestAnsiblePlayTestCase.yml"
+
     def test_can_invoke_playbook(self):
-        logfile = StringIO()
-        self.play("TestAnsiblePlayTestCase.yml", logfile)
-        logfile.seek(0)
-        self.assertIn('ok: [localhost] => {"msg": "Hello, World!"}', logfile.read())
+        output = self.play()
+        self.assertIn('ok: [localhost] => {"msg": "Hello, World!"}', output)
 
 
 if __name__ == '__main__':

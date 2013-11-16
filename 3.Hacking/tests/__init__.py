@@ -44,17 +44,15 @@ class AnsiblePlayTestCase(unittest.TestCase, FileSystemAssertsMixin):
     "TestCase for ansible play testing"
 
     FIXTURES_DIR = abspath(join(dirname(__file__), "fixtures"))
+    INVENTORY = join(FIXTURES_DIR, "hosts")
+    PLAYBOOK = ""
 
-    def fixture_path(self, filename):
-        return join(self.FIXTURES_DIR, filename)
+    def _cmdline(self):
+        playbook = join(self.FIXTURES_DIR, self.PLAYBOOK)
+        return ["ansible-playbook", "--connection=local", "--inventory-file=" + self.INVENTORY, playbook]
 
-    def _cmdline(self, playbook, inventory):
-        playbook_path = self.fixture_path(playbook)
-        inventory_path = self.fixture_path(inventory)
-        return ["ansible-playbook", "--connection=local", "--inventory-file=" + inventory_path, playbook_path]
-
-    def play(self, playbook, inventory="hosts"):
-        cmdline = self._cmdline(playbook, inventory)
+    def play(self):
+        cmdline = self._cmdline()
         output = ""
         try:
             output = subprocess.check_output(cmdline, stderr=subprocess.STDOUT)
