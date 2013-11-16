@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2.7
 
 
 """
@@ -13,34 +13,45 @@ import subprocess
 from os.path import dirname, join, abspath, exists, isfile, isdir, islink
 
 
+class Pep8TestCase(unittest.TestCase):
+    "Improve consistency by exposing PEP8 compliant test func names"
+
+    assert_equal = unittest.TestCase.assertEqual
+    assert_raises = unittest.TestCase.assertRaises
+    assert_true = unittest.TestCase.assertTrue
+
+
 class FileSystemAssertsMixin(object):
     "Mix this class into your TestCase to get some file system assertions"
 
-    def assertFileExists(self, filepath, kind="any"):
+    def assert_file_exists(self, filepath, kind="any"):
         "Check if filepath exists and is a <file|dir|link>"
-        self.assertTrue(exists(filepath))
+
+        self.assert_true(exists(filepath))
+
         if "file" in kind.lower():
-            self.assertTrue(isfile(filepath))
+            self.assert_true(isfile(filepath))
         elif "dir" in kind.lower():
-            self.assertTrue(isdir(filepath))
+            self.assert_true(isdir(filepath))
         elif "link" in kind.lower():
-            self.assertTrue(islink(filepath))
+            self.assert_true(islink(filepath))
 
-    def assertFileNotExists(self, filepath):
+    def assert_file_doesnt_exist(self, filepath):
         "Confirm filepath doesn't exist"
-        self.assertTrue(not exists(filepath))
+        self.assert_true(not exists(filepath))
 
-    def assertFileContains(self, filepath, count, regex):
+    def assert_file_contains(self, filepath, count, regex):
         "Check if filepath contains count occurances of regex"
+
         with open(filepath, "r") as fhandle:
             matches = sum(len(re.findall(regex, line)) for line in fhandle.xreadlines())
-        self.assertEqual(count, matches)
+        self.assert_equal(count, matches)
 
-    def assertFileDoesntContain(self, filepath, regex):
-        return self.assertFileContains(filepath, 0, regex)
+    def assert_file_doesnt_contain(self, filepath, regex):
+        return self.assert_file_contains(filepath, 0, regex)
 
 
-class AnsiblePlayTestCase(unittest.TestCase, FileSystemAssertsMixin):
+class AnsiblePlayTestCase(Pep8TestCase, FileSystemAssertsMixin):
     "TestCase for ansible play testing"
 
     FIXTURES_DIR = abspath(join(dirname(__file__), "fixtures"))
