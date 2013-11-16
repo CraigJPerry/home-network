@@ -44,7 +44,7 @@ class AnsiblePlayTestCase(unittest.TestCase, FileSystemAssertsMixin):
     "TestCase for ansible play testing"
 
     FIXTURES_DIR = abspath(join(dirname(__file__), "fixtures"))
-    INVENTORY = join(FIXTURES_DIR, "hosts")
+    INVENTORY = join(FIXTURES_DIR, "testing-inventory")
     PLAYBOOK = ""
 
     def _cmdline(self):

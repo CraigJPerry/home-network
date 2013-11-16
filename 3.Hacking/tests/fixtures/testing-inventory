@@ -1,0 +1,5 @@
+# Insert groups used in playbooks, replace all hostnames with localhost
+
+[testcasehost]
+localhost
+
