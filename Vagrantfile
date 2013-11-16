@@ -6,8 +6,8 @@ Vagrant.configure("2") do |config|
   config.vm.box_url = "https://dl.dropboxusercontent.com/u/86066173/fedora-19.box"
 
   config.vm.provision :ansible do |ansible|
-    ansible.playbook = "../2.Config/install-pull-mode.yml"
-    ansible.inventory_path = "tests/fixtures/testing-inventory"
+    ansible.playbook = "plays/install-pull-mode.yml"
+    ansible.inventory_path = "hosts-testing"
   end
 
   config.vm.define :test1 do |test1|
