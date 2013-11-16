@@ -1,0 +1,9 @@
+---
+
+- hosts: desktops
+  connection: local
+  sudo: yes
+
+  roles:
+    - common
+

@@ -9,7 +9,7 @@ Testing of "Ansible Testing Framework" itself.
 
 from os.path import join
 from StringIO import StringIO
-from tests import FileSystemAssertsMixin, Pep8TestCase, AnsiblePlayTestCase
+from tests import FileSystemAssertsMixin, Pep8TestCase, AnsiblePlayTestCase, FIXTURES_DIR
 
 
 class TestFileSystemAssertsMixin(Pep8TestCase, FileSystemAssertsMixin):
@@ -30,9 +30,9 @@ class TestFileSystemAssertsMixin(Pep8TestCase, FileSystemAssertsMixin):
 
 class TestAnsiblePlayTestCase(AnsiblePlayTestCase):
 
-    PLAYBOOK = join(AnsiblePlayTestCase.FIXTURES_DIR, "simple-echo.yml")
+    PLAYBOOK = join(FIXTURES_DIR, "TestAnsiblePlayTestCase.yml")
 
     def test_can_invoke_playbook(self):
         output = self.play()
-        self.assertIn('ok: [localhost] => {"msg": "Hello, World!"}', output)
+        self.assertIn('ok: [10.10.10.100] => {"msg": "Hello, World!"}', output)
 

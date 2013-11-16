@@ -1,8 +1,0 @@
-# Replace all real groups used in playbooks with localhost during testing
-
-[testcasehost]
-localhost
-
-[pull-mode-hosts]
-10.10.10.100
-
