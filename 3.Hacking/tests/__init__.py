@@ -47,12 +47,8 @@ class AnsiblePlayTestCase(unittest.TestCase, FileSystemAssertsMixin):
     INVENTORY = join(FIXTURES_DIR, "testing-inventory")
     PLAYBOOK = ""
 
-    def _cmdline(self):
-        playbook = join(self.FIXTURES_DIR, self.PLAYBOOK)
-        return ["ansible-playbook", "--connection=local", "--inventory-file=" + self.INVENTORY, playbook]
-
     def play(self):
-        cmdline = self._cmdline()
+        cmdline = ["ansible-playbook", "--connection=local", "--inventory-file=" + self.INVENTORY, self.PLAYBOOK]
         output = ""
         try:
             output = subprocess.check_output(cmdline, stderr=subprocess.STDOUT)
