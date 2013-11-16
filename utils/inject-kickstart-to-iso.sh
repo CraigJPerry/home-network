@@ -50,12 +50,13 @@ fi
 _SOURCE_ISO=${1}
 _KICKSTART=${2}
 _KS_FILE=$(basename ${_KICKSTART})
+_KS_NAME=$(basename ${_KICKSTART} ".ks")
 _DEST_ISO="${WORKING_DIR}/iso"
 _VOLUME_NAME="$(isoinfo -d -i ${_SOURCE_ISO} | grep 'Volume id' | cut -f3- -d' ')"
 _VOLUME_NAME_ISOLINUX=$(echo ${_VOLUME_NAME} | sed 's/ /\\\\\\x20/g')
 _OUTPUT_NAME="$(basename ${_SOURCE_ISO} '.iso').patched.iso"
 _ISOLINUX_CFG="${_DEST_ISO}/isolinux/isolinux.cfg"
-_STANZA="label kickstart\n  menu label ^Kickstart\n  menu default\n  kernel vmlinuz\n  append initrd=initrd.img inst.stage2=hd:LABEL=${_VOLUME_NAME_ISOLINUX} ks=hd:LABEL=${_VOLUME_NAME_ISOLINUX}:/${_KS_FILE} text"
+_STANZA="label kickstart\n  menu label ^Kickstart ${_KS_NAME}\n  menu default\n  kernel vmlinuz\n  append initrd=initrd.img inst.stage2=hd:LABEL=${_VOLUME_NAME_ISOLINUX} ks=hd:LABEL=${_VOLUME_NAME_ISOLINUX}:/${_KS_FILE} text"
 
 # Do the ISO patching
 ${SHELL_CMD} <<-COMMANDS
