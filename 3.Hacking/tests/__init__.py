@@ -7,12 +7,10 @@ Testing of Ansible playbooks.
 """
 
 
-import sys
 import re
 import unittest
 from os.path import dirname, join, abspath, exists, isfile, isdir, islink
 from sh import ansible_playbook
-from StringIO import StringIO
 
 
 class FileSystemAssertsMixin(object):
@@ -42,22 +40,6 @@ class FileSystemAssertsMixin(object):
         return self.assertFileContains(filepath, 0, regex)
 
 
-class TestFileSystemAssertsMixin(unittest.TestCase, FileSystemAssertsMixin):
-
-    def test_file_exists(self):
-        self.assertFileExists(__file__)
-
-    def test_file_doesnt_exist(self):
-        self.assertFileNotExists("foo")
-
-    def test_file_contains(self):
-        self.assertFileContains("/etc/passwd", 4, "root")
-        self.assertFileContains("/etc/passwd", 1, "^root")
-
-    def test_file_doesnt_contain(self):
-        self.assertFileDoesntContain("/etc/passwd", "DonkeyKongRacer")
-
-
 class AnsiblePlayTestCase(unittest.TestCase, FileSystemAssertsMixin):
     "TestCase for ansible play testing"
 
@@ -66,12 +48,4 @@ class AnsiblePlayTestCase(unittest.TestCase, FileSystemAssertsMixin):
     def play(self, playbook, logfile="/dev/null"):
         playbook_path = join(self.FIXTURES_DIR, playbook)
         ansible_playbook(playbook_path, inventory_file="localhost,", _out=logfile, _err=logfile)
-
-class TestAnsiblePlayTestCase(AnsiblePlayTestCase):
-
-    def test_can_invoke_playbook(self):
-        logfile = StringIO()
-        self.play("TestAnsiblePlayTestCase.yml", logfile)
-        logfile.seek(0)
-        self.assertIn('ok: [localhost] => {"msg": "Hello, World!"}', logfile.read())
 
