@@ -1,4 +1,4 @@
-# Insert groups used in playbooks, replace all hostnames with localhost
+# Replace all real groups used in playbooks with localhost during testing
 
 [testcasehost]
 localhost
