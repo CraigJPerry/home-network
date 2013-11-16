@@ -30,7 +30,7 @@ class TestFileSystemAssertsMixin(unittest.TestCase, FileSystemAssertsMixin):
 
 class TestAnsiblePlayTestCase(AnsiblePlayTestCase):
 
-    PLAYBOOK = "TestAnsiblePlayTestCase.yml"
+    PLAYBOOK = "simple-echo.yml"
 
     def test_can_invoke_playbook(self):
         output = self.play()
