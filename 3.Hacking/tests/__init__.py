@@ -11,6 +11,8 @@ import sys
 import re
 import unittest
 from os.path import dirname, join, abspath, exists, isfile, isdir, islink
+from sh import ansible_playbook
+from StringIO import StringIO
 
 
 def setUpPackage():
@@ -59,4 +61,12 @@ class TestFileSystemAssertsMixin(unittest.TestCase, FileSystemAssertsMixin):
 
     def test_file_doesnt_contain(self):
         self.assertFileDoesntContain("/etc/passwd", "DonkeyKongRacer")
+
+
+class AnsiblePlayTestCase(unittest.TestCase, FileSystemAssertsMixin):
+    "TestCase for ansible play testing"
+
+    FIXTURES_DIR = abspath(join(dirname(__file__), "fixtures"))
+
+    pass
 
