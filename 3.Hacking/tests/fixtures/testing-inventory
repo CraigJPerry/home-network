@@ -3,3 +3,6 @@
 [testcasehost]
 localhost
 
+[pull-mode-hosts]
+10.10.10.100
+
