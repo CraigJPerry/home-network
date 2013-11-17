@@ -57,6 +57,14 @@ class FileSystemAssertsMixin(object):
         return self.assert_file_contains(filepath, 0, regex)
 
 
+class PackageAssertsMixin(object):
+    "TestCase mixin giving assertions about the system packaging DB"
+
+    def assert_package_not_installed(self, package_names):
+        if not hasattr(package_names, '__iter__'):
+            package_names = [package_names]
+
+
 class AnsiblePlaybookError(Exception):
     "Any error signaled by ansible-playbook failing to complete normally"
     pass
