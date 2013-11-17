@@ -62,12 +62,21 @@ class PackageAssertsMixin(object):
     "TestCase mixin giving assertions about the system packaging DB"
 
     def assert_package_not_installed(self, package_names):
-        "Check if a package, or list of packages, are installed"
+        "Check if a package, or list of packages, are not installed"
         if not hasattr(package_names, '__iter__'):
             package_names = [package_names]
 
         for pkg in package_names:
             self.assert_true(not self._rpm_installed(pkg))
+
+    def assert_package_installed(self, package_names):
+        "Check if a package, or list of packages, are installed"
+
+        if not hasattr(package_names, '__iter__'):
+            package_names = [package_names]
+
+        for pkg in package_names:
+            self.assert_true(self._rpm_installed(pkg))
 
     def _rpm_installed(self, package_name):
         cmdline = ["/usr/bin/rpm", "-q", package_name]
