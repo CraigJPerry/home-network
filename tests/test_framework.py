@@ -97,3 +97,6 @@ class TestPackageAssertsMixinNotInstalled(Pep8TestCase, PackageAssertsMixin):
     def test_raises_when_package_is_installed(self):
         self.assert_raises(AssertionError, self.assert_package_not_installed, "bash")
 
+    def test_raises_when_one_package_is_installed(self):
+        self.assert_raises(AssertionError, self.assert_package_not_installed, ['not-installed', 'bash'])
+
