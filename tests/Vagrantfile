@@ -8,6 +8,8 @@ Vagrant.configure("2") do |config|
     ansible.inventory_path = "../hosts-testing"
   end
 
+  config.vm.synced_folder "../", "/home-network"
+
   config.vm.define :fedora19x64 do |fedora19x64|
     fedora19x64.vm.box = "Fedora-19-x64"
     fedora19x64.vm.box_url = "https://dl.dropboxusercontent.com/u/86066173/fedora-19.box"
