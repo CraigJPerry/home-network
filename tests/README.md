@@ -4,12 +4,12 @@ All playbooks have associated tests. The only dependencies on your
 development host are:
 
 * Ansible, which is used to provision the VM each time it's installed
-  afresh
+  afresh. See the provisioning role for more details.
 * VirtualBox, used by Vagrant to host VMs
 * Vagrant, which makes managing & provisioning VMs trivial
 
 
-### Vagrant Virtual Machine ###
+### Getting Started with Vagrant ###
 
 The ``Vagrantfile`` in this directory defines a machine for running
 the tests:
@@ -20,6 +20,20 @@ the tests:
 This will start and configure a VM with software dependencies installed
 and shared access to this repository.
 
+To login, run ``vagrant ssh``.
+
+Run ``vagrant suspend`` when you're finished. To resume development,
+just do a ``vagrant up`` again.
+
+If the VM is ever broken, or you just want a fresh start, do a
+``vagrant destroy`` to blast it away followed by a ``vagrant up`` to
+install a fresh virtual machine & provision for testing.
+
+#### Shared Folder ####
+
+The entire repo is visible inside the virtual machine under
+``/home-network/``. Any changes made in your editor on your development
+host are immediately reflected inside the VM.
 
 ### Running Tests ###
 
@@ -37,7 +51,7 @@ Run a single test::
 ##  About Tests ##
 
 I've chosen to try using only python2.7's builtin unittest module
-(previously i was using nose) because it:
+(previously i was using nose) because it's:
 
 * Supported by all Python IDEs / environments
 * Best understood by most Python developers in my experience
