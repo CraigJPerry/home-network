@@ -54,6 +54,10 @@ class TestAnsiblePlayTestCase(AnsiblePlayTestCase):
         output = self.play()
         self.assert_in('ok: [10.78.19.84] => {"msg": "Hello, World!"}', output)
 
+    def test_play_output_is_broken_into_list_of_lines(self):
+        output = self.play()
+        self.assert_true(type(output) is list)
+
 
 class TestNonExistantPlaybook(AnsiblePlayTestCase):
 
