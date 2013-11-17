@@ -4,7 +4,7 @@
 Vagrant.configure("2") do |config|
 
   config.vm.provision :ansible do |ansible|
-    ansible.playbook = "../playbooks/install-pull-mode.yml"
+    ansible.playbook = "../install-pull-mode.yml"
     ansible.inventory_path = "../hosts-testing"
   end
 
