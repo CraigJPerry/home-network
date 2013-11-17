@@ -39,6 +39,9 @@ class TestFileSystemAssertsMixin(Pep8TestCase, FileSystemAssertsMixin):
     def test_file_doesnt_contain(self):
         self.assert_file_doesnt_contain("/etc/passwd", "DonkeyKongRacer")
 
+    def test_file_unexpectedly_containing_regex_fails(self):
+        self.assert_raises(AssertionError, self.assert_file_doesnt_contain, "/etc/passwd", "root")
+
 
 class TestAnsiblePlayTestCase(AnsiblePlayTestCase):
 
