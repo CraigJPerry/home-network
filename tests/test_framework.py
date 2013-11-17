@@ -19,13 +19,13 @@ class TestFileSystemAssertsMixin(Pep8TestCase, FileSystemAssertsMixin):
         self.assert_file_exists(__file__)
 
     def test_exist_fails_when_file_doesnt_exist(self):
-        self.assertRaises(AssertionError, self.assert_file_exists, "this-file-doesnt-exist")
+        self.assert_raises(AssertionError, self.assert_file_exists, "this-file-doesnt-exist")
 
     def test_file_doesnt_exist(self):
         self.assert_file_doesnt_exist("foo")
 
     def test_doesnt_exist_fails_when_file_does_exist(self):
-        self.assertRaises(AssertionError, self.assert_file_doesnt_exist, __file__)
+        self.assert_raises(AssertionError, self.assert_file_doesnt_exist, __file__)
 
     def test_file_contains(self):
         self.assert_file_contains("/etc/passwd", 4, "root")
