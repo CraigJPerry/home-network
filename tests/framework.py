@@ -23,6 +23,7 @@ class Pep8TestCase(unittest.TestCase):
     assert_equal = unittest.TestCase.assertEqual
     assert_raises = unittest.TestCase.assertRaises
     assert_true = unittest.TestCase.assertTrue
+    assert_in = unittest.TestCase.assertIn
 
 
 class FileSystemAssertsMixin(object):
