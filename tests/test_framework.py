@@ -91,4 +91,7 @@ class TestPackageAssertsMixinNotInstalled(Pep8TestCase, PackageAssertsMixin):
     def test_package_not_installed(self):
         self.assert_package_not_installed("non-existant-package-name")
 
+    def test_accepts_list_of_packages(self):
+        self.assert_package_not_installed(["doesnt-exist-1", "doesnt-exist-2"])
+
 
