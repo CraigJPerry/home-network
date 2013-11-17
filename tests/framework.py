@@ -110,6 +110,15 @@ def _sudo(cmdline):
             return True
 
 
+def install_package(package_names):
+    "Yum install package(s)"
+    if not hasattr(package_names, '__iter__'):
+        package_names = [package_names]
+
+    cmdline = ["/usr/bin/yum", "-y", "install"] + package_names
+    return _sudo(cmdline)
+
+
 class AnsiblePlaybookError(Exception):
     "Any error signaled by ansible-playbook failing to complete normally"
     pass
