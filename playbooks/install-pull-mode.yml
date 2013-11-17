@@ -1,7 +1,9 @@
 ---
 
+# Install ansible in pull mode, from root account. Assumes virgin
+# machine and defines ansible user, sudoers rules & crontab entry.
+
 - hosts: pull-mode-hosts
-  sudo: yes
 
   tasks:
 

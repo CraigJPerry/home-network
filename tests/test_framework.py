@@ -2,7 +2,7 @@
 
 
 """
-Testing of "Ansible Testing Framework" itself.
+Testing of the "Ansible Testing Framework" itself.
    Craig J Perry <craigp84@gmail.com>
 """
 

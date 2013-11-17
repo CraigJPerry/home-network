@@ -1,5 +1,8 @@
 ---
 
+# Desktop machine class. Any static computer running linux with a
+# keyboard & screen attached.
+
 - hosts: desktops
   connection: local
   sudo: yes
