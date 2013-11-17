@@ -58,10 +58,6 @@ class FileSystemAssertsMixin(object):
         return self.assert_file_contains(filepath, 0, regex)
 
 
-class PackageManagerError(Exception):
-    pass
-
-
 class PackageAssertsMixin(object):
     "TestCase mixin giving assertions about the system packaging DB"
 
@@ -84,11 +80,19 @@ class PackageAssertsMixin(object):
 
     def _rpm_installed(self, package_name):
         cmdline = ["/usr/bin/rpm", "-q", package_name]
-        return _run_command(cmdline)
+        return _sudo(cmdline)
 
 
-def _run_command(cmdline):
-    "Return True if return code 0, False if 1. Otherwise raise PackageManagerError"
+class SudoError(Exception):
+    pass
+
+
+def _sudo(cmdline):
+    """Run cmdline via sudo.
+
+    Return True if return code 0, False if return code 1. Any other
+    return code raises SudoError"""
+    cmdline = ["/usr/bin/sudo"] + cmdline
 
     with TemporaryFile() as stdout_stderr:
         try:
