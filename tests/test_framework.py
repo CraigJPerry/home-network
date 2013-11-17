@@ -7,9 +7,10 @@ Testing of "Ansible Testing Framework" itself.
 """
 
 
+import unittest
 from os.path import join
 from StringIO import StringIO
-from tests import FileSystemAssertsMixin, Pep8TestCase, AnsiblePlayTestCase, FIXTURES_DIR
+from tests import FileSystemAssertsMixin, Pep8TestCase, AnsiblePlayTestCase, AnsiblePlaybookError, FIXTURES_DIR
 
 
 class TestFileSystemAssertsMixin(Pep8TestCase, FileSystemAssertsMixin):
@@ -34,5 +35,28 @@ class TestAnsiblePlayTestCase(AnsiblePlayTestCase):
 
     def test_can_invoke_playbook(self):
         output = self.play()
-        self.assertIn('ok: [10.10.10.100] => {"msg": "Hello, World!"}', output)
+        self.assertIn('ok: [10.78.19.84] => {"msg": "Hello, World!"}', output)
+
+class TestNonExistantPlaybook(AnsiblePlayTestCase):
+
+    PLAYBOOK = "DoesntExist.yml"
+
+    def test_play_invocation_flags_failure_to_test_framework(self):
+        self.assert_raises(AnsiblePlaybookError, self.play)
+
+    def test_exception_contains_return_code(self):
+        try:
+            self.play()
+        except AnsiblePlaybookError as ex:
+            self.assertIn("return code [1]", ex.message)
+        else:
+            self.fail("Exception wasn't raised for failed ansible-playbook run")
+
+    def test_exception_contains_reason(self):
+        try:
+            self.play()
+        except AnsiblePlaybookError as ex:
+            self.assertIn("because [ERROR: the playbook: DoesntExist.yml could not be found]", ex.message)
+        else:
+            self.fail("Exception wasn't raised for failed ansible-playbook run")
 

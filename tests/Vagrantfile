@@ -1,0 +1,25 @@
+# -*- mode: ruby -*-
+# vi: ft=ruby
+
+Vagrant.configure("2") do |config|
+
+  config.vm.provision :ansible do |ansible|
+    ansible.playbook = "../plays/install-pull-mode.yml"
+    ansible.inventory_path = "../hosts-testing"
+  end
+
+  config.vm.synced_folder "../", "/home-network"
+
+  config.vm.define :fedora19x64 do |fedora19x64|
+    fedora19x64.vm.box = "Fedora-19-x64"
+    fedora19x64.vm.box_url = "https://dl.dropboxusercontent.com/u/86066173/fedora-19.box"
+
+    fedora19x64.vm.network :private_network, ip: "10.78.19.84"
+
+    fedora19x64.vm.provider "virtualbox" do |v|
+      v.name = "ansible-fedora19x64"
+    end
+  end
+
+end
+
