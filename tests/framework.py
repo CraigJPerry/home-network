@@ -92,6 +92,9 @@ def _sudo(cmdline):
 
     Return True if return code 0, False if return code 1. Any other
     return code raises SudoError"""
+    if not hasattr(cmdline, '__iter__'):
+        cmdline = [cmdline]
+
     cmdline = ["/usr/bin/sudo"] + cmdline
 
     with TemporaryFile() as stdout_stderr:
@@ -105,7 +108,7 @@ def _sudo(cmdline):
                 output = stdout_stderr.read()
                 msg = "Failed to run command [%s] because [%s]" % (
                         cmdline, output.replace("\n", " "))
-                raise PackageManagerError(msg)
+                raise SudoError(msg)
         else:
             return True
 
