@@ -18,6 +18,9 @@ class TestFileSystemAssertsMixin(Pep8TestCase, FileSystemAssertsMixin):
     def test_file_exists(self):
         self.assert_file_exists(__file__)
 
+    def test_exist_fails_when_file_doesnt_exist(self):
+        self.assertRaises(AssertionError, self.assert_file_exists, "this-file-doesnt-exist")
+
     def test_file_doesnt_exist(self):
         self.assert_file_doesnt_exist("foo")
 
