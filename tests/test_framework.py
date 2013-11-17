@@ -13,7 +13,7 @@ from StringIO import StringIO
 from tests.framework import FileSystemAssertsMixin, Pep8TestCase, AnsiblePlayTestCase, AnsiblePlaybookError, FIXTURES_DIR
 
 
-class TestFileSystemAssertsMixin(Pep8TestCase, FileSystemAssertsMixin):
+class TestFileSystemAssertsMixinExists(Pep8TestCase, FileSystemAssertsMixin):
 
     def test_file_exists(self):
         self.assert_file_exists(__file__)
@@ -26,6 +26,9 @@ class TestFileSystemAssertsMixin(Pep8TestCase, FileSystemAssertsMixin):
 
     def test_doesnt_exist_fails_when_file_does_exist(self):
         self.assert_raises(AssertionError, self.assert_file_doesnt_exist, __file__)
+
+
+class TestFileSystemAssertsMixinContains(Pep8TestCase, FileSystemAssertsMixin):
 
     def test_file_contains(self):
         self.assert_file_contains("/etc/passwd", 1, "^root")
@@ -50,6 +53,7 @@ class TestAnsiblePlayTestCase(AnsiblePlayTestCase):
     def test_can_invoke_playbook(self):
         output = self.play()
         self.assert_in('ok: [10.78.19.84] => {"msg": "Hello, World!"}', output)
+
 
 class TestNonExistantPlaybook(AnsiblePlayTestCase):
 
