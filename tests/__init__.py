@@ -55,6 +55,10 @@ class FileSystemAssertsMixin(object):
         return self.assert_file_contains(filepath, 0, regex)
 
 
+class AnsiblePlaybookError(Exception):
+    pass
+
+
 class AnsiblePlayTestCase(Pep8TestCase, FileSystemAssertsMixin):
     "TestCase for ansible play testing"
 
@@ -67,7 +71,7 @@ class AnsiblePlayTestCase(Pep8TestCase, FileSystemAssertsMixin):
         try:
             output = subprocess.check_output(cmdline, stderr=subprocess.STDOUT)
         except subprocess.CalledProcessError as ex:
-            msg = "ansible-playbook failed with return code [{0}] because [{1}]".format(ex.returncode, ex.output)
-            self.fail(msg)
+            msg = "ansible-playbook failed with return code [{0}] because [{1}]".format(ex.returncode, ex.output.strip())
+            raise AnsiblePlaybookError(msg)
         return output.splitlines()
 
