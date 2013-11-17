@@ -26,11 +26,12 @@ and shared access to this repository.
 To run all tests::
 
     [user@devbox ~]$ vagrant ssh
-    [vagrant@vm ~]$ python2.7 -m unittest discover
+    [vagrant@vm ~]$ cd /home-network
+    [vagrant@vm /home-network]$ python2.7 -m unittest discover
 
 Run a single test::
 
-    [vagrant@vm ~]$ python2.7 -m unittest tests.test_framework.TestFileSystemAssertsMixin.test_file_doesnt_contain
+    [vagrant@vm /home-network]$ python2.7 -m unittest tests.test_framework.TestFileSystemAssertsMixin.test_file_doesnt_contain
 
 
 ##  About Tests ##
