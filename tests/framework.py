@@ -119,6 +119,18 @@ def install_package(package_names):
     return _sudo(cmdline)
 
 
+def remove_package(package_names, force=False):
+    "Return True if uninstalled, False if already uninstalled"
+    if not hasattr(package_names, '__iter__'):
+        package_names = [package_names]
+
+    cmdline = ["/usr/bin/rpm", "-e"] + package_names
+    if force:
+        cmdline.append("--nodeps")
+
+    return _run_command(cmdline)
+
+
 class AnsiblePlaybookError(Exception):
     "Any error signaled by ansible-playbook failing to complete normally"
     pass
