@@ -4,7 +4,6 @@
 # keyboard & screen attached.
 
 - hosts: desktops
-  connection: local
   sudo: yes
 
   roles:
