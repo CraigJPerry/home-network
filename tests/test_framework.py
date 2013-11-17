@@ -35,7 +35,7 @@ class TestAnsiblePlayTestCase(AnsiblePlayTestCase):
 
     def test_can_invoke_playbook(self):
         output = self.play()
-        self.assertIn('ok: [10.78.19.84] => {"msg": "Hello, World!"}', output)
+        self.assert_in('ok: [10.78.19.84] => {"msg": "Hello, World!"}', output)
 
 class TestNonExistantPlaybook(AnsiblePlayTestCase):
 
@@ -48,7 +48,7 @@ class TestNonExistantPlaybook(AnsiblePlayTestCase):
         try:
             self.play()
         except AnsiblePlaybookError as ex:
-            self.assertIn("return code [1]", ex.message)
+            self.assert_in("return code [1]", ex.message)
         else:
             self.fail("Exception wasn't raised for failed ansible-playbook run")
 
@@ -56,7 +56,7 @@ class TestNonExistantPlaybook(AnsiblePlayTestCase):
         try:
             self.play()
         except AnsiblePlaybookError as ex:
-            self.assertIn("because [ERROR: the playbook: DoesntExist.yml could not be found]", ex.message)
+            self.assert_in("because [ERROR: the playbook: DoesntExist.yml could not be found]", ex.message)
         else:
             self.fail("Exception wasn't raised for failed ansible-playbook run")
 
