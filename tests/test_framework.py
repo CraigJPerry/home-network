@@ -28,8 +28,10 @@ class TestFileSystemAssertsMixin(Pep8TestCase, FileSystemAssertsMixin):
         self.assert_raises(AssertionError, self.assert_file_doesnt_exist, __file__)
 
     def test_file_contains(self):
-        self.assert_file_contains("/etc/passwd", 4, "root")
         self.assert_file_contains("/etc/passwd", 1, "^root")
+
+    def test_file_contains_multiple_on_one_line_plus_matches_on_other_lines(self):
+        self.assert_file_contains("/etc/passwd", 4, "root")
 
     def test_file_not_containing_expected_regex_fails(self):
         self.assert_raises(AssertionError, self.assert_file_contains, "/etc/passwd", 1, "root")
