@@ -1,5 +1,8 @@
 ---
 
+# A very simple fixture used to prove the basic mechanics of the ansible
+# testing framework.
+
 - hosts: testcasehost
   gather_facts: no
 
