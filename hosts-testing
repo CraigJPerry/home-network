@@ -10,7 +10,7 @@
 [virtual-machines]
 10.78.19.84
 
-[pull-mode-hosts:children]
+[install-pull-mode:children]
 desktops
 virtual-machines
 
