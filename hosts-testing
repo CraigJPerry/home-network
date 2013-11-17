@@ -1,13 +1,13 @@
 # Replace all real groups used in playbooks with vagrant VM's IP
 
 [testcasehost]
-10.10.10.100
+10.78.19.84
 
 [desktops]
-10.10.10.100
+10.78.19.84
 
 [virtual-machines]
-10.10.10.100
+10.78.19.84
 
 [pull-mode-hosts:children]
 desktops

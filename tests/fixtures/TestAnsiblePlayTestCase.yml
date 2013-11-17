@@ -1,6 +1,7 @@
 ---
 
 - hosts: testcasehost
+  gather_facts: no
 
   tasks:
 
