@@ -58,6 +58,9 @@ class TestAnsiblePlayTestCase(AnsiblePlayTestCase):
         output = self.play()
         self.assert_true(type(output) is list)
 
+    def test_INVENTORY_exists(self):
+        self.assert_file_exists(self.INVENTORY, "file")
+
 
 class TestNonExistantPlaybook(AnsiblePlayTestCase):
 
