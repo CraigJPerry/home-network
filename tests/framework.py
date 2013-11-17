@@ -58,6 +58,10 @@ class FileSystemAssertsMixin(object):
         return self.assert_file_contains(filepath, 0, regex)
 
 
+class PackageManagerError(Exception):
+    pass
+
+
 class PackageAssertsMixin(object):
     "TestCase mixin giving assertions about the system packaging DB"
 
@@ -80,20 +84,26 @@ class PackageAssertsMixin(object):
 
     def _rpm_installed(self, package_name):
         cmdline = ["/usr/bin/rpm", "-q", package_name]
+        return _run_command(cmdline)
 
-        with TemporaryFile() as stdout_stderr:
-            try:
-                return_code = subprocess.check_call(cmdline, stdout=stdout_stderr, stderr=subprocess.STDOUT)
-            except subprocess.CalledProcessError as ex:
-                if ex.returncode == 1:
-                    return False
-                else:
-                    stdout_stderr.seek(0)
-                    output = stdout_stderr.read()
-                    msg = "Failed to run RPM query command [%s]" % output.replace("\n", " ")
-                    self.fail(msg)
+
+def _run_command(cmdline):
+    "Return True if return code 0, False if 1. Otherwise raise PackageManagerError"
+
+    with TemporaryFile() as stdout_stderr:
+        try:
+            return_code = subprocess.check_call(cmdline, stdout=stdout_stderr, stderr=subprocess.STDOUT)
+        except subprocess.CalledProcessError as ex:
+            if ex.returncode == 1:
+                return False
             else:
-                return True
+                stdout_stderr.seek(0)
+                output = stdout_stderr.read()
+                msg = "Failed to run command [%s] because [%s]" % (
+                        cmdline, output.replace("\n", " "))
+                raise PackageManagerError(msg)
+        else:
+            return True
 
 
 class AnsiblePlaybookError(Exception):
