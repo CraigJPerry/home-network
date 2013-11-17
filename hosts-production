@@ -1,3 +1,5 @@
+# Ansible inventory file for home-network
+
 [desktops]
 d1.local
 
