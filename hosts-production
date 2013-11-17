@@ -6,7 +6,7 @@ d1.local
 [virtual-machines]
 v1.local
 
-[pull-mode-hosts:children]
+[install-pull-mode:children]
 desktops
 virtual-machines
 

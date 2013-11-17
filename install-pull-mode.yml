@@ -1,0 +1,23 @@
+---
+
+# Install ansible in pull mode. When running as root, do not use
+# sudo as it fails when !requiretty is set in sudoers Defaults
+
+- hosts: install-pull-mode
+  tasks:
+    - group_by: key=user_{{ ansible_user_id }}
+
+- hosts: user_root
+  gather_facts: no
+  sudo: no
+  roles:
+
+    - bootstrap
+
+- hosts: '!user_root'
+  gather_facts: no
+  sudo: yes
+  roles:
+
+    - bootstrap
+
