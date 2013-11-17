@@ -10,7 +10,7 @@ Testing of the "Ansible Testing Framework" itself.
 import unittest
 from os.path import join
 from StringIO import StringIO
-from tests import FileSystemAssertsMixin, Pep8TestCase, AnsiblePlayTestCase, AnsiblePlaybookError, FIXTURES_DIR
+from tests.framework import FileSystemAssertsMixin, Pep8TestCase, AnsiblePlayTestCase, AnsiblePlaybookError, FIXTURES_DIR
 
 
 class TestFileSystemAssertsMixin(Pep8TestCase, FileSystemAssertsMixin):
