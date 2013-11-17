@@ -85,3 +85,10 @@ class TestNonExistantPlaybook(AnsiblePlayTestCase):
         else:
             self.fail("Exception wasn't raised for failed ansible-playbook run")
 
+
+class TestPackageAssertsMixinNotInstalled(Pep8TestCase, PackageAssertsMixin):
+
+    def test_package_not_installed(self):
+        self.assert_package_not_installed("non-existant-package-name")
+
+
