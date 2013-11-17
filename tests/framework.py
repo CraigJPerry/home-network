@@ -11,6 +11,7 @@ import re
 import unittest
 import subprocess
 from os.path import dirname, join, abspath, pardir, exists, isfile, isdir, islink
+from tempfile import TemporaryFile
 
 
 FIXTURES_DIR = abspath(join(dirname(__file__), "fixtures"))
@@ -61,8 +62,29 @@ class PackageAssertsMixin(object):
     "TestCase mixin giving assertions about the system packaging DB"
 
     def assert_package_not_installed(self, package_names):
+        "Check if a package, or list of packages, are installed"
         if not hasattr(package_names, '__iter__'):
             package_names = [package_names]
+
+        for pkg in package_names:
+            self.assert_true(not self._rpm_installed(pkg))
+
+    def _rpm_installed(self, package_name):
+        cmdline = ["/usr/bin/rpm", "-q", package_name]
+
+        with TemporaryFile() as stdout_stderr:
+            try:
+                return_code = subprocess.check_call(cmdline, stdout=stdout_stderr, stderr=subprocess.STDOUT)
+            except subprocess.CalledProcessError as ex:
+                if ex.returncode == 1:
+                    return False
+                else:
+                    stdout_stderr.seek(0)
+                    output = stdout_stderr.read()
+                    msg = "Failed to run RPM query command [%s]" % output.replace("\n", " ")
+                    self.fail(msg)
+            else:
+                return True
 
 
 class AnsiblePlaybookError(Exception):
