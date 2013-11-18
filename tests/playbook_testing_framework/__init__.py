@@ -13,7 +13,7 @@ from os.path import dirname, join, abspath, pardir
 from .mixins import FileSystemAssertsMixin
 
 
-ROOT_DIR = abspath(join(dirname(__file__), pardir))
+ROOT_DIR = abspath(join(dirname(__file__), pardir, pardir))
 
 
 class Pep8TestCase(unittest.TestCase):
