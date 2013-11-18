@@ -41,7 +41,12 @@ class InstallPullModeTestCases(object):
 
     def test_disables_requiretty_for_ansible_sudoers_entry(self):
         self.play()
-        self.assert_file_contains("/etc/sudoers.d/ansible", 1, "Defaults: ansible !requiretty")
+        self.assert_file_contains("/etc/sudoers.d/ansible", 1, "^Defaults: ansible !requiretty$")
+
+
+    def test_enables_sudoers_rule_for_ansible(self):
+        self.play()
+        self.assert_file_contains("/etc/sudoers.d/ansible", 1, "^ansible ALL=(ALL) NOPASSWD: ALL$")
 
 
 @unittest.skipUnless(getuser() != "root", "Requires non-root user for accurate testing")
