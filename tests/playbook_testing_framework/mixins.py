@@ -9,7 +9,7 @@ TestCase mixins to give useful assertions.
 
 import re
 from os.path import exists, isfile, isdir, islink
-from ..framework import _sudo
+from .helpers import _sudo
 
 
 class FileSystemAssertsMixin(object):
