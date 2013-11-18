@@ -8,14 +8,14 @@ Testing of install-pull-mode playbook.
 
 
 import unittest
-from os.path import join, dirname, pardir
+from os.path import abspath, join, dirname, pardir
 from tests.framework import AnsiblePlayTestCase, PackageAssertsMixin, remove_package, remove_user, add_user
 from getpass import getuser
 
 
 class InstallPullModeTestCases(object):
 
-    PLAYBOOK = join(dirname(__file__), pardir, "install-pull-mode.yml")
+    PLAYBOOK = abspath(join(dirname(__file__), pardir, "install-pull-mode.yml"))
 
     def test_case_setup_correctly(self):
         self.assert_file_exists(self.PLAYBOOK)
