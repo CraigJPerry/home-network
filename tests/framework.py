@@ -150,7 +150,7 @@ def remove_user(usernames):
 def add_user(username):
     "Convenience func to add user account"
     cmdline = ["/sbin/useradd", username]
-    return _sudo(cmdline)
+    return _sudo(cmdline, expected_return_codes = [4, 9])
 
 
 class AnsiblePlaybookError(Exception):
