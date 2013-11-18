@@ -7,6 +7,7 @@ Lightweight library for testing ansible playbooks.
 """
 
 
+import os
 import re
 import unittest
 import subprocess
@@ -95,7 +96,8 @@ def _sudo(cmdline):
     if not hasattr(cmdline, '__iter__'):
         cmdline = [cmdline]
 
-    cmdline = ["/usr/bin/sudo"] + cmdline
+    if not os.geteuid() == 0:
+        cmdline = ["/usr/bin/sudo"] + cmdline
 
     with TemporaryFile() as stdout_stderr:
         try:
