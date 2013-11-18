@@ -141,13 +141,13 @@ def remove_user(usernames):
     if not hasattr(usernames, '__iter__'):
         usernames = [usernames]
 
-    cmdline = ["/usr/bin/userdel"] + usernames
+    cmdline = ["/sbin/userdel"] + usernames
     return _sudo(cmdline)
 
 
 def add_user(username):
     "Convenience func to add user account"
-    cmdline = ["/usr/bin/useradd", username]
+    cmdline = ["/sbin/useradd", username]
     return _sudo(cmdline)
 
 
