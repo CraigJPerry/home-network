@@ -177,3 +177,10 @@ class TestAddUser(Pep8TestCase, FileSystemAssertsMixin):
         add_user("test-add-user")
         self.assert_file_contains("/etc/passwd", 1, "^test-add-user")
 
+    def test_adding_existing_user_does_not_raise_exception(self):
+        try:
+            add_user("already-present")
+            add_user("already-present")
+        except SudoError as ex:
+            self.fail("Repeated user addition resulted in a return code other than 1")
+
