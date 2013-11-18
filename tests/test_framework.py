@@ -10,7 +10,7 @@ Testing of the "Ansible Testing Framework" itself.
 import unittest
 from os.path import join
 from StringIO import StringIO
-from tests.framework import FileSystemAssertsMixin, Pep8TestCase, AnsiblePlayTestCase, AnsiblePlaybookError, FIXTURES_DIR, PackageAssertsMixin, remove_package, install_package
+from tests.framework import FileSystemAssertsMixin, Pep8TestCase, AnsiblePlayTestCase, AnsiblePlaybookError, FIXTURES_DIR, PackageAssertsMixin, remove_package, install_package, remove_user, add_user
 
 
 class TestFileSystemAssertsMixinExists(Pep8TestCase, FileSystemAssertsMixin):
@@ -152,4 +152,14 @@ class TestInstallPackage(Pep8TestCase, PackageAssertsMixin):
     def test_installing_already_installed_does_not_raise(self):
         install_package(self.PACKAGE)
         self.assert_equal(True, install_package(self.PACKAGE))
+
+
+class TestRemoveUser(Pep8TestCase, FileSystemAssertsMixin):
+
+    def test_can_remove_user(self):
+        add_user("testingremoval")
+        self.assert_file_contains("/etc/passwd", 1, "^testingremoval")
+        remove_user("testingremoval")
+        self.assert_file_doesnt_contain("/etc/passwd", "^testingremoval")
+
 
