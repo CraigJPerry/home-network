@@ -37,11 +37,15 @@ host are immediately reflected inside the VM.
 
 ### Running Tests ###
 
+Some tests should run as root to accurately replicate the playbook's
+intended use case, others should run as a non-root user with sudo
+priveleges.
+
 To run all tests::
 
     [user@devbox ~]$ vagrant ssh
     [vagrant@vm ~]$ cd /home-network
-    [vagrant@vm /home-network]$ python2.7 -m unittest discover
+    [vagrant@vm home-network]$ sudo python -m unittest discover && python -m unittest discover
 
 Run a single test::
 
