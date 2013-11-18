@@ -47,6 +47,12 @@ class InstallPullModeTestCases(object):
         self.play()
         self.assert_file_contains("/etc/sudoers.d/ansible", 1, "^ansible ALL=(ALL) NOPASSWD: ALL$")
 
+    def test_removes_installer_cronjob_inserted_by_kickstart(self):
+        with open("/etc/cron.d/ansible-pull-install", "w") as cronjob:
+            cronjob.write("This is just a dummy testing example")
+        self.play()
+        self.assert_file_doesnt_exist("/etc/cron.d/ansible-pull-install")
+
 
 @unittest.skipUnless(getuser() != "root", "Requires non-root user for accurate testing")
 class TestInstallAsNonRootViaSudo(InstallPullModeTestCases, AnsiblePlayTestCase, PackageAssertsMixin):
