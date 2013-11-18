@@ -33,6 +33,6 @@ class TestInstallAsNonRootViaSudo(InstallPullModeTestCases, AnsiblePlayTestCase,
 
 
 @unittest.skipUnless(getuser() == "root", "Requires root user for accurate testing")
-class TestInstallAsRoot(AnsiblePlayTestCase, PackageAssertsMixin):
+class TestInstallAsRoot(InstallPullModeTestCases, AnsiblePlayTestCase, PackageAssertsMixin):
     pass
 
