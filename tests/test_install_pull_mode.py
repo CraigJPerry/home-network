@@ -56,5 +56,9 @@ class TestInstallAsNonRootViaSudo(InstallPullModeTestCases, AnsiblePlayTestCase,
 
 @unittest.skipUnless(getuser() == "root", "Requires root user for accurate testing")
 class TestInstallAsRoot(InstallPullModeTestCases, AnsiblePlayTestCase, PackageAssertsMixin):
-    pass
+
+    def test_creates_ansible_pull_crontab_entry(self):
+        self.play()
+        self.assert_file_contains("/var/spool/cron/ansible", 1, "^@hourly ansible-pull")
+
 
