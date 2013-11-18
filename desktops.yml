@@ -8,4 +8,5 @@
 
   roles:
     - common
+    - bootstrap
 
