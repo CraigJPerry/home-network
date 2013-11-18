@@ -131,7 +131,7 @@ def remove_package(package_names, force=False):
     if force:
         cmdline.append("--nodeps")
 
-    return _run_command(cmdline)
+    return _sudo(cmdline)
 
 
 class AnsiblePlaybookError(Exception):
