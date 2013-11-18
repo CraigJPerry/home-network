@@ -38,14 +38,6 @@ class InstallPullModeTestCases(object):
         self.play()
         self.assert_file_contains("/etc/passwd", 1, "^ansible:x:[0-9]+:[0-9]+:Ansible Configuration Management:/home/ansible:/bin/bash")
 
-    def test_disables_requiretty_for_ansible_sudoers_entry(self):
-        self.play()
-        self.assert_file_contains("/etc/sudoers.d/ansible", 1, "^Defaults: ansible !requiretty$")
-
-    def test_enables_sudoers_rule_for_ansible(self):
-        self.play()
-        self.assert_file_contains("/etc/sudoers.d/ansible", 1, "^ansible ALL=(ALL) NOPASSWD: ALL$")
-
 
 @unittest.skipUnless(getuser() != "root", "Requires non-root user for accurate testing")
 class TestInstallAsNonRootViaSudo(InstallPullModeTestCases, AnsiblePlayTestCase, PackageAssertsMixin):
@@ -64,4 +56,12 @@ class TestInstallAsRoot(InstallPullModeTestCases, AnsiblePlayTestCase, PackageAs
             cronjob.write("This is just a dummy testing example")
         self.play()
         self.assert_file_doesnt_exist("/etc/cron.d/ansible-pull-install")
+
+    def test_disables_requiretty_for_ansible_sudoers_entry(self):
+        self.play()
+        self.assert_file_contains("/etc/sudoers.d/ansible", 1, "^Defaults: ansible !requiretty$")
+
+    def test_enables_sudoers_rule_for_ansible(self):
+        self.play()
+        self.assert_file_contains("/etc/sudoers.d/ansible", 1, "^ansible ALL=(ALL) NOPASSWD: ALL$")
 
