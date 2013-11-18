@@ -166,7 +166,7 @@ class TestRemoveUser(Pep8TestCase, FileSystemAssertsMixin):
         try:
             remove_user("doesnt-exist")
         except SudoError as ex:
-            self.fail("User removal triggered return code other than 1")
+            self.fail("User removal triggered unexpected return code")
 
 
 class TestAddUser(Pep8TestCase, FileSystemAssertsMixin):
@@ -182,5 +182,5 @@ class TestAddUser(Pep8TestCase, FileSystemAssertsMixin):
             add_user("already-present")
             add_user("already-present")
         except SudoError as ex:
-            self.fail("Repeated user addition resulted in a return code other than 1")
+            self.fail("Repeated user addition resulted in an unexpected return code")
 
