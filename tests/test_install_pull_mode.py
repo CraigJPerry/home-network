@@ -57,6 +57,10 @@ class TestInstallAsRoot(InstallPullModeTestCases, AnsiblePlayTestCase, PackageAs
         self.play()
         self.assert_file_doesnt_exist("/etc/cron.d/ansible-pull-install")
 
+    def test_only_three_lines_in_file(self):
+        self.play()
+        self.assert_file_contains("/etc/sudoers.d/ansible", 3, "^.+$")
+
     def test_disables_requiretty_for_ansible_sudoers_entry(self):
         self.play()
         self.assert_file_contains("/etc/sudoers.d/ansible", 1, "^Defaults: ansible !requiretty$")
