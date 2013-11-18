@@ -7,17 +7,18 @@ Testing of install-pull-mode playbook.
 """
 
 
+import unittest
 from os.path import join, dirname, pardir
 from tests.framework import AnsiblePlayTestCase, PackageAssertsMixin, remove_package
 from getpass import getuser
 
 
+@unittest.skipUnless(getuser() != "root", "Requires non-root user for accurate testing")
 class TestInstallAsNonRootViaSudo(AnsiblePlayTestCase, PackageAssertsMixin):
 
     PLAYBOOK = join(dirname(__file__), pardir, "install-pull-mode.yml")
 
     def test_case_setup_correctly(self):
-        self.assert_true(getuser() != "root")
         self.assert_file_exists(self.PLAYBOOK)
 
     def test_installs_git(self):
