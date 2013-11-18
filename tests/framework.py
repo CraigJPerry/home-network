@@ -7,15 +7,12 @@ Lightweight library for testing ansible playbooks.
 """
 
 
-import os
-import re
 import unittest
 import subprocess
-from os.path import dirname, join, abspath, pardir, exists, isfile, isdir, islink
-from tempfile import TemporaryFile
+from os.path import dirname, join, abspath, pardir
+from .playbook_testing_framework.mixins import FileSystemAssertsMixin
 
 
-FIXTURES_DIR = abspath(join(dirname(__file__), "fixtures"))
 ROOT_DIR = abspath(join(dirname(__file__), pardir))
 
 
@@ -26,75 +23,6 @@ class Pep8TestCase(unittest.TestCase):
     assert_raises = unittest.TestCase.assertRaises
     assert_true = unittest.TestCase.assertTrue
     assert_in = unittest.TestCase.assertIn
-
-
-class SudoError(Exception):
-    pass
-
-
-def _sudo(cmdline, expected_return_codes=[]):
-    """Run cmdline via sudo.
-
-    Return True if return code 0, False if return code 1. Any other
-    return code raises SudoError"""
-    if not hasattr(cmdline, '__iter__'):
-        cmdline = [cmdline]
-    if not expected_return_codes:
-        expected_return_codes = [1]
-
-    if not os.geteuid() == 0:
-        cmdline = ["/usr/bin/sudo"] + cmdline
-
-    with TemporaryFile() as stdout_stderr:
-        try:
-            return_code = subprocess.check_call(cmdline, stdout=stdout_stderr, stderr=subprocess.STDOUT)
-        except subprocess.CalledProcessError as ex:
-            if ex.returncode in expected_return_codes:
-                return False
-            else:
-                stdout_stderr.seek(0)
-                output = stdout_stderr.read()
-                msg = "Failed to run command [%s] because [%s]" % (
-                        cmdline, output.replace("\n", " "))
-                raise SudoError(msg)
-        else:
-            return True
-
-
-def install_package(package_names):
-    "Yum install package(s)"
-    if not hasattr(package_names, '__iter__'):
-        package_names = [package_names]
-
-    cmdline = ["/usr/bin/yum", "-y", "install"] + package_names
-    return _sudo(cmdline)
-
-
-def remove_package(package_names, force=False):
-    "Return True if uninstalled, False if already uninstalled"
-    if not hasattr(package_names, '__iter__'):
-        package_names = [package_names]
-
-    cmdline = ["/usr/bin/rpm", "-e"] + package_names
-    if force:
-        cmdline.append("--nodeps")
-
-    return _sudo(cmdline)
-
-
-def remove_user(usernames):
-    "Return True if removed, False if wasn't present already"
-    if not hasattr(usernames, '__iter__'):
-        usernames = [usernames]
-
-    cmdline = ["/sbin/userdel"] + usernames
-    return _sudo(cmdline, expected_return_codes = [6])
-
-
-def add_user(username):
-    "Convenience func to add user account"
-    cmdline = ["/sbin/useradd", username]
-    return _sudo(cmdline, expected_return_codes = [4, 9])
 
 
 class AnsiblePlaybookError(Exception):
