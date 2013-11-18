@@ -34,8 +34,7 @@ class InstallPullModeTestCases(object):
 
     def test_repairs_ansible_user(self):
         remove_user("ansible")
-        with open("/etc/passwd", "w") as passwd:
-            passwd.write("ansible:x:996:996:Wrong comment text:/not/ansibles/home:/bin/false\n")
+        add_user("ansible")  # This user entry won't match definition in playbook
         self.play()
         self.assert_file_contains("/etc/passwd", 1, "^ansible:x:[0-9]+:[0-9]+:Ansible Configuration Management:/home/ansible:/bin/bash")
 
@@ -46,12 +45,6 @@ class InstallPullModeTestCases(object):
     def test_enables_sudoers_rule_for_ansible(self):
         self.play()
         self.assert_file_contains("/etc/sudoers.d/ansible", 1, "^ansible ALL=(ALL) NOPASSWD: ALL$")
-
-    def test_removes_installer_cronjob_inserted_by_kickstart(self):
-        with open("/etc/cron.d/ansible-pull-install", "w") as cronjob:
-            cronjob.write("This is just a dummy testing example")
-        self.play()
-        self.assert_file_doesnt_exist("/etc/cron.d/ansible-pull-install")
 
 
 @unittest.skipUnless(getuser() != "root", "Requires non-root user for accurate testing")
@@ -66,4 +59,9 @@ class TestInstallAsRoot(InstallPullModeTestCases, AnsiblePlayTestCase, PackageAs
         self.play()
         self.assert_file_contains("/var/spool/cron/ansible", 1, "^@hourly ansible-pull")
 
+    def test_removes_installer_cronjob_inserted_by_kickstart(self):
+        with open("/etc/cron.d/ansible-pull-install", "w") as cronjob:
+            cronjob.write("This is just a dummy testing example")
+        self.play()
+        self.assert_file_doesnt_exist("/etc/cron.d/ansible-pull-install")
 
