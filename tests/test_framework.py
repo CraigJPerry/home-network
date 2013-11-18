@@ -10,7 +10,7 @@ Testing of the "Ansible Testing Framework" itself.
 import unittest
 from os.path import join
 from StringIO import StringIO
-from tests.framework import FileSystemAssertsMixin, Pep8TestCase, AnsiblePlayTestCase, AnsiblePlaybookError, FIXTURES_DIR, PackageAssertsMixin
+from tests.framework import FileSystemAssertsMixin, Pep8TestCase, AnsiblePlayTestCase, AnsiblePlaybookError, FIXTURES_DIR, PackageAssertsMixin, remove_package
 
 
 class TestFileSystemAssertsMixinExists(Pep8TestCase, FileSystemAssertsMixin):
@@ -114,4 +114,29 @@ class TestPackageAssertsMixinInstalled(Pep8TestCase, PackageAssertsMixin):
 
     def test_raises_when_one_package_not_installed(self):
         self.assert_raises(AssertionError, self.assert_package_installed, ['not-installed', 'bash'])
+
+
+class TestRemovePackage(Pep8TestCase, PackageAssertsMixin):
+
+    PACKAGE = "libtiff"
+    DEPENDENCY = "libtiff-devel"
+
+    def test_can_remove_installed_package(self):
+        install_package(self.PACKAGE)
+        remove_package(self.DEPENDENCY)
+        self.assert_true(remove_package(self.PACKAGE))
+
+    def test_removing_missing_package_does_not_raise(self):
+        remove_package(self.PACKAGE)
+        self.assert_equal(False, remove_package(self.PACKAGE))
+
+    def test_cant_remove_package_with_remaining_dependencies(self):
+        install_package(self.PACKAGE)
+        install_package(self.DEPENDENCY)
+        self.assert_equal(False, remove_package(self.PACKAGE))
+
+    def test_can_force_remove_package_with_remaining_dependencies(self):
+        install_package(self.PACKAGE)
+        install_package(self.DEPENDENCY)
+        self.assert_true(remove_package(self.PACKAGE, force=True))
 
