@@ -134,6 +134,15 @@ def remove_package(package_names, force=False):
     return _sudo(cmdline)
 
 
+def remove_user(usernames):
+    "Return True if removed, False if wasn't present already"
+    if not hasattr(usernames, '__iter__'):
+        usernames = [usernames]
+
+    cmdline = ["/usr/bin/userdel"] + usernames
+    return _sudo(cmdline)
+
+
 class AnsiblePlaybookError(Exception):
     "Any error signaled by ansible-playbook failing to complete normally"
     pass
