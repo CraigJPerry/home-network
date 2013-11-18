@@ -169,3 +169,11 @@ class TestRemoveUser(Pep8TestCase, FileSystemAssertsMixin):
             self.fail("User removal triggered return code other than 1")
 
 
+class TestAddUser(Pep8TestCase, FileSystemAssertsMixin):
+
+    def test_can_add_user(self):
+        remove_user("test-add-user")
+        self.assert_file_doesnt_contain("/etc/passwd", "test-add-user")
+        add_user("test-add-user")
+        self.assert_file_contains("/etc/passwd", 1, "^test-add-user")
+
