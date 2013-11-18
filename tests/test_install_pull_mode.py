@@ -63,5 +63,5 @@ class TestInstallAsRoot(InstallPullModeTestCases, AnsiblePlayTestCase, PackageAs
 
     def test_enables_sudoers_rule_for_ansible(self):
         self.play()
-        self.assert_file_contains("/etc/sudoers.d/ansible", 1, "^ansible ALL=(ALL) NOPASSWD: ALL$")
+        self.assert_file_contains("/etc/sudoers.d/ansible", 1, "^ansible ALL=\(ALL\) NOPASSWD: ALL$")
 
