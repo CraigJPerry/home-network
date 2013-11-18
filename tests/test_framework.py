@@ -10,7 +10,7 @@ Testing of the "Ansible Testing Framework" itself.
 import unittest
 from os.path import join
 from StringIO import StringIO
-from tests.framework import FileSystemAssertsMixin, Pep8TestCase, AnsiblePlayTestCase, AnsiblePlaybookError, FIXTURES_DIR, PackageAssertsMixin, remove_package
+from tests.framework import FileSystemAssertsMixin, Pep8TestCase, AnsiblePlayTestCase, AnsiblePlaybookError, FIXTURES_DIR, PackageAssertsMixin, remove_package, install_package
 
 
 class TestFileSystemAssertsMixinExists(Pep8TestCase, FileSystemAssertsMixin):
@@ -139,4 +139,17 @@ class TestRemovePackage(Pep8TestCase, PackageAssertsMixin):
         install_package(self.PACKAGE)
         install_package(self.DEPENDENCY)
         self.assert_true(remove_package(self.PACKAGE, force=True))
+
+
+class TestInstallPackage(Pep8TestCase, PackageAssertsMixin):
+
+    PACKAGE = "libtiff"
+
+    def test_can_install_package(self):
+        install_package(self.PACKAGE)
+        self.assert_package_installed(self.PACKAGE)
+
+    def test_installing_already_installed_does_not_raise(self):
+        install_package(self.PACKAGE)
+        self.assert_equal(True, install_package(self.PACKAGE))
 
