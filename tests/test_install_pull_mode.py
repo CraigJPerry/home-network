@@ -30,14 +30,14 @@ class InstallPullModeTestCases(object):
         remove_user("ansible")
         self.assert_file_doesnt_contain("/etc/passwd", "^ansible")
         self.play()
-        self.assert_file_contains("/etc/passwd", "^ansible:x:[0-9]+:[0-9]+:Ansible Configuration Management:/home/ansible:/bin/bash")
+        self.assert_file_contains("/etc/passwd", 1, "^ansible:x:[0-9]+:[0-9]+:Ansible Configuration Management:/home/ansible:/bin/bash")
 
     def test_repairs_ansible_user(self):
         remove_user("ansible")
         with open("/etc/passwd", "w") as passwd:
             passwd.write("ansible:x:996:996:Wrong comment text:/not/ansibles/home:/bin/false\n")
         self.play()
-        self.assert_file_contains("/etc/passwd", "^ansible:x:[0-9]+:[0-9]+:Ansible Configuration Management:/home/ansible:/bin/bash")
+        self.assert_file_contains("/etc/passwd", 1, "^ansible:x:[0-9]+:[0-9]+:Ansible Configuration Management:/home/ansible:/bin/bash")
 
     def test_disables_requiretty_for_ansible_sudoers_entry(self):
         self.play()
