@@ -88,13 +88,15 @@ class SudoError(Exception):
     pass
 
 
-def _sudo(cmdline):
+def _sudo(cmdline, expected_return_codes=[]):
     """Run cmdline via sudo.
 
     Return True if return code 0, False if return code 1. Any other
     return code raises SudoError"""
     if not hasattr(cmdline, '__iter__'):
         cmdline = [cmdline]
+    if not expected_return_codes:
+        expected_return_codes = [1]
 
     if not os.geteuid() == 0:
         cmdline = ["/usr/bin/sudo"] + cmdline
@@ -103,7 +105,7 @@ def _sudo(cmdline):
         try:
             return_code = subprocess.check_call(cmdline, stdout=stdout_stderr, stderr=subprocess.STDOUT)
         except subprocess.CalledProcessError as ex:
-            if ex.returncode == 1:
+            if ex.returncode in expected_return_codes:
                 return False
             else:
                 stdout_stderr.seek(0)
@@ -142,7 +144,7 @@ def remove_user(usernames):
         usernames = [usernames]
 
     cmdline = ["/sbin/userdel"] + usernames
-    return _sudo(cmdline)
+    return _sudo(cmdline, expected_return_codes = [6])
 
 
 def add_user(username):

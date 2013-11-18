@@ -10,7 +10,7 @@ Testing of the "Ansible Testing Framework" itself.
 import unittest
 from os.path import join
 from StringIO import StringIO
-from tests.framework import FileSystemAssertsMixin, Pep8TestCase, AnsiblePlayTestCase, AnsiblePlaybookError, FIXTURES_DIR, PackageAssertsMixin, remove_package, install_package, remove_user, add_user
+from tests.framework import FileSystemAssertsMixin, Pep8TestCase, AnsiblePlayTestCase, AnsiblePlaybookError, FIXTURES_DIR, PackageAssertsMixin, remove_package, install_package, remove_user, add_user, SudoError
 
 
 class TestFileSystemAssertsMixinExists(Pep8TestCase, FileSystemAssertsMixin):
@@ -161,5 +161,11 @@ class TestRemoveUser(Pep8TestCase, FileSystemAssertsMixin):
         self.assert_file_contains("/etc/passwd", 1, "^testingremoval")
         remove_user("testingremoval")
         self.assert_file_doesnt_contain("/etc/passwd", "^testingremoval")
+
+    def test_removing_non_existant_user_does_not_raise_exception(self):
+        try:
+            remove_user("doesnt-exist")
+        except SudoError as ex:
+            self.fail("User removal triggered return code other than 1")
 
 
