@@ -32,6 +32,13 @@ class InstallPullModeTestCases(object):
         self.play()
         self.assert_file_contains("/etc/passwd", "^ansible:x:[0-9]+:[0-9]+:Ansible Configuration Management:/home/ansible:/bin/bash")
 
+    def test_repairs_ansible_user(self):
+        remove_user("ansible")
+        with open("/etc/passwd", "w") as passwd:
+            passwd.write("ansible:x:996:996:Wrong comment text:/not/ansibles/home:/bin/false\n")
+        self.play()
+        self.assert_file_contains("/etc/passwd", "^ansible:x:[0-9]+:[0-9]+:Ansible Configuration Management:/home/ansible:/bin/bash")
+
 
 @unittest.skipUnless(getuser() != "root", "Requires non-root user for accurate testing")
 class TestInstallAsNonRootViaSudo(InstallPullModeTestCases, AnsiblePlayTestCase, PackageAssertsMixin):
