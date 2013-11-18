@@ -14,7 +14,7 @@ from tests.playbook_testing_framework.mixins import FileSystemAssertsMixin
 
 class TestAnsiblePlayTestCaseContract(AnsiblePlayTestCase, FileSystemAssertsMixin):
 
-    PLAYBOOK = abspath(join(dirname(__file__), "TestAnsiblePlayTestCase.yml"))
+    PLAYBOOK = abspath(join(dirname(__file__), "fixtures", "TestAnsiblePlayTestCase.yml"))
 
     def test_can_invoke_playbook(self):
         output = self.play()
