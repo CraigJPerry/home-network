@@ -9,7 +9,7 @@ Testing of install-pull-mode playbook.
 
 import unittest
 from os.path import join, dirname, pardir
-from tests.framework import AnsiblePlayTestCase, PackageAssertsMixin, remove_package, remove_user
+from tests.framework import AnsiblePlayTestCase, PackageAssertsMixin, remove_package, remove_user, add_user
 from getpass import getuser
 
 
