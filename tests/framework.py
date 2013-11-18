@@ -7,10 +7,12 @@ Lightweight library for testing ansible playbooks.
 """
 
 
+import os
 import re
 import unittest
 import subprocess
 from os.path import dirname, join, abspath, pardir, exists, isfile, isdir, islink
+from tempfile import TemporaryFile
 
 
 FIXTURES_DIR = abspath(join(dirname(__file__), "fixtures"))
@@ -55,6 +57,100 @@ class FileSystemAssertsMixin(object):
     def assert_file_doesnt_contain(self, filepath, regex):
         "Check if filepath has 0 occurences of regex"
         return self.assert_file_contains(filepath, 0, regex)
+
+
+class PackageAssertsMixin(object):
+    "TestCase mixin giving assertions about the system packaging DB"
+
+    def assert_package_not_installed(self, package_names):
+        "Check if a package, or list of packages, are not installed"
+        if not hasattr(package_names, '__iter__'):
+            package_names = [package_names]
+
+        for pkg in package_names:
+            self.assert_true(not self._rpm_installed(pkg))
+
+    def assert_package_installed(self, package_names):
+        "Check if a package, or list of packages, are installed"
+
+        if not hasattr(package_names, '__iter__'):
+            package_names = [package_names]
+
+        for pkg in package_names:
+            self.assert_true(self._rpm_installed(pkg))
+
+    def _rpm_installed(self, package_name):
+        cmdline = ["/usr/bin/rpm", "-q", package_name]
+        return _sudo(cmdline)
+
+
+class SudoError(Exception):
+    pass
+
+
+def _sudo(cmdline, expected_return_codes=[]):
+    """Run cmdline via sudo.
+
+    Return True if return code 0, False if return code 1. Any other
+    return code raises SudoError"""
+    if not hasattr(cmdline, '__iter__'):
+        cmdline = [cmdline]
+    if not expected_return_codes:
+        expected_return_codes = [1]
+
+    if not os.geteuid() == 0:
+        cmdline = ["/usr/bin/sudo"] + cmdline
+
+    with TemporaryFile() as stdout_stderr:
+        try:
+            return_code = subprocess.check_call(cmdline, stdout=stdout_stderr, stderr=subprocess.STDOUT)
+        except subprocess.CalledProcessError as ex:
+            if ex.returncode in expected_return_codes:
+                return False
+            else:
+                stdout_stderr.seek(0)
+                output = stdout_stderr.read()
+                msg = "Failed to run command [%s] because [%s]" % (
+                        cmdline, output.replace("\n", " "))
+                raise SudoError(msg)
+        else:
+            return True
+
+
+def install_package(package_names):
+    "Yum install package(s)"
+    if not hasattr(package_names, '__iter__'):
+        package_names = [package_names]
+
+    cmdline = ["/usr/bin/yum", "-y", "install"] + package_names
+    return _sudo(cmdline)
+
+
+def remove_package(package_names, force=False):
+    "Return True if uninstalled, False if already uninstalled"
+    if not hasattr(package_names, '__iter__'):
+        package_names = [package_names]
+
+    cmdline = ["/usr/bin/rpm", "-e"] + package_names
+    if force:
+        cmdline.append("--nodeps")
+
+    return _sudo(cmdline)
+
+
+def remove_user(usernames):
+    "Return True if removed, False if wasn't present already"
+    if not hasattr(usernames, '__iter__'):
+        usernames = [usernames]
+
+    cmdline = ["/sbin/userdel"] + usernames
+    return _sudo(cmdline, expected_return_codes = [6])
+
+
+def add_user(username):
+    "Convenience func to add user account"
+    cmdline = ["/sbin/useradd", username]
+    return _sudo(cmdline, expected_return_codes = [4, 9])
 
 
 class AnsiblePlaybookError(Exception):
