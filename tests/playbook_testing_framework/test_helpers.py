@@ -7,10 +7,9 @@ Testing of the "Ansible Testing Framework" itself.
 """
 
 
-import unittest
-from os.path import join
-from StringIO import StringIO
-from tests.framework import FileSystemAssertsMixin, Pep8TestCase, AnsiblePlayTestCase, AnsiblePlaybookError, FIXTURES_DIR, PackageAssertsMixin, remove_package, install_package, remove_user, add_user, SudoError
+from tests.playbook_testing_framework import Pep8TestCase
+from tests.playbook_testing_framework.mixins import FileSystemAssertsMixin, PackageAssertsMixin
+from tests.playbook_testing_framework.helpers import remove_package, install_package, remove_user, add_user, SudoError
 
 
 class TestRemovePackage(Pep8TestCase, PackageAssertsMixin):
