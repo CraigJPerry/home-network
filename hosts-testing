@@ -1,6 +1,9 @@
 # Same groups as hosts-production, but members replaced with test VM's IP
 # address. See tests/Vagrantfile for VM details.
 
+[vagrant]
+10.78.19.84
+
 [testcasehost]
 10.78.19.84
 

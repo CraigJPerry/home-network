@@ -3,7 +3,7 @@
 # Provision a vanilla VM with all requirements for running the
 # playbook test cases under tests/ dir.
 
-- hosts: testcasehost
+- hosts: vagrant
   sudo: yes
   roles:
     - ansible_install
