@@ -2,12 +2,6 @@
 
 # Install ansible in pull mode
 
-- name: Install ansible and dependencies
-  yum: state=latest pkg=$item
-  with_items:
-    - git
-    - ansible
-
 - name: Create ansible user
   user: state="present" name="ansible" system="yes" createhome="yes" generate_ssh_key="yes" comment="Ansible Configuration Management"
 
