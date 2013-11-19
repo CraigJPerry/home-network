@@ -15,7 +15,7 @@ from tests.playbook_testing_framework.helpers import remove_package
 
 class TestInstallVagrantVM(AnsiblePlayTestCase, PackageAssertsMixin):
 
-    PLAYBOOK = abspath(join(dirname(__file__), pardir, "install_vagrant_test_vm.yml"))
+    PLAYBOOK = abspath(join(dirname(__file__), pardir, "install-vagrant-test-vm.yml"))
 
     def test_case_setup_correctly(self):
         self.assert_file_exists(self.PLAYBOOK)
