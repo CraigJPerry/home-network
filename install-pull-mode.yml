@@ -18,12 +18,12 @@
   sudo: no
   roles:
 
-    - bootstrap
+    - ansible_pull
 
 - hosts: '!user_root'
   gather_facts: no
   sudo: yes
   roles:
 
-    - bootstrap
+    - ansible_pull
 
