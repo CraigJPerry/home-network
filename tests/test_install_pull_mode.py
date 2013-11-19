@@ -15,7 +15,7 @@ from tests.playbook_testing_framework.mixins import PackageAssertsMixin, FileSys
 from tests.playbook_testing_framework.helpers import remove_package, remove_user, add_user
 
 
-class InstallPullModeTestCases(object, PackageAssertsMixin, FileSystemAssertsMixin):
+class InstallPullModeTestCases(PackageAssertsMixin, FileSystemAssertsMixin):
 
     PLAYBOOK = abspath(join(dirname(__file__), pardir, "install-pull-mode.yml"))
 
@@ -42,12 +42,12 @@ class InstallPullModeTestCases(object, PackageAssertsMixin, FileSystemAssertsMix
 
 
 @unittest.skipUnless(getuser() != "root", "Requires non-root user for accurate testing")
-class TestInstallAsNonRootViaSudo(AnsiblePlayTestCase, InstallPullModeTestCases):
+class TestInstallAsNonRootViaSudo(InstallPullModeTestCases, AnsiblePlayTestCase):
     pass
 
 
 @unittest.skipUnless(getuser() == "root", "Requires root user for accurate testing")
-class TestInstallAsRoot(AnsiblePlayTestCase, InstallPullModeTestCases):
+class TestInstallAsRoot(InstallPullModeTestCases, AnsiblePlayTestCase):
 
     def test_creates_ansible_pull_crontab_entry(self):
         self.play()
