@@ -1,7 +1,13 @@
 ---
 
-# Install ansible in pull mode. When running as root, do not use
-# sudo as it fails when !requiretty is set in sudoers Defaults
+# Install ansible in pull mode.
+#
+# Designed to be run, unchanged:
+#   * From a remote host, SSHing into an account with sudo privs
+#   * From a remote host, SSHing into the root account
+#   * Via the %post section of a kickstart automated install file
+#   * Locally from the console as either root, or a user with sudo
+#
 
 - hosts: install-pull-mode
   tasks:
