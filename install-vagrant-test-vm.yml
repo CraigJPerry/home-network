@@ -1,0 +1,10 @@
+---
+
+# Provision a vanilla VM with all requirements for running the
+# playbook test cases under tests/ dir.
+
+- hosts: testcasehost
+  sudo: yes
+  roles:
+    - ansible_install
+
