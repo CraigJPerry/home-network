@@ -9,11 +9,11 @@ Testing of install vagrant test vm playbook.
 
 from os.path import abspath, join, dirname, pardir
 from tests.playbook_testing_framework import AnsiblePlayTestCase
-from tests.playbook_testing_framework.mixins import PackageAssertsMixin
+from tests.playbook_testing_framework.mixins import PackageAssertsMixin, FileSystemAssertsMixin
 from tests.playbook_testing_framework.helpers import remove_package
 
 
-class TestInstallVagrantVM(AnsiblePlayTestCase, PackageAssertsMixin):
+class TestInstallVagrantVM(AnsiblePlayTestCase, PackageAssertsMixin, FileSystemAssertsMixin):
 
     PLAYBOOK = abspath(join(dirname(__file__), pardir, "install-vagrant-test-vm.yml"))
 
