@@ -3,5 +3,5 @@
 # Ensure ansible & dependencies are pre-installed
 
 dependencies:
-  - { role: ansible_install }
+  - { role: ansible }
 
