@@ -26,3 +26,7 @@ class TestInstallVagrantVM(AnsiblePlayTestCase, PackageAssertsMixin, FileSystemA
         self.play()
         self.assert_package_installed("git")
 
+    def test_inserts_hostname_alias_in_hosts_file(self):
+        self.play()
+        self.assert_file_contains("/etc/hosts", 1, "127.0.0.1.*vagrant-fedora-19")
+
