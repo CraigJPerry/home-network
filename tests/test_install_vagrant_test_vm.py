@@ -30,3 +30,7 @@ class TestInstallVagrantVM(AnsiblePlayTestCase, PackageAssertsMixin, FileSystemA
         self.play()
         self.assert_file_contains("/etc/hosts", 1, "127.0.0.1.*vagrant-fedora-19")
 
+    def test_inserts_motd(self):
+        self.play()
+        self.assert_file_contains("/etc/motd", 1, "^To run all tests")
+
