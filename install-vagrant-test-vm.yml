@@ -12,7 +12,7 @@
 
   tasks:
 
-    - name: Add vm name alias to loopback, dnsdomainname delays ansible gather_facts without
-      lineinfile: state="present" dest="/etc/hosts" regexp="^127.0.0.1" line="127.0.0.1 localhost localhost.localdomain localhost4 localhost4.localdomain4 vagrant-fedora-19"
-
+    - name: Add vm name alias to loopback
+      # dnsdomainname delays ansible gather_facts without this
+      lineinfile: state="present" dest="/etc/hosts" regexp="^127.0.0.1" line="127.0.0.1 localhost localhost.localdomain localhost4 localhost4.localdomain4 vagrant-fedora-19 vagrant-fedora-19.vagrantup.com"
 
