@@ -8,7 +8,7 @@
 
   roles:
 
-    - ansible
+    - install_ansible
 
   tasks:
 
