@@ -8,5 +8,5 @@
 
   roles:
     - common
-    - ansible_pull
+    - install_ansible_pull
 
