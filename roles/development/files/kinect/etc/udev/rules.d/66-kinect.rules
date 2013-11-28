@@ -1,4 +1,0 @@
-ATTR{idVendor}=="045e", ATTR{idProduct}=="02ae", MODE="0660",GROUP="video"
-ATTR{idVendor}=="045e", ATTR{idProduct}=="02ad", MODE="0660",GROUP="video"
-ATTR{idVendor}=="045e", ATTR{idProduct}=="02b0", MODE="0660",GROUP="video"
-
