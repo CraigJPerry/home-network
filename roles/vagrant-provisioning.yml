@@ -1,0 +1,23 @@
+---
+
+# Provision a vanilla VM with all requirements for running the
+# test cases under tests/ dir.
+
+- hosts: vagrant
+  sudo: yes
+
+  roles:
+
+    - install_ansible
+
+  tasks:
+
+    - name: Update MOTD with tests message
+      lineinfile: state="present" dest="/etc/motd" regexp="^To run all tests" line="To run all tests:"
+
+    - name: Update MOTD with cd command
+      lineinfile: state="present" dest="/etc/motd" regexp="^    . cd" line="    $ cd /vagrant"
+
+    - name: Update MOTD with test command
+      lineinfile: state="present" dest="/etc/motd" regexp="^    . sudo" line="    $ sudo python -m unittest discover"
+

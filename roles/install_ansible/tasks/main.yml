@@ -1,0 +1,10 @@
+---
+
+# Install ansible and dependencies
+
+- name: Install ansible and dependencies
+  yum: state=latest pkg=$item
+  with_items:
+    - git
+    - ansible
+
