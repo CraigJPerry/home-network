@@ -4,9 +4,21 @@
 # keyboard & screen attached.
 
 - hosts: desktops
-  sudo: yes
+  tasks:
+    - group_by: key=user_{{ ansible_user_id }}
 
+# First run, ansible user not yet created
+- hosts: user_root
+  gather_facts: no
+  sudo: no
   roles:
-    - common
     - install_ansible_pull
+
+- hosts: '!user_root'
+  gather_facts: no
+  sudo: yes
+  roles:
+    # Included to maintain the ansible pull setup
+    - install_ansible_pull
+    - common
 
