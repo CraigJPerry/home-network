@@ -1,0 +1,8 @@
+---
+
+# Install ansible.
+
+- hosts: install_ansible_hosts
+  roles:
+    - install_ansible
+
