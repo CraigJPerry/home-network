@@ -1,0 +1,11 @@
+---
+
+# Network configuration for LAN
+
+- name: Zeroconf (bonjour) network name services & diag tools
+  yum: pkg={{ item }} state=latest
+  sudo: yes
+  with_items:
+    - nss-mdns
+    - avahi-tools
+
