@@ -20,6 +20,7 @@
     # Included to maintain the ansible pull setup
     - install_ansible_pull
     - common
+    - hardware
     - lan
     - gnome_desktop
 
