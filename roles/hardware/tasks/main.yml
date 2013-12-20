@@ -14,4 +14,5 @@
 
 - include: kinect.yml
 - include: logic_analyser.yml
+- include: bus_pirate.yml
 

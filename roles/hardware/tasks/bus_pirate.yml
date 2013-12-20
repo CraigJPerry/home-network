@@ -1,0 +1,5 @@
+---
+
+- name: Serial terminal software
+  yum: state=latest pkg=moserial
+
