@@ -1,0 +1,20 @@
+---
+
+# LAN user accounts
+
+- name: Create role specific user accounts
+  user: state="present" name="{{ username }}" createhome="yes" password="$6$w0hK n31w$RxjfrTssYs/F0Q7lwPtDVFA1cJftAVaP3MiMUxEwZqFTijEIfBqdhVdW6Gj3fAjHcnUT1yR1zTEw.EbBYhMp61"
+  with_items:
+    - craig
+    - monika
+    - photo
+    - dev
+    - presenter
+
+- name: Add warning comment to craig sudoers file
+  lineinfile: state="present" dest="/etc/sudoers.d/craig" create="yes" insertbefore="BOF" regexp="^#" line="## Automatically Managed by Ansible, Manual Changes Will Be Lost!"
+
+- name: Allow craig full sudo privs
+  # NB: Full line in quotes due to : char, see ansible YAML disclaimer
+  lineinfile: 'state="present" dest="/etc/sudoers.d/craig" create="yes" regexp="^craig" line="craig ALL=(ALL) NOPASSWD: ALL"'
+
