@@ -1,0 +1,8 @@
+---
+
+- name: Install Arduino
+  yum: pkg=$item state=latest
+  with_items:
+    - arduino
+    - arduino-doc
+
