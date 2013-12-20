@@ -3,7 +3,7 @@
 # LAN user accounts
 
 - name: Create role specific user accounts
-  user: state="present" name="{{ username }}" createhome="yes" password="$6$w0hK n31w$RxjfrTssYs/F0Q7lwPtDVFA1cJftAVaP3MiMUxEwZqFTijEIfBqdhVdW6Gj3fAjHcnUT1yR1zTEw.EbBYhMp61"
+  user: state="present" name="{{ item }}" createhome="yes" password="$6$w0hK n31w$RxjfrTssYs/F0Q7lwPtDVFA1cJftAVaP3MiMUxEwZqFTijEIfBqdhVdW6Gj3fAjHcnUT1yR1zTEw.EbBYhMp61"
   with_items:
     - craig
     - monika
