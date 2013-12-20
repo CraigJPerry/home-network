@@ -1,6 +1,7 @@
 ---
 
 # Install Latest NVIDIA Graphics Driver
+#   ansible-playbook -c local -i localhost, nvidia.yml
 
 - hosts: localhost
 
