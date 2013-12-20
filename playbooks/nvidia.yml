@@ -32,6 +32,7 @@
       - libva-vdpau-driver
       - libva-utils
       - wget
+      - grub2-starfield-theme
     when: nvidia_vga_present.rc == 0
 
   - name: Ensure normal kernel is present
@@ -94,6 +95,7 @@
 
   - name: set grub gfxterm
     shell: 'sed -i "s/^GRUB_TERMINAL_OUTPUT=\"console\"$/GRUB_TERMINAL_OUTPUT=\"gfxterm\"/" /etc/sysconfig/grub'
+# TODO: set starfield theme
 
   - name: rebuild grub config
     shell: 'grub2-mkconfig -o /boot/grub2/grub.cfg'
