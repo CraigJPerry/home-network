@@ -1,10 +1,2 @@
-[desktops]
-d1.local
-
-[virtual-machines]
-v1.local
-
-[pull-mode:children]
-desktops
-virtual-machines
+localhost
 

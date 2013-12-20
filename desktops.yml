@@ -1,8 +1,0 @@
----
-
-- hosts: desktops
-  sudo: yes
-  roles:
-    - gnome_desktop
-    - lan
-

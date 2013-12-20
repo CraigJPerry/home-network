@@ -2,6 +2,24 @@
 
 # Craig J Perry's home-network
 
-- include: all.yml
-- include: desktops.yml
+- hosts: localhost
+  tasks:
+    - group_by: key=user_{{ ansible_user_id }}
+
+# First run, ansible user not yet created
+- hosts: user_root
+  gather_facts: no
+  sudo: no
+  roles:
+    - install_ansible_pull
+
+- hosts: '!user_root'
+  gather_facts: no
+  sudo: yes
+  roles:
+    # Included to maintain the ansible pull setup
+    - install_ansible_pull
+    - common
+    - lan
+    - gnome_desktop
 
