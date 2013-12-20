@@ -82,7 +82,7 @@
       - rebuild grub config
       - enable plymouth graphical boot theme
       - reboot to graphical
-    when: nouveau_loaded.rc != 0 and nvidia_loaded.rc != 0
+    when: nvidia_vga_present.rc == 0 and nouveau_loaded.rc != 0 and nvidia_loaded.rc != 0
 
   handlers:
 
