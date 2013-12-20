@@ -1,0 +1,6 @@
+---
+
+# Hardware specific configuration
+
+- include: nvidia.yml
+
