@@ -1,6 +1,6 @@
 ---
 
-- hosts: all
+- hosts: pull-mode
   tasks:
     - group_by: key=user_{{ ansible_user_id }}
 

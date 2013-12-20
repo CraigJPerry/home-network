@@ -3,4 +3,5 @@
 # Craig J Perry's home-network
 
 - include: all.yml
+- include: desktops.yml
 
