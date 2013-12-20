@@ -1,0 +1,8 @@
+---
+
+# Install ansible.
+
+- hosts: gnome_desktop
+  roles:
+    - install_gnome
+
