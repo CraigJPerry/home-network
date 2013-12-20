@@ -3,7 +3,7 @@
 # Common tasks for all roles
 
 - name: Zeroconf (bonjour) network name services & diag tools
-  yum: pkg=$item state=latest
+  yum: pkg={{ item }} state=latest
   sudo: yes
   with_items:
     - nss-mdns
