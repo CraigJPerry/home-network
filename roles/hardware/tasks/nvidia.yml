@@ -1,0 +1,23 @@
+---
+
+# NVIDIA Graphics Driver
+
+- name: Has NVIDIA VGA Card
+  shell: '/usr/sbin/lspci | /usr/bin/grep -i "vga.*nvidia"'
+  register: nvidia_vga
+  ignore_errors: yes
+
+- name: Detected NVIDIA VGA Adapter
+  debug: "Detected NVIDIA VGA Adapter"
+  when: nvidia_vga.rc == 0
+
+- name: Has nouveau driver loaded
+  shell: '/usr/sbin/lspci | /usr/bin/grep nouveau'
+  register: nouveau_present
+  ignore_errors: yes
+  when: nvidia_vga.rc == 0
+
+- name: Detected nouveau driver
+  debug: "Detected nouveau driver"
+  when: nouveau_present.rc == 0
+
