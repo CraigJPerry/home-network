@@ -59,7 +59,7 @@
     when: nouveau_loaded.rc == 0
 
   - name: Report latest version
-    debug: msg="Latest NVIDIA Driver Version: {{ latest_version.stdout }}"
+    debug: msg="Latest NVIDIA Driver Version is {{ latest_version.stdout }}"
     when: latest_version is defined
 
   - name: Download latest driver
