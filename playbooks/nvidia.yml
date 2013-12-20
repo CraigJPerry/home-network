@@ -1,0 +1,96 @@
+---
+
+# Install Latest NVIDIA Graphics Driver
+
+- hosts: localhost
+
+  tasks:
+
+  - name: Check if any NVIDIA VGA Card is Present
+    shell: '/usr/sbin/lspci | /usr/bin/grep -i "vga.*nvidia"'
+    ignore_errors: yes
+    register: nvidia_vga_present
+
+  - name: Check if the nouveau driver is loaded
+    shell: '/usr/sbin/lsmod | /usr/bin/grep nouveau'
+    ignore_errors: yes
+    register: nouveau_loaded
+    when: nvidia_vga_present.rc == 0
+
+  - name: Check if the nvidia driver is loaded
+    shell: '/usr/sbin/lsmod | /usr/bin/grep nvidia'
+    ignore_errors: yes
+    register: nvidia_loaded
+    when: nvidia_vga_present.rc == 0
+
+  - name: Ensure normal kernel is present
+    yum: state=latest pkg={{ item }}
+    with_items:
+      - kernel
+      - kernel-devel
+      - kernel-modules-extra
+    notify:
+      - reboot to multi user
+    when: nvidia_vga_present.rc == 0
+
+  - name: Ensure incompatible debug kernel is removed
+    yum: state=absent pkg={{ item }}
+    with_items:
+      - kernel-debug
+      - kernel-debug-devel
+      - kernel-debug-modules-extra
+    notify:
+      - reboot to multi user
+    when: nvidia_vga_present.rc == 0
+
+  - name: Ensure dependencies and tools are present
+    yum: state=latest pkg={{ item }}
+    with_items:
+      - dkms
+      - vdpauinfo
+      - libva-vdpau-driver
+      - libva-utils
+      - wget
+    when: nvidia_vga_present.rc == 0
+
+  - name: Find latest nvidia driver version
+    shell: 'wget ftp://download.nvidia.com/XFree86/Linux-x86_64/latest.txt -qO- | cut -f2 -d" "'
+    register: latest_version
+    when: nouveau_loaded.rc == 0
+
+  - name: Report latest version
+    debug: msg="Latest NVIDIA Driver Version: {{ latest_version.stdout }}"
+    when: latest_version is defined
+
+  - name: Download latest driver
+    get_url: url="ftp://download.nvidia.com/XFree86/Linux-x86_64/{{ latest_version.stdout }}" dest="/var/tmp/latest-nvidia-driver.run" mode=0755
+    when: latest_version is defined
+
+  - name: Run to configure nouveau blacklist
+    shell: '/var/tmp/latest-nvidia-driver.run -sX'
+    ignore_errors: yes
+    notify:
+      - rebuild initramfs
+      - reboot to multi user
+    when: latest_version is defined
+
+  - name: Run to install nvidia driver
+    shell: '/var/tmp/latest-nvidia-driver.run -sX'
+    notify:
+      - reboot to graphical
+    when: nouveau_loaded.rc != 0 and nvidia_loaded != 0
+
+  handlers:
+
+  - name: reboot to multi user
+    shell: 'ln -sf /usr/lib/systemd/system/multi-user.target /etc/systemd/system/default.target && /usr/sbin/reboot'
+
+  - name: reboot to graphical
+    shell: 'ln -sf /usr/lib/systemd/system/graphical.target /etc/systemd/system/default.target && /usr/sbin/reboot'
+
+  - name: rebuild initramfs
+    shell: 'dracut -f'
+
+# TODO: install a reboot hook along with system updates
+# TODO: 32 bit libs: xorg-x11-drv-nvidia-libs.i686?
+
