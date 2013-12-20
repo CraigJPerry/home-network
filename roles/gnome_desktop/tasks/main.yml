@@ -5,5 +5,5 @@
 - name: Install ansible and dependencies
   yum: state=latest pkg=$item
   with_items:
-    - @gnome-desktop-environment
+    - '@gnome-desktop-environment'
 
