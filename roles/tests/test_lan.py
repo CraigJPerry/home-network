@@ -2,7 +2,7 @@
 
 
 """
-Testing of common role.
+Testing of lan role.
    Craig J Perry <craigp84@gmail.com>
 """
 
@@ -14,9 +14,9 @@ from .framework.mixins import PackageAssertsMixin, FileSystemAssertsMixin
 from .framework.helpers import remove_package
 
 
-class Common(AnsiblePlayTestCase, PackageAssertsMixin, FileSystemAssertsMixin):
+class Network(AnsiblePlayTestCase, PackageAssertsMixin, FileSystemAssertsMixin):
 
-    PLAYBOOK = join(AnsiblePlayTestCase.FIXTURES_DIR, "common.yml")
+    PLAYBOOK = join(AnsiblePlayTestCase.FIXTURES_DIR, "lan.yml")
 
     def test_setup_correctly(self):
         self.assert_file_exists(self.PLAYBOOK)
@@ -32,6 +32,14 @@ class Common(AnsiblePlayTestCase, PackageAssertsMixin, FileSystemAssertsMixin):
         self.assert_package_not_installed("avahi-tools")
         self.play()
         self.assert_package_installed("avahi-tools")
+
+
+class Users(AnsiblePlayTestCase, PackageAssertsMixin, FileSystemAssertsMixin):
+
+    PLAYBOOK = join(AnsiblePlayTestCase.FIXTURES_DIR, "lan.yml")
+
+    def test_setup_correctly(self):
+        self.assert_file_exists(self.PLAYBOOK)
 
 
 if __name__ == "__main__":

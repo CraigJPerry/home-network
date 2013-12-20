@@ -1,8 +1,0 @@
----
-
-# Common Role.
-
-- hosts: common_hosts
-  roles:
-    - common
-

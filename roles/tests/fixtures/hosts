@@ -1,4 +1,4 @@
-[common_hosts]
+[lan_hosts]
 10.78.19.84
 
 [install_ansible_hosts]
