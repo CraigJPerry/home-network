@@ -13,4 +13,5 @@
 # USB Devices
 
 - include: kinect.yml
+- include: logic_analyser.yml
 
