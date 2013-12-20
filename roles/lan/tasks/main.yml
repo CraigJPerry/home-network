@@ -1,0 +1,6 @@
+---
+
+# LAN specific configuration
+
+- include: network.yml
+
