@@ -23,6 +23,16 @@
     register: nvidia_loaded
     when: nvidia_vga_present.rc == 0
 
+  - name: Ensure dependencies and tools are present
+    yum: state=latest pkg={{ item }}
+    with_items:
+      - dkms
+      - vdpauinfo
+      - libva-vdpau-driver
+      - libva-utils
+      - wget
+    when: nvidia_vga_present.rc == 0
+
   - name: Ensure normal kernel is present
     yum: state=latest pkg={{ item }}
     with_items:
@@ -41,16 +51,6 @@
       - kernel-debug-modules-extra
     notify:
       - reboot to multi user
-    when: nvidia_vga_present.rc == 0
-
-  - name: Ensure dependencies and tools are present
-    yum: state=latest pkg={{ item }}
-    with_items:
-      - dkms
-      - vdpauinfo
-      - libva-vdpau-driver
-      - libva-utils
-      - wget
     when: nvidia_vga_present.rc == 0
 
   - name: Find latest nvidia driver version
@@ -77,6 +77,9 @@
   - name: Run to install nvidia driver
     shell: '/var/tmp/latest-nvidia-driver.run --silent --run-nvidia-xconfig'
     notify:
+      - set grub gfxterm
+      - rebuild grub config
+      - enable plymouth graphical boot theme
       - reboot to graphical
     when: nouveau_loaded.rc != 0 and nvidia_loaded.rc != 0
 
@@ -87,6 +90,15 @@
 
   - name: reboot to multi user
     shell: 'ln -sf /usr/lib/systemd/system/multi-user.target /etc/systemd/system/default.target && /usr/sbin/reboot'
+
+  - name: set grub gfxterm
+    shell: 'sed -i "s/^GRUB_TERMINAL_OUTPUT=\"console\"$/GRUB_TERMINAL_OUTPUT=\"gfxterm\"/" /etc/sysconfig/grub'
+
+  - name: rebuild grub config
+    shell: 'grub2-mkconfig -o /boot/grub2/grub.cfg'
+
+  - name: enable plymouth graphical boot theme
+    shell: plymouth-set-default-theme charge --rebuild-initrd
 
   - name: reboot to graphical
     shell: 'ln -sf /usr/lib/systemd/system/graphical.target /etc/systemd/system/default.target && /usr/sbin/reboot'
