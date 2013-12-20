@@ -3,7 +3,7 @@
 # Install GNOME desktop environment & customisations
 
 - name: Install ansible and dependencies
-  yum: state=latest pkg=$item
+  yum: state=latest pkg={{ item }}
   with_items:
     - '@gnome-desktop-environment'
 
