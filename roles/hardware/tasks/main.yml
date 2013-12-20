@@ -1,0 +1,12 @@
+---
+
+# Hardware setup and support
+
+- name: Check if any NVIDIA VGA Card is Present
+  shell: '/usr/sbin/lspci | /usr/bin/grep -i "vga.*nvidia"'
+  ignore_errors: yes
+  register: nvidia_vga_present
+
+- include: nvidia.yml
+  when: nvidia_vga_present.rc == 0
+
