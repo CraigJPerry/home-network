@@ -1,48 +1,18 @@
 ---
 
-- name: Install Freenect Dependencies
+- name: Install Freenect
   yum: state=latest pkg={{ item }}
   with_items:
-    - cmake
-    - opencv-devel
-    - gcc-c++
-    - libXi-devel
-    - libXmu-devel
-    - freeglut-devel
-    - libusb-devel
-    - libusbx-devel
+    - libfreenect-devel
+    - libfreenect-opencv
 
 - name: Install Kinect Python Binding Dependencies
   yum: state=latest pkg={{ item }}
   with_items:
-    - python-devel
+    - libfreenect-python
+    - opencv-python
     - Cython
     - numpy
-    - opencv-python
-
-- name: Clone Freenect Library Source
-  git: repo=git://github.com/OpenKinect/libfreenect.git dest=/usr/local/src/libfreenect
-
-# TODO: As non root user! Add ansible to src and set ownership of src/
-- name: Create build directory
-  file: path=/usr/local/src/libfreenect/build state=directory
-
-# TODO: As non root user!
-- name: Configure libfreenect Source
-  command: cmake -DBUILD_CV=ON -DBUILD_PYTHON=ON .. chdir=/usr/local/src/libfreenect/build
-
-# TODO: As non root user!
-- name: Build libfreenect
-  command: make chdir=/usr/local/src/libfreenect/build
-
-- name: Install libfreenect
-  command: make install chdir=/usr/local/src/libfreenect/build
-
-- name: Configure ld cache
-  copy: src=kinect/etc/ld.so.conf.d/libfreenect-x86_64.conf
-        dest=/etc/ld.so.conf.d/libfreenect-x86_64.conf
-        owner=root
-        group=root
 
 - name: Configure udev rules
   copy: src=kinect/etc/udev/rules.d/66-kinect.rules
