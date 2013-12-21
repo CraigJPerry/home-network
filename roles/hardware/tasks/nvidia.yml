@@ -81,3 +81,5 @@
 
 - name: Bugfix nvidia driver misses replacement of MESA link
   file: src=/usr/lib64/libGL.so.1 dest=/usr/lib64/libGL.so.1.2.0 owner=root group=root state=link
+  when: nvidia_loaded.rc == 0
+
