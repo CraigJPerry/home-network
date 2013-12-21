@@ -2,7 +2,7 @@
 
 # Install GNOME desktop environment & customisations
 
-- name: Install ansible and dependencies
+- name: Install GNOME Desktop Environment
   yum: state=latest pkg={{ item }}
   with_items:
     - '@base-x'
