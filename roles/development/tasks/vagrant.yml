@@ -1,0 +1,22 @@
+---
+
+- name: Configure virtualbox repo
+  copy: src=vagrant/etc/yum.repos.d/virtualbox.repo
+        dest=/etc/yum.repos.d/virtualbox.repo
+        owner=root group=root
+
+- name: Install virtualbox
+  yum: state=present enablerepo="virtualbox" name="{{ virtualbox_package }}"
+
+- name: Download virtualbox extensions
+  get_url: url="{{ virtualbox_extensions_url }}{{ virtualbox_extensions_name }}" dest="/opt/{{ virtualbox_extensions_name }}" mode=0644
+
+- name: Install virtualbox extensions
+  command: /usr/bin/VBoxManage extpack install /opt/{{ virtualbox_extensions_name }}
+
+- name: Download Vagrant
+  get_url: url="{{ vagrant_url }}" dest="/opt/vagrant.rpm" mode=0644
+
+- name: Install Vagrant
+  yum: state=present pkg=/opt/vagrant.rpm
+

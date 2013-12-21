@@ -3,4 +3,5 @@
 # Developer tools setup
 
 - include: python.yml
+- include: vagrant.yml
 
