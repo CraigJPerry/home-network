@@ -1,0 +1,23 @@
+---
+
+- name: Ensure unzip binary is present
+  yum: state=latest pkg=unzip
+
+- name: Install logic analyser software
+  unarchive: src=logic_analyser/Logic-1.1.15-x64.zip dest=/opt/
+
+- name: Add group for logic analyser access
+  group: state=present name=usbftdi gid=1500 system=yes
+
+- name: Configure udev rules
+  copy: src=logic_analyser/etc/udev/rules.d/99-libftdi.rules
+        dest=/etc/udev/rules.d/99-libftdi.rules
+        owner=root
+        group=root
+
+- name: Permit users access to device
+  user: name={{ item }} append=yes groups=usbftdi
+  with_items:
+    - craig
+    - dev
+
