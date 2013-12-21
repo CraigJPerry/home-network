@@ -17,7 +17,7 @@
   unarchive: src="/opt/pycharm-professional-3.0.2.tar.gz" dest=/opt/
 
 - name: JVM Dependency for PyCharm
-  shell: 'wget --no-cookies --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com" "http://download.oracle.com/otn-pub/java/jdk/7u45-b18/jdk-7u45-linux-x64.rpm" chdir=/opt creates="/opt/7u45-linux-x64.rpm"'
+  shell: 'wget --no-cookies --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com" "http://download.oracle.com/otn-pub/java/jdk/7u45-b18/jdk-7u45-linux-x64.rpm" chdir=/opt creates="/opt/jdk-7u45-linux-x64.rpm"'
 
 - name: Install JDK
   yum: state=present name="/opt/jdk-7u45-linux-x64.rpm"
