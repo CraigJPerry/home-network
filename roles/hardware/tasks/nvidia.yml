@@ -20,12 +20,12 @@
     - libva-vdpau-driver
     - libva-utils
     - wget
+    - kernel-devel
 
 - name: Ensure normal kernel is present
   yum: state=latest pkg={{ item }}
   with_items:
     - kernel
-    - kernel-devel
     - kernel-modules-extra
   notify:
     - reboot to multi user
@@ -34,8 +34,8 @@
   yum: state=absent pkg={{ item }}
   with_items:
     - kernel-debug
-    - kernel-debug-devel
     - kernel-debug-modules-extra
+    - kernel-debug-devel
   notify:
     - reboot to multi user
 
