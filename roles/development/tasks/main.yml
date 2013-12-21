@@ -1,0 +1,6 @@
+---
+
+# Developer tools setup
+
+- include: python.yml
+
