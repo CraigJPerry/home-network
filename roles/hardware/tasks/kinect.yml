@@ -22,7 +22,5 @@
 
 - name: Permit users access to device
   user: name={{ item }} append=yes groups=video
-  with_items:
-    - craig
-    - dev
+  with_items: kinect_users
 
