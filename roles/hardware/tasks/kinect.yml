@@ -19,7 +19,7 @@
     - opencv-python
 
 - name: Clone Freenect Library Source
-  git: repo=git://github.com/OpenKinect/libfreenect.git dest=/usr/local/src
+  git: repo=git://github.com/OpenKinect/libfreenect.git dest=/usr/local/src/libfreenect
 
 # TODO: As non root user! Add ansible to src and set ownership of src/
 - name: Create build directory
