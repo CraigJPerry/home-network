@@ -4,6 +4,7 @@
   yum: state=latest pkg={{ item }}
   with_items:
     - cmake
+    - opencv-devel
     - gcc-c++
     - libXi-devel
     - libXmu-devel
@@ -14,6 +15,7 @@
 - name: Install Kinect Python Binding Dependencies
   yum: state=latest pkg={{ item }}
   with_items:
+    - python-devel
     - Cython
     - numpy
     - opencv-python
