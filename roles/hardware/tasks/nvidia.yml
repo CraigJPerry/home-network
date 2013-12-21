@@ -12,21 +12,12 @@
   ignore_errors: yes
   register: nvidia_loaded
 
-- name: Ensure dependencies and tools are present
-  yum: state=latest pkg={{ item }}
-  with_items:
-    - dkms
-    - vdpauinfo
-    - libva-vdpau-driver
-    - libva-utils
-    - wget
-    - kernel-devel
-
 - name: Ensure normal kernel is present
   yum: state=latest pkg={{ item }}
   with_items:
     - kernel
     - kernel-modules-extra
+    - kernel-devel
   notify:
     - reboot to multi user
 
@@ -38,6 +29,15 @@
     - kernel-debug-devel
   notify:
     - reboot to multi user
+
+- name: Ensure dependencies and tools are present
+  yum: state=latest pkg={{ item }}
+  with_items:
+    - dkms
+    - vdpauinfo
+    - libva-vdpau-driver
+    - libva-utils
+    - wget
 
 - name: Blacklist nouveau driver file warning header
   lineinfile: state="present" dest="/usr/lib/modprobe.d/nouveau.conf" create="yes" insertbefore="BOF" regexp="^#" line="## Automatically Managed by Ansible, Manual Changes Will Be Lost!"
