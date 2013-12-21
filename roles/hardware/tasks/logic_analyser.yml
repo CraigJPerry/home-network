@@ -13,7 +13,7 @@
   when: logic_unzipped.stdout.find("Logic") == -1
 
 - name: Add group for logic analyser access
-  group: state=present name=usbftdi gid=1500 system=yes
+  group: state=present name=usbftdi gid=1500
 
 - name: Configure udev rules
   copy: src=logic_analyser/etc/udev/rules.d/99-libftdi.rules
@@ -23,7 +23,5 @@
 
 - name: Permit users access to device
   user: name={{ item }} append=yes groups=usbftdi
-  with_items:
-    - craig
-    - dev
+  with_items: logic_analyser_users
 
