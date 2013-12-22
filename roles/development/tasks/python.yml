@@ -9,6 +9,9 @@
     - python-devel
     - python-setuptools
     - python-pip
+    - python-jedi
+    - python-pep8
+    - pylint
 
 - name: Download PyCharm
   get_url: url="http://download.jetbrains.com/python/pycharm-professional-3.0.2.tar.gz" dest="/opt/pycharm-professional-3.0.2.tar.gz" mode=0644
