@@ -20,7 +20,7 @@
     - install_ansible_pull
 
 # Non-root, non-ansible user. Use sudo to create ansible user & cronjob.
-- hosts: '!user_root,!user_ansible'
+- hosts: '!user_root:!user_ansible'
   gather_facts: no
   sudo: yes
   roles:
