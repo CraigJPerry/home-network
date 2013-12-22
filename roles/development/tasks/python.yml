@@ -15,22 +15,3 @@
 
 - name: Extract PyCharm
   unarchive: src="/opt/pycharm-professional-3.0.2.tar.gz" dest=/opt/
-
-- name: JVM Dependency for PyCharm
-  shell: 'wget --no-cookies --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com" "http://download.oracle.com/otn-pub/java/jdk/7u45-b18/jdk-7u45-linux-x64.rpm" chdir=/opt creates="/opt/jdk-7u45-linux-x64.rpm"'
-
-- name: Install JDK
-  yum: state=present name="/opt/jdk-7u45-linux-x64.rpm"
-
-- name: Register available java cmd
-  shell: '/usr/sbin/alternatives --install /usr/bin/java java /usr/java/latest/bin/java 99'
-
-- name: Register available javac cmd
-  shell: '/usr/sbin/alternatives --install /usr/bin/javac javac /usr/java/latest/bin/javac 99'
-
-- name: Set active java cmd
-  shell: '/usr/sbin/alternatives --set java /usr/java/latest/bin/java'
-
-- name: Set active javac cmd
-  shell: '/usr/sbin/alternatives --set javac /usr/java/latest/bin/javac'
-
