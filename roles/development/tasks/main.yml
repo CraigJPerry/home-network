@@ -2,6 +2,7 @@
 
 # Developer tools setup
 
+- include: java.yml
 - include: python.yml
 - include: vagrant.yml
 
