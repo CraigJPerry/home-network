@@ -3,7 +3,7 @@
 # Developer tools setup
 
 - name: Core Development Tools
-  yum: pkg=$item state=latest
+  yum: state=latest pkg={{ item }}
   with_items:
     - vim-enhanced
     - git
