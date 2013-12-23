@@ -1,5 +1,8 @@
 ---
 
+- name: Install KVM & libvirt
+  yum: state=latest pkg='@virtualization'
+
 - name: Configure virtualbox repo
   copy: src=vagrant/etc/yum.repos.d/virtualbox.repo
         dest=/etc/yum.repos.d/virtualbox.repo

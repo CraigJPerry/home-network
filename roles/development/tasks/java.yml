@@ -17,3 +17,4 @@
 
 - name: Set active javac cmd
   shell: '/usr/sbin/alternatives --set javac /usr/java/latest/bin/javac'
+
