@@ -13,4 +13,13 @@
 - name: Set the default terminal font face
   command: '/usr/bin/gsettings set org.gnome.desktop.interface monospace-font-name "Liberation Mono for Powerline 10"'
 
+- name: Configure sub pixel rendering
+  file: src=/usr/share/fontconfig/conf.avail/10-sub-pixel-rgb.conf
+        dest=/etc/fonts/conf.d/10-sub-pixel-rgb.conf
+        owner=root group=root state=link
+
+- name: Configure LCD filtering
+  file: src=/usr/share/fontconfig/conf.avail/11-lcdfilter-light.conf
+        dest=/etc/fonts/conf.d/11-lcdfilter-light.conf
+        owner=root group=root state=link
 

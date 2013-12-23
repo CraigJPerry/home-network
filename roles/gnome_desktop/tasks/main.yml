@@ -20,14 +20,5 @@
     - '@gnome-games'
     - '@libreoffice'
 
-- name: Install fixed width, powerline patched, terminal font
-  copy: src=fonts/usr/share/fonts/LiberationMono
-        dest=/usr/share/fonts/LiberationMono
-        owner=root group=root mode=0755
-
-- name: Update system font cache
-  command: '/usr/bin/fc-cache -f'
-
-- name: Set the default terminal font face
-  command: '/usr/bin/gsettings set org.gnome.desktop.interface monospace-font-name "Liberation Mono for Powerline 10"'
+- include: fonts.yml
 
