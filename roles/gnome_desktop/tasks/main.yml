@@ -20,3 +20,5 @@
     - '@gnome-games'
     - '@libreoffice'
 
+- include: fonts.yml
+
