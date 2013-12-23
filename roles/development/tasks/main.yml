@@ -27,5 +27,5 @@
 
 - include: java.yml
 - include: python.yml
-- include: vagrant.yml
+- include: virtualisation.yml
 
