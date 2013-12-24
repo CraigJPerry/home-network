@@ -41,4 +41,6 @@ virtualbox_extensions_name: Oracle_VM_VirtualBox_Extension_Pack-4.3.6-91406.vbox
 virtualbox_users:
   - craig
   - dev
+pycharm_url: http://download.jetbrains.com/python/
+pycharm_name: pycharm-professional-3.0.2.tar.gz
 

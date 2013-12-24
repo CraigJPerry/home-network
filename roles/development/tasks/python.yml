@@ -14,10 +14,10 @@
     - pylint
 
 - name: Download PyCharm
-  get_url: url="http://download.jetbrains.com/python/pycharm-professional-3.0.2.tar.gz" dest="/opt/pycharm-professional-3.0.2.tar.gz" mode=0644
+  get_url: url="{{ pycharm_url }}{{ pycharm_name }}" dest="/opt/{{ pycharm_name }}" mode=0644
   register: downloaded_pycharm
 
 - name: Extract PyCharm
-  unarchive: src="/opt/pycharm-professional-3.0.2.tar.gz" dest=/opt/
+  unarchive: src="/opt/{{ pycharm_name }}" dest=/opt/
   when: downloaded_pycharm|changed
 
