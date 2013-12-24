@@ -2,6 +2,13 @@
 
 # Configure Citrix ICA Client
 
+- name: Install ICAClient dependencies
+  yum: state=latest pkg={{ item }}
+  with_items:
+    - motif.i686
+    - libXpm.i686
+    - libXaw.i686
+
 - name: Install ICAClient
   unarchive: src=citrix/usr/lib/ICAClient.tar.gz dest=/usr/lib
 
