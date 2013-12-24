@@ -21,3 +21,7 @@
   unarchive: src="/opt/{{ pycharm_name }}" dest=/opt/
   when: downloaded_pycharm|changed
 
+- name: Set current pycharm link
+  file: src=/opt/{{ pycharm_name }} dest=/opt/pycharm
+        owner=root group=root state=link
+
