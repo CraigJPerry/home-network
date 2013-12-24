@@ -1,0 +1,7 @@
+---
+
+# Configure Citrix ICA Client
+
+- name: Install ICAClient
+  unarchive: src=citrix/usr/lib/ICAClient.tar.gz dest=/usr/lib
+

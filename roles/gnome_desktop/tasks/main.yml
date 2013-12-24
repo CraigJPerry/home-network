@@ -21,4 +21,5 @@
     - '@libreoffice'
 
 - include: fonts.yml
+- include: citrix.yml
 
