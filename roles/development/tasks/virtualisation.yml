@@ -13,9 +13,11 @@
 
 - name: Download virtualbox extensions
   get_url: url="{{ virtualbox_extensions_url }}{{ virtualbox_extensions_name }}" dest="/opt/{{ virtualbox_extensions_name }}" mode=0644
+  register: vbe_downloaded
 
 - name: Install virtualbox extensions
-  shell: '/usr/bin/VBoxManage extpack install /opt/{{ virtualbox_extensions_name }} && date > /etc/opt/vbox-extensions.installed creates="/etc/opt/vbox-extensions.installed"'
+  shell: '/usr/bin/VBoxManage extpack install /opt/{{ virtualbox_extensions_name }}'
+  when: vbe_downloaded|changed
 
 - name: Add vboxusers
   user: name={{ item }} append=yes groups=vboxusers
