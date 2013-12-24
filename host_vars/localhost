@@ -33,7 +33,8 @@ logic_analyser_users:
   - dev
 
 # Development configuration
-vagrant_url: http://dl.bintray.com:80/mitchellh/vagrant/vagrant_1.4.1_x86_64.rpm
+vagrant_url: http://dl.bintray.com:80/mitchellh/vagrant/
+vagrant_name: vagrant_1.4.1_x86_64.rpm
 virtualbox_package: VirtualBox-4.3
 virtualbox_extensions_url: http://download.virtualbox.org/virtualbox/4.3.6/
 virtualbox_extensions_name: Oracle_VM_VirtualBox_Extension_Pack-4.3.6-91406.vbox-extpack

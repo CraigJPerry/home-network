@@ -9,7 +9,7 @@
         owner=root group=root
 
 - name: Install virtualbox
-  yum: state=present enablerepo="virtualbox" name="{{ virtualbox_package }}"
+  yum: state=latest enablerepo="virtualbox" name="{{ virtualbox_package }}"
 
 - name: Download virtualbox extensions
   get_url: url="{{ virtualbox_extensions_url }}{{ virtualbox_extensions_name }}" dest="/opt/{{ virtualbox_extensions_name }}" mode=0644
@@ -24,8 +24,8 @@
   with_items: virtualbox_users
 
 - name: Download Vagrant
-  get_url: url="{{ vagrant_url }}" dest="/opt/vagrant.rpm" mode=0644
+  get_url: url="{{ vagrant_url }}{{ vagrant_name }}" dest="/opt/{{ vagrant_name }}" mode=0644
 
 - name: Install Vagrant
-  yum: state=present pkg=/opt/vagrant.rpm
+  yum: state=present pkg={{ vagrant_name }}
 
