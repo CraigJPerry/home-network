@@ -4,11 +4,22 @@
 
 - name: Create regular user accounts
   user: state="present" name="{{ item }}" createhome="yes" password="$6$w0hK n31w$RxjfrTssYs/F0Q7lwPtDVFA1cJftAVaP3MiMUxEwZqFTijEIfBqdhVdW6Gj3fAjHcnUT1yR1zTEw.EbBYhMp61"
+  register: user_created
   with_items: users_list
+
+- name: Force password change on first login
+  command: /usr/bin/chage -d 0 {{ item }}
+  with_items: users_list
+  when: user_created|changed
 
 - name: Create super user accounts
   user: state="present" name="{{ item }}" createhome="yes" password="$6$w0hK n31w$RxjfrTssYs/F0Q7lwPtDVFA1cJftAVaP3MiMUxEwZqFTijEIfBqdhVdW6Gj3fAjHcnUT1yR1zTEw.EbBYhMp61"
   with_items: super_users_list
+
+- name: Force super user password change on first login
+  command: /usr/bin/chage -d 0 {{ item }}
+  with_items: super_users_list
+  when: super_user_created|changed
 
 - name: Add warning comment to super users sudoers file
   lineinfile: state="present" dest="/etc/sudoers.d/{{ item }}" create="yes" insertbefore="BOF" regexp="^#" line="## Automatically Managed by Ansible, Manual Changes Will Be Lost!"
