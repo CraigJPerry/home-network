@@ -2,6 +2,9 @@
 
 # Hardware setup and support
 
+- name: Ensure lspci command is available
+  yum: state=present pkg=pciutils
+
 - name: Check if any NVIDIA VGA Card is Present
   shell: '/usr/sbin/lspci | /usr/bin/grep -i "vga.*nvidia"'
   ignore_errors: yes
