@@ -1,0 +1,11 @@
+---
+
+- name: systemd daemon reload
+  shell: '/bin/systemctl daemon-reload'
+
+- name: systemd vnc service enable
+  shell: '/bin/systemctl enable vncserver@:10.service'
+
+- name: systemd vnc service start
+  shell: '/bin/systemctl start vncserver@:10.service'
+
