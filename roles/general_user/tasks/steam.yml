@@ -1,0 +1,12 @@
+---
+
+# Steam Gaming Platform & Game Tweaks / Fixes / Workarounds
+
+- name: Configure Fedora Steam repo
+  copy: src=steam/etc/yum.repos.d/steam.repo
+        dest=/etc/yum.repos.d/steam.repo
+        owner=root group=root
+
+- name: Install Steam
+  yum: state=present enablerepo="steam" name="steam"
+

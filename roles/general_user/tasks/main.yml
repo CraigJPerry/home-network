@@ -6,4 +6,5 @@
 - include: dropbox.yml
 - include: skype.yml
 - include: adobe.yml
+- include: steam.yml
 
