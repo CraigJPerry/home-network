@@ -6,8 +6,7 @@
         owner=root group=root
 
 - name: Install dropbox
-  yum: state=present enablerepo="dropbox" pkg={{ item }}
+  yum: state=present enablerepo="Dropbox" pkg={{ item }}
   with_items:
     - "nautilus-dropbox"
-    - "python-dropbox"
 
