@@ -5,4 +5,5 @@
 - include: core_tools.yml
 - include: dropbox.yml
 - include: skype.yml
+- include: adobe.yml
 
