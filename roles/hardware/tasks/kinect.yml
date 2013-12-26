@@ -1,13 +1,13 @@
 ---
 
 - name: Install Freenect
-  yum: state=latest pkg={{ item }}
+  yum: state=present pkg={{ item }}
   with_items:
     - libfreenect-devel
     - libfreenect-opencv
 
 - name: Install Kinect Python Binding Dependencies
-  yum: state=latest pkg={{ item }}
+  yum: state=present pkg={{ item }}
   with_items:
     - libfreenect-python
     - opencv-python
