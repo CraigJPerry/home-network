@@ -13,7 +13,7 @@
   register: nvidia_loaded
 
 - name: Ensure normal kernel is present
-  yum: state=latest pkg={{ item }}
+  yum: state=present pkg={{ item }}
   with_items:
     - kernel
     - kernel-modules-extra
@@ -31,7 +31,7 @@
     - reboot to multi user
 
 - name: Ensure dependencies and tools are present
-  yum: state=latest pkg={{ item }}
+  yum: state=present pkg={{ item }}
   with_items:
     - dkms
     - vdpauinfo
