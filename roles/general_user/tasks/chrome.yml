@@ -1,0 +1,12 @@
+---
+
+# Google chrome web browser
+
+- name: Configure Chrome repo
+  copy: src=chrome/etc/yum.repos.d/chrome.repo
+        dest=/etc/yum.repos.d/chrome.repo
+        owner=root group=root
+
+- name: Install Chrome
+  yum: state=present enablerepo="chrome" name="google-chrome-stable"
+
