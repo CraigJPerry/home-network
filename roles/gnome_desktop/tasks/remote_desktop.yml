@@ -14,6 +14,5 @@
         owner="root" group="root" mode="0644"
   notify:
     - systemd daemon reload
-    - systemd vnc service enable
-    - systemd vnc service start
+    - systemd vnc service disable
 
