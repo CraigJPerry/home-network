@@ -1,0 +1,8 @@
+---
+
+# Configure remote desktop ability
+
+- name: Install x11vnc
+  yum: state=present name=x11vnc
+
+

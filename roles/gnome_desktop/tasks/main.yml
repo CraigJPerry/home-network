@@ -22,4 +22,5 @@
 
 - include: fonts.yml
 - include: citrix.yml
+- include: remote_desktop.yml
 
