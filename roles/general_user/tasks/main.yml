@@ -1,0 +1,6 @@
+---
+
+# General user tools and software
+
+- include: core_tools.yml
+

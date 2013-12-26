@@ -1,0 +1,7 @@
+---
+
+- name: Core User Tools
+  yum: state=present pkg={{ item }}
+  with_items:
+    - keepassx
+
