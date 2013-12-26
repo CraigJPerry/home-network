@@ -3,7 +3,7 @@
 # LAN user accounts
 
 - name: Create regular user accounts
-  user: state="present" name="{{ item }}" createhome="yes" password="$6$w0hK n31w$RxjfrTssYs/F0Q7lwPtDVFA1cJftAVaP3MiMUxEwZqFTijEIfBqdhVdW6Gj3fAjHcnUT1yR1zTEw.EbBYhMp61"
+  user: state="present" name="{{ item }}" createhome="yes" update_password="on_create" password="$6$w0hK n31w$RxjfrTssYs/F0Q7lwPtDVFA1cJftAVaP3MiMUxEwZqFTijEIfBqdhVdW6Gj3fAjHcnUT1yR1zTEw.EbBYhMp61"
   register: user_created
   with_items: users_list
 
@@ -13,7 +13,7 @@
   when: user_created|changed
 
 - name: Create super user accounts
-  user: state="present" name="{{ item }}" createhome="yes" password="$6$w0hK n31w$RxjfrTssYs/F0Q7lwPtDVFA1cJftAVaP3MiMUxEwZqFTijEIfBqdhVdW6Gj3fAjHcnUT1yR1zTEw.EbBYhMp61"
+  user: state="present" name="{{ item }}" createhome="yes" update_password="on_create" password="$6$w0hK n31w$RxjfrTssYs/F0Q7lwPtDVFA1cJftAVaP3MiMUxEwZqFTijEIfBqdhVdW6Gj3fAjHcnUT1yR1zTEw.EbBYhMp61"
   register: super_user_created
   with_items: super_users_list
 
