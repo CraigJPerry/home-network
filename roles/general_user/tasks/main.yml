@@ -7,4 +7,5 @@
 - include: skype.yml
 - include: adobe.yml
 - include: steam.yml
+- include: chrome.yml
 
