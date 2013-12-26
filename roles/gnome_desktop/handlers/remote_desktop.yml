@@ -9,3 +9,9 @@
 - name: systemd vnc service start
   shell: '/bin/systemctl start vncserver@:10.service'
 
+- name: systemd vnc service disable
+  shell: '/bin/systemctl disable vncserver@:10.service'
+
+- name: systemd vnc service stop
+  shell: '/bin/systemctl stop vncserver@:10.service'
+
