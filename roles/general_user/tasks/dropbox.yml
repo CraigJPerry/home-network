@@ -2,7 +2,7 @@
 
 - name: Configure dropbox repo
   copy: src=dropbox/etc/yum.repos.d/dropbox.repo
-        dest=/etc/yum.repos.d/virtualbox.repo
+        dest=/etc/yum.repos.d/dropbox.repo
         owner=root group=root
 
 - name: Install dropbox
