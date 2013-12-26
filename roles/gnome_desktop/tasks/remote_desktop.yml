@@ -2,7 +2,14 @@
 
 # Configure remote desktop ability
 
-- name: Install x11vnc
-  yum: state=present name=x11vnc
+- name: Install VNC XServer
+  yum: state=present name=tigervnc-server
 
+- name: Permit connection via firewall
+  firewalld: permanent="true" state="enabled" port="5910/tcp"
+
+- name: Configure TigerVNC Server
+  copy: src="remote_desktop/etc/systemd/system/vncserver@:10.service"
+        dest="/etc/systemd/system/vncserver@:10.service"
+        user="root" group="root" mode="0644"
 
