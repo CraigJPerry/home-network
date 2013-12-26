@@ -9,3 +9,12 @@
     - nss-mdns
     - avahi-tools
 
+- name: Configure common LAN filesystem mounts comment
+  lineinfile: state="present" dest="/etc/fstab" regexp="^# HTPC" line="# HTPC Mounts"
+
+- name: Create Apps mount point
+  file: path=/media/Apps state=directory
+
+- name: Configure common LAN filesystem mounts
+  lineinfile: state="present" dest="/etc/fstab" insertafter="^# HTPC" regexp="^//htpc.local/Apps" line="//htpc.local/Apps /media/Apps cifs noauto,username=Craig 0 0"
+
