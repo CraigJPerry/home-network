@@ -11,5 +11,5 @@
 - name: Configure TigerVNC Server
   copy: src="remote_desktop/etc/systemd/system/vncserver@:10.service"
         dest="/etc/systemd/system/vncserver@:10.service"
-        user="root" group="root" mode="0644"
+        owner="root" group="root" mode="0644"
 
