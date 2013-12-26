@@ -2,6 +2,6 @@
 name=Adobe Systems Incorporated
 baseurl=http://linuxdownload.adobe.com/linux/x86_64/
 enabled=0
-gpgcheck=1
+gpgcheck=0
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-adobe-linux
 
