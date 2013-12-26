@@ -12,4 +12,8 @@
   copy: src="remote_desktop/etc/systemd/system/vncserver@:10.service"
         dest="/etc/systemd/system/vncserver@:10.service"
         owner="root" group="root" mode="0644"
+  notify:
+    - systemd daemon reload
+    - systemd vnc service enable
+    - systemd vnc service start
 
