@@ -21,8 +21,7 @@
   unarchive: src="/opt/{{ pycharm_name }}" dest=/opt/
   when: downloaded_pycharm|changed
 
-# Disabled, need to figure out extracted dir name and link to that
-# - name: Set current pycharm link
-#   file: src=/opt/{{ pycharm_name }} dest=/opt/pycharm
-#         owner=root group=root state=link
+- name: Set current pycharm link
+  file: src=/opt/{{ pycharm_unzipped }} dest=/opt/pycharm
+        owner=root group=root state=link
 
