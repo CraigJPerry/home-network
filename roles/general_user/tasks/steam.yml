@@ -15,3 +15,7 @@
 - name: Install Steam
   yum: state=present enablerepo="rpmfusion-free,rpmfusion-free-updates,rpmfusion-nonfree,rpmfusion-nonfree-updates,steam" name="steam"
 
+# Surgeon Simulator 2013 Requirements
+- name: libGLU 32bit
+  yum: state=present name="mesa-libGLU.i686"
+
