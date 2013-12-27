@@ -6,3 +6,7 @@
     - arduino
     - arduino-doc
 
+- name: Permit users access to arduino devices
+  user: name={{ item }} append=yes groups="lock,dialout"
+  with_items: arduino_users
+
