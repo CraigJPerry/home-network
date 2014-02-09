@@ -14,6 +14,7 @@
     - pylint
     - python-ipython-notebook
     - python-ipython-gui
+    - python-matplotlib-qt4
 
 - name: Download PyCharm
   get_url: url="{{ pycharm_url }}{{ pycharm_name }}" dest="/opt/{{ pycharm_name }}" mode=0644
