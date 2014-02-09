@@ -47,6 +47,6 @@ virtualbox_users:
   - craig
   - dev
 pycharm_url: http://download.jetbrains.com/python/
-pycharm_name: pycharm-professional-3.0.2.tar.gz
-pycharm_unzipped: pycharm-3.0.2
+pycharm_name: pycharm-professional-3.1.tar.gz
+pycharm_unzipped: pycharm-3.1
 
