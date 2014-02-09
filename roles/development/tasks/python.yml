@@ -18,6 +18,18 @@
     - PyQwt
     - pyside-tools
     - python-pyside
+    - scipy
+    - numpy
+    - python-pandas
+    - python-patsy
+    - python-scikit-learn
+    - python-statsmodels
+    - fabric
+
+- name: Install more advanced requirements
+  pip: state=present name={{ item }}
+  with_items:
+    - seaborn
 
 - name: Download PyCharm
   get_url: url="{{ pycharm_url }}{{ pycharm_name }}" dest="/opt/{{ pycharm_name }}" mode=0644
