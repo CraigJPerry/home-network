@@ -29,3 +29,13 @@
 - name: Install Vagrant
   yum: state=present pkg=/opt/{{ vagrant_name }}
 
+- name: Install Docker
+  yum: state=present name="docker-io"
+
+- name: Add docker users to docker group
+  user: name={{ item }} append=yes groups=docker
+  with_items: docker_users
+
+- name: Start docker
+  service: name=docker enabled=yes state=started
+
