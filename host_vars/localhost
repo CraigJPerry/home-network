@@ -46,6 +46,9 @@ virtualbox_extensions_name: Oracle_VM_VirtualBox_Extension_Pack-4.3.10-93012.vbo
 virtualbox_users:
   - craig
   - dev
+docker_users:
+  - craig
+  - dev
 pycharm_url: http://download.jetbrains.com/python/
 pycharm_name: pycharm-professional-3.1.1.tar.gz
 pycharm_unzipped: pycharm-3.1.1
