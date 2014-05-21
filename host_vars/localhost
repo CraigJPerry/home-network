@@ -39,10 +39,10 @@ arduino_users:
 
 # Development configuration
 vagrant_url: http://dl.bintray.com:80/mitchellh/vagrant/
-vagrant_name: vagrant_1.5.4_x86_64.rpm
+vagrant_name: vagrant_1.6.2_x86_64.rpm
 virtualbox_package: VirtualBox-4.3
-virtualbox_extensions_url: http://download.virtualbox.org/virtualbox/4.3.10/
-virtualbox_extensions_name: Oracle_VM_VirtualBox_Extension_Pack-4.3.10-93012.vbox-extpack
+virtualbox_extensions_url: http://download.virtualbox.org/virtualbox/4.3.12/
+virtualbox_extensions_name: Oracle_VM_VirtualBox_Extension_Pack-4.3.12-93733.vbox-extpack
 virtualbox_users:
   - craig
   - dev
