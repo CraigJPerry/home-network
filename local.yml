@@ -1,5 +1,7 @@
 ---
 
+- include: bootstrap.yml
+
 - include: desktops.yml
 - include: laptops.yml
 - include: virtualmachines.yml
