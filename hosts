@@ -1,2 +1,12 @@
 localhost
 
+[desktops]
+d1.local
+
+[laptops]
+r1.local
+
+[virtualmachines]
+v1.local
+v2.local
+

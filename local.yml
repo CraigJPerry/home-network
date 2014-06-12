@@ -1,42 +1,6 @@
 ---
 
-# Craig J Perry's home-network
-#
-# local.yml can be run by root or a user with sudo privs to install
-# pull-mode. E.g. when on-boarding a new host to config management.
-#
-# Normally it is run as the ansible user (created during installation)
-# from a scheduled cronjob (also created during installation).
-
-- hosts: all
-  tasks:
-    - group_by: key=user_{{ ansible_user_id }}
-
-# root user, create ansible user and install ansible-pull cronjob.
-- hosts: user_root
-  gather_facts: no
-  sudo: no
-  roles:
-    - install_ansible_pull
-
-# Non-root, non-ansible user. Use sudo to create ansible user & cronjob.
-- hosts: '!user_root:!user_ansible'
-  gather_facts: no
-  sudo: yes
-  roles:
-    - install_ansible_pull
-
-# Running as ansible user (the normal case), apply appropriate config.
-- hosts: user_ansible
-  gather_facts: no
-  sudo: yes
-  roles:
-    - install_ansible_pull
-    - common
-    - lan
-    - hardware
-    - gnome_desktop
-    - sysadmin
-    - development
-    - general_user
+- include: desktops.yml
+- include: laptops.yml
+- include: virtualmachines.yml
 
