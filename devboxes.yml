@@ -1,0 +1,6 @@
+---
+
+hosts: devboxes
+tasks:
+  - debug: msg="devboxes group"
+

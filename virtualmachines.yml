@@ -1,0 +1,6 @@
+---
+
+hosts: virtualmachines
+tasks:
+  - debug: msg="virtualmachines group"
+
