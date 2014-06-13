@@ -6,3 +6,5 @@
 - include: laptops.yml
 - include: virtualmachines.yml
 
+- include: devboxes.yml
+
