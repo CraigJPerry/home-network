@@ -1,20 +1,4 @@
 ---
 
-- hosts: all
-  tasks:
-    - group_by: key=user_{{ ansible_user_id }}
-
-# root user, create ansible user and install ansible-pull cronjob.
-- hosts: user_root
-  gather_facts: no
-  sudo: no
-  roles:
-    - install_ansible_pull
-
-# Non-root, use sudo to create or maintain ansible user & cronjob.
-- hosts: '!user_root'
-  gather_facts: no
-  sudo: yes
-  roles:
-    - install_ansible_pull
+- include: playbooks/bootstrap.yml
 
