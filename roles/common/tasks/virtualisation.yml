@@ -1,57 +1,57 @@
 ---
 
-- name: Install KVM & libvirt
+- name: common | Install KVM & libvirt
   yum: state=present pkg='@virtualization'
   when: install_kvm
 
 # Virtualbox
 
-- name: Configure virtualbox repo
+- name: common | Configure virtualbox repo
   copy: src=virtualbox.repo
         dest=/etc/yum.repos.d/virtualbox.repo
         owner=root group=root
   when: install_virtualbox
 
-- name: Install virtualbox
+- name: common | Install virtualbox
   yum: state=present enablerepo="virtualbox" name="{{ virtualbox_package }}"
   when: install_virtualbox
 
-- name: Download virtualbox extensions
+- name: common | Download virtualbox extensions
   get_url: url="{{ virtualbox_extensions_url }}{{ virtualbox_extensions_name }}" dest="/opt/{{ virtualbox_extensions_name }}" mode=0644
   register: vbe_downloaded
   when: install_virtualbox
 
-- name: Install virtualbox extensions
+- name: common | Install virtualbox extensions
   shell: '/usr/bin/VBoxManage extpack install /opt/{{ virtualbox_extensions_name }}'
   when: vbe_downloaded|changed
 
-- name: Maintain vboxusers
+- name: common | Maintain vboxusers
   user: name={{ item }} append=yes groups=vboxusers
   with_items: virtualbox_users
   when: install_virtualbox
 
 # Vagrant
 
-- name: Download Vagrant
+- name: common | Download Vagrant
   get_url: url="{{ vagrant_url }}{{ vagrant_name }}" dest="/opt/{{ vagrant_name }}" mode=0644
   when: install_vagrant
 
-- name: Install Vagrant
+- name: common | Install Vagrant
   yum: state=present pkg=/opt/{{ vagrant_name }}
   when: install_vagrant
 
 # Docker
 
-- name: Install Docker
+- name: common | Install Docker
   yum: state=present name="docker-io"
   when: install_docker
 
-- name: Add docker users to docker group
+- name: common | Add docker users to docker group
   user: name={{ item }} append=yes groups=docker
   with_items: docker_users
   when: install_docker
 
-- name: Start docker
+- name: common | Start docker
   service: name=docker enabled=yes state=started
   when: install_docker
 

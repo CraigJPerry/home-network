@@ -1,5 +1,12 @@
 ---
 
+# User
+
+- include: core_tools.yml
+- include: dropbox.yml
+
+# Developer
+
 - include: core_developer_tools.yml
 - include: java.yml
 - include: python.yml

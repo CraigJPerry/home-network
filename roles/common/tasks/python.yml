@@ -21,7 +21,7 @@
     - python-statsmodels
     - fabric
 
-- name: Install Graphical Python2.7 Elements
+- name: common | Install Graphical Python2.7 Elements
   yum: state=present pkg={{ item }}
   with_items:
     - python-ipython-gui
@@ -31,22 +31,22 @@
     - python-pyside
   when: install_graphical_tools
 
-- name: Install more advanced requirements
+- name: common | Install more advanced requirements
   pip: state=present name={{ item }}
   with_items:
     - seaborn
   when: install_graphical_tools
 
-- name: Download PyCharm
+- name: common | Download PyCharm
   get_url: url="{{ pycharm_url }}{{ pycharm_name }}" dest="/opt/{{ pycharm_name }}" mode=0644
   register: downloaded_pycharm
   when: install_pycharm
 
-- name: Extract PyCharm
+- name: common | Extract PyCharm
   unarchive: src="/opt/{{ pycharm_name }}" dest=/opt/
   when: downloaded_pycharm|changed
 
-- name: Set current pycharm link
+- name: common | Set current pycharm link
   file: src=/opt/{{ pycharm_unzipped }} dest=/opt/pycharm
         owner=root group=root state=link
   when: install_pycharm

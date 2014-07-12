@@ -1,0 +1,8 @@
+---
+
+- name: common | Core User Tools
+  yum: state=present pkg={{ item }}
+  with_items:
+    - keepassx
+    - conky
+

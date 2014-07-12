@@ -25,16 +25,16 @@
   shell: '/usr/sbin/alternatives --set javac /usr/java/latest/bin/javac'
   when: installed_jdk|changed
 
-- name: Download Intellij IDEA
+- name: common | Download Intellij IDEA
   get_url: url="{{ idea_url }}{{ idea_name }}" dest="/opt/{{ idea_name }}" mode=0644
   register: downloaded_idea
   when: install_idea
 
-- name: Extract Intellij IDEA
+- name: common | Extract Intellij IDEA
   unarchive: src="/opt/{{ idea_name }}" dest=/opt/
   when: downloaded_idea|changed
 
-- name: Set current IDEA link
+- name: common | Set current IDEA link
   file: src=/opt/{{ idea_unzipped }} dest=/opt/idea
         owner=root group=root state=link
   when: install_idea
