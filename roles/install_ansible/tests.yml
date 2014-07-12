@@ -1,0 +1,16 @@
+---
+
+# To run locally: ansible-playbook -c local -i localhost, -s tests.yml
+
+- hosts: all
+  gather_facts: no
+  tasks:
+
+  - name: The git command should be present
+    shell: test -e /usr/bin/git
+    changed_when: False
+
+  - name: The ansible command should be present
+    shell: test -e /usr/bin/ansible
+    changed_when: False
+
