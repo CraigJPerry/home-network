@@ -2,3 +2,9 @@
 
 - include: playbooks/bootstrap.yml
 
+- hosts: laptops
+  gather_facts: no
+  tasks:
+    - name: Run plays for laptops
+      debug: msg="Running plays for laptops..."
+
