@@ -1,10 +1,20 @@
 ---
 
-- include: bootstrap.yml
+- hosts: all
+  tasks:
+    - group_by: key=user_{{ ansible_user_id }}
 
-- include: desktops.yml
-- include: laptops.yml
-- include: virtualmachines.yml
+# root user, create ansible user and install ansible-pull cronjob.
+- hosts: user_root
+  gather_facts: no
+  sudo: no
+  roles:
+    - install_ansible_pull
 
-- include: devboxes.yml
+# Non-root, use sudo to create or maintain ansible user & cronjob.
+- hosts: '!user_root'
+  gather_facts: no
+  sudo: yes
+  roles:
+    - install_ansible_pull
 
