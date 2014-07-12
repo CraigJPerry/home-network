@@ -1,0 +1,41 @@
+---
+
+- name: common | Download JDK
+  shell: '/usr/bin/wget --no-cookies --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com" "{{ jdk_download_root }}/{{ jdk_version_dir }}/{{ jdk_filename }}" chdir=/opt creates="/opt/{{ jdk_filename }}"'
+
+- name: common | Install JDK
+  register: installed_jdk
+  yum: state=present name="/opt/{{ jdk_filename }}"
+
+- name: common | Register available java cmd
+  shell: '/usr/sbin/alternatives --install /usr/bin/java java /usr/java/latest/bin/java 99'
+  when: installed_jdk|changed
+
+- name: common | Register available javac cmd
+  shell: '/usr/sbin/alternatives --install /usr/bin/javac javac /usr/java/latest/bin/javac 99'
+  when: installed_jdk|changed
+
+# TODO: Check alternatives source code then manipulate symlinks directly
+- name: common | Set active java cmd
+  shell: '/usr/sbin/alternatives --set java /usr/java/latest/bin/java'
+  when: installed_jdk|changed
+
+# TODO: Check alternatives source code then manipulate symlinks directly
+- name: common | Set active javac cmd
+  shell: '/usr/sbin/alternatives --set javac /usr/java/latest/bin/javac'
+  when: installed_jdk|changed
+
+- name: Download Intellij IDEA
+  get_url: url="{{ idea_url }}{{ idea_name }}" dest="/opt/{{ idea_name }}" mode=0644
+  register: downloaded_idea
+  when: install_idea
+
+- name: Extract Intellij IDEA
+  unarchive: src="/opt/{{ idea_name }}" dest=/opt/
+  when: downloaded_idea|changed
+
+- name: Set current IDEA link
+  file: src=/opt/{{ idea_unzipped }} dest=/opt/idea
+        owner=root group=root state=link
+  when: install_idea
+

@@ -1,0 +1,25 @@
+---
+
+- name: common | Core Development Tools
+  yum: state=present pkg={{ item }}
+  with_items:
+    - vim-enhanced
+    - git
+    - subversion
+    - patchutils
+    - pkgconfig
+    - make
+    - cmake
+    - autoconf
+    - automake
+    - binutils
+    - elfutils
+    - gcc
+    - gdb
+    - strace
+    - ltrace
+    - kernel-headers
+    - glibc-devel
+    - wget
+    - curl
+

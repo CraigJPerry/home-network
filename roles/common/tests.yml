@@ -1,0 +1,32 @@
+---
+
+# To run locally: ansible-playbook -c local -i localhost, -s tests.yml
+
+- hosts: all
+  gather_facts: no
+  tasks:
+
+  - name: Test common | Python2.7 should be present
+    shell: test -e /usr/bin/python2.7
+    changed_when: False
+
+  - name: Test common | gdb should be present
+    shell: test -e /usr/bin/gdb
+    changed_when: False
+
+  - name: Test common | ltrace should be present
+    shell: test -e /usr/bin/ltrace
+    changed_when: False
+
+  - name: Test common | wget should be present
+    shell: test -e /usr/bin/wget
+    changed_when: False
+
+  - name: Test common | java package should be present
+    shell: test -e /opt/jdk-8u5-linux-x64.rpm
+    changed_when: False
+
+  - name: Test common | scipy package should be present
+    shell: test -e /usr/lib64/python2.7/site-packages/scipy/setup.py
+    changed_when: False
+
