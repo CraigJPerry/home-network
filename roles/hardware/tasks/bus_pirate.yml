@@ -1,5 +1,0 @@
----
-
-- name: Serial terminal software
-  yum: state=present pkg=moserial
-

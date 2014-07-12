@@ -1,6 +1,0 @@
----
-
-hosts: desktops
-tasks:
-  - debug: msg="desktops group"
-

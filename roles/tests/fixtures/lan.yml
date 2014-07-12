@@ -1,8 +1,0 @@
----
-
-# Common Role.
-
-- hosts: lan_hosts
-  roles:
-    - lan
-

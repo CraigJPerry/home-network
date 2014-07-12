@@ -1,6 +1,0 @@
----
-
-hosts: laptops
-tasks:
-  - debug: msg="laptops group"
-

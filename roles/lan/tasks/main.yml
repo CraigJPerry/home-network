@@ -1,7 +1,0 @@
----
-
-# LAN specific configuration
-
-- include: network.yml
-- include: users.yml
-
