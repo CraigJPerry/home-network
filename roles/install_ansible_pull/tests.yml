@@ -6,23 +6,23 @@
   gather_facts: no
   tasks:
 
-  - name: The git command should be present
+  - name: Test install_ansible_pull | The git command should be present
     shell: test -e /usr/bin/git
     changed_when: False
 
-  - name: The ansible command should be present
+  - name: Test install_ansible_pull | The ansible command should be present
     shell: test -e /usr/bin/ansible
     changed_when: False
 
-  - name: The ansible user should exist
+  - name: Test install_ansible_pull | The ansible user should exist
     shell: grep ansible /etc/passwd
     changed_when: False
 
-  - name: A sudoers include file should exist for the anisble user
+  - name: Test install_ansible_pull | A sudoers include file should exist for the anisble user
     shell: test -e /etc/sudoers.d/ansible
     changed_when: False
 
-  - name: There should be no kickstart cron for ansible
+  - name: Test install_ansible_pull | There should be no kickstart cron for ansible
     shell: test ! -e /etc/cron.d/ansible-pull-install
     changed_when: False
 

@@ -6,11 +6,11 @@
   gather_facts: no
   tasks:
 
-  - name: The git command should be present
+  - name: Test install_ansible | The git command is present
     shell: test -e /usr/bin/git
     changed_when: False
 
-  - name: The ansible command should be present
+  - name: Test install_ansible | The ansible command is present
     shell: test -e /usr/bin/ansible
     changed_when: False
 
