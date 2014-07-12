@@ -1,5 +1,3 @@
-# Home Network #
-
 Bootstrap a host against this ansible repository:
 
     [you@host ~]$ ansible-playbook --connection=local --inventory-file=localhost, playbooks/bootstrap.yml
