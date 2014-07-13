@@ -1,0 +1,24 @@
+---
+
+# Steam Gaming Platform & Game Tweaks / Fixes / Workarounds
+
+- name: common | Configure RPM Fusion repo
+  copy: src=steam/etc/yum.repos.d/rpmfusion.repo
+        dest=/etc/yum.repos.d/rpmfusion.repo
+        owner=root group=root
+  when: install_steam
+
+- name: common | Configure Fedora Steam repo
+  copy: src=steam/etc/yum.repos.d/steam.repo
+        dest=/etc/yum.repos.d/steam.repo
+        owner=root group=root
+  when: install_steam
+
+- name: common | Install Steam
+  yum: state=present enablerepo="rpmfusion-free,rpmfusion-free-updates,rpmfusion-nonfree,rpmfusion-nonfree-updates,steam" name="steam"
+  when: install_steam
+
+- name: common | Install libGLU 32bit for Surgeon Simulator 2013
+  yum: state=present name="mesa-libGLU.i686"
+  when: install_steam
+
