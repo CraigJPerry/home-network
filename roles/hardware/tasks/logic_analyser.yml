@@ -1,0 +1,27 @@
+---
+
+- name: hardware | Ensure unzip binary is present
+  yum: state=present pkg=unzip
+
+# Workaround: unarchive doesn't check if already unzipped in 1.4
+- name: hardware | Check if logic analyser already unzipped
+  command: find /opt -maxdepth 1 -type d -name 'Logic*'
+  register: logic_unzipped
+
+- name: hardware | Install logic analyser software
+  unarchive: src=Logic-1.1.15-x64.zip dest=/opt/
+  when: logic_unzipped.stdout.find("Logic") == -1
+
+- name: hardware | Add group for logic analyser access
+  group: state=present name=usbftdi gid=1500
+
+- name: hardware | Configure udev rules
+  copy: src=99-libftdi.rules
+        dest=/etc/udev/rules.d/99-libftdi.rules
+        owner=root
+        group=root
+
+- name: hardware | Permit users access to device
+  user: name={{ item }} append=yes groups=usbftdi
+  with_items: logic_analyser_users
+

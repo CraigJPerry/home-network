@@ -1,0 +1,26 @@
+---
+
+- name: hardware | Install Freenect
+  yum: state=present pkg={{ item }}
+  with_items:
+    - libfreenect-devel
+    - libfreenect-opencv
+
+- name: hardware | Install Kinect Python Binding Dependencies
+  yum: state=present pkg={{ item }}
+  with_items:
+    - libfreenect-python
+    - opencv-python
+    - Cython
+    - numpy
+
+- name: hardware | Configure udev rules
+  copy: src=66-kinect.rules
+        dest=/etc/udev/rules.d/66-kinect.rules
+        owner=root
+        group=root
+
+- name: hardware | Permit users access to device
+  user: name={{ item }} append=yes groups=video
+  with_items: kinect_users
+

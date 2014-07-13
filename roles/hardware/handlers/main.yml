@@ -1,0 +1,6 @@
+---
+
+# Hardware setup and support
+
+- include: nvidia.yml
+

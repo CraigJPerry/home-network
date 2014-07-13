@@ -1,0 +1,85 @@
+---
+
+# Install Latest NVIDIA Graphics Driver
+
+- name: hardware | Check if the nouveau driver is loaded
+  shell: '/usr/sbin/lsmod | /usr/bin/grep nouveau'
+  ignore_errors: yes
+  register: nouveau_loaded
+
+- name: hardware | Check if the nvidia driver is loaded
+  shell: '/usr/sbin/lsmod | /usr/bin/grep nvidia'
+  ignore_errors: yes
+  register: nvidia_loaded
+
+- name: hardware | Ensure normal kernel is present
+  yum: state=present pkg={{ item }}
+  with_items:
+    - kernel
+    - kernel-modules-extra
+    - kernel-devel
+  notify:
+    - reboot to multi user
+
+- name: hardware | Ensure incompatible debug kernel is removed
+  yum: state=absent pkg={{ item }}
+  with_items:
+    - kernel-debug
+    - kernel-debug-modules-extra
+    - kernel-debug-devel
+  notify:
+    - reboot to multi user
+
+- name: hardware | Ensure dependencies and tools are present
+  yum: state=present pkg={{ item }}
+  with_items:
+    - dkms
+    - vdpauinfo
+    - libva-vdpau-driver
+    - libva-utils
+    - wget
+
+- name: hardware | Blacklist nouveau driver file warning header
+  lineinfile: state="present" dest="/usr/lib/modprobe.d/nouveau.conf" create="yes" insertbefore="BOF" regexp="^#" line="## Automatically Managed by Ansible, Manual Changes Will Be Lost!"
+
+- name: hardware | Blacklist nouveau driver blacklist entry
+  lineinfile: state="present" dest="/usr/lib/modprobe.d/nouveau.conf" create="yes" regexp="^blacklist" line="blacklist nouveau"
+  notify:
+    - rebuild initramfs
+    - reboot to multi user
+
+- name: hardware | Blacklist nouveau driver options entry
+  lineinfile: state="present" dest="/usr/lib/modprobe.d/nouveau.conf" create="yes" regexp="^options" line="options nouveau modeset=0"
+  notify:
+    - rebuild initramfs
+    - reboot to multi user
+
+- name: hardware | Blacklist nouveau driver dracut hostonly mode
+  file: src=/usr/lib/modprobe.d/nouveau.conf dest=/etc/modprobe.d/nouveau.conf owner=root group=root state=link
+  notify:
+    - rebuild initramfs
+    - reboot to multi user
+
+- name: hardware | Find latest nvidia driver version
+  shell: 'wget ftp://download.nvidia.com/XFree86/Linux-x86_64/latest.txt -qO- | cut -f2 -d" "'
+  register: latest_version
+  when: nvidia_loaded.rc != 0 and nouveau_loaded.rc != 0
+
+- name: hardware | Report latest version
+  debug: msg="Latest NVIDIA Driver Version is {{ latest_version.stdout }}"
+  when: nvidia_loaded.rc != 0 and nouveau_loaded.rc != 0
+
+- name: hardware | Download latest driver
+  get_url: url="ftp://download.nvidia.com/XFree86/Linux-x86_64/{{ latest_version.stdout }}" dest="/var/tmp/nvidia-driver.run" mode=0755
+  when: nvidia_loaded.rc != 0 and nouveau_loaded.rc != 0
+
+- name: hardware | Run to install nvidia driver
+  shell: '/var/tmp/nvidia-driver.run --silent --run-nvidia-xconfig'
+  notify:
+    - reboot to graphical
+  when: nvidia_loaded.rc != 0 and nouveau_loaded.rc != 0
+
+- name: hardware | Bugfix nvidia driver misses replacement of MESA link
+  file: src=/usr/lib64/libGL.so.1 dest=/usr/lib64/libGL.so.1.2.0 owner=root group=root state=link
+  when: nvidia_loaded.rc == 0
+

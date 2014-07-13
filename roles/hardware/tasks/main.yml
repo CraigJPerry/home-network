@@ -1,0 +1,22 @@
+---
+
+# Hardware setup and support
+
+- name: hardware | Ensure lspci command is available
+  yum: state=present pkg=pciutils
+
+- name: hardware | Check if any NVIDIA VGA Card is Present
+  shell: '/usr/sbin/lspci | /usr/bin/grep -i "vga.*nvidia"'
+  ignore_errors: yes
+  register: nvidia_vga_present
+
+- include: nvidia.yml
+  when: nvidia_vga_present.rc == 0
+
+# USB Devices
+
+- include: kinect.yml
+- include: logic_analyser.yml
+- include: bus_pirate.yml
+- include: arduino.yml
+
