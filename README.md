@@ -23,12 +23,11 @@ convention for tests as yet. This works for me, so far.
 
 1. Fork this project
 2. Edit `group_vars/all`
-3. Update the `pull_command` variable to point to your forked repo (see
-   `roles/install_ansible_pull/defaults/main.yml`)
-4. At this point, you can bootstrap hosts by running the bootstrap
-   playbook. Your hosts will begin polling your repo and they'll maintain
-   their ansible-pull configuration but nothing else. I.e. all they'll
-   do is keep checking your repo
-5. Assign your hostnames to as many groups as makes sense
-6. Set your groups to do things in local.yml
+2.1 Set your forked repo url
+2.2 Set you user accounts & default first time login password
+3. Bootstrap your host(s) as above. Your hosts will begin polling your
+   repo
+4. Ammend the groups & actions in local.yml
+5. Assign your hosts to relevant groups, they will now perform actions
+   defined for their group in local.yml
 

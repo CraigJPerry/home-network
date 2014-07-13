@@ -17,7 +17,7 @@
   lineinfile: 'state="present" dest="/etc/sudoers.d/ansible" create="yes" regexp="^ansible" line="ansible ALL=(ALL) NOPASSWD: ALL"'
 
 - name: Install ansible pull-mode crontab entry
-  cron: state="present" name="ansible-pull" user="ansible" special_time="{{ special_time }}" job="{{ pull_command }}"
+cron: state="present" name="ansible-pull" user="ansible" special_time="{{ pull_time }}" job="ansible-pull --directory {{ pull_dir }} --inventory-file hosts --url {{ pull_repo }} > $HOME/ansible-pull.$LOGNAME.$$.cron.log 2>&1"
 
 - name: Remove kickstart cronjob if present
   file: state=absent path="/etc/cron.d/ansible-pull-install"
