@@ -2,7 +2,6 @@
 
 # User
 
-- include: dropbox.yml
 - include: adobe.yml
 - include: steam.yml
 
