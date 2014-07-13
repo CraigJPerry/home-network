@@ -1,7 +1,7 @@
 ---
 
 - name: dropbox | Configure repo
-  copy: src=dropbox/etc/yum.repos.d/dropbox.repo
+  copy: src=dropbox.repo
         dest=/etc/yum.repos.d/dropbox.repo
         owner=root group=root
 

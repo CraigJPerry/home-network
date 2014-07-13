@@ -1,7 +1,7 @@
 ---
 
 - name: flash | Configure adobe repo
-  copy: src=adobe/etc/yum.repos.d/adobe.repo
+  copy: src=adobe.repo
         dest=/etc/yum.repos.d/adobe.repo
         owner=root group=root
 

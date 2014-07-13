@@ -3,12 +3,12 @@
 # Steam Gaming Platform & Game Tweaks / Fixes / Workarounds
 
 - name: steam | Configure RPM Fusion repo
-  copy: src=steam/etc/yum.repos.d/rpmfusion.repo
+  copy: src=rpmfusion.repo
         dest=/etc/yum.repos.d/rpmfusion.repo
         owner=root group=root
 
 - name: steam | Configure Fedora Steam repo
-  copy: src=steam/etc/yum.repos.d/steam.repo
+  copy: src=steam.repo
         dest=/etc/yum.repos.d/steam.repo
         owner=root group=root
 
