@@ -1,4 +1,17 @@
 ---
 
-# Common tasks for all roles
+# User
+
+- include: core_tools.yml
+
+# SysAdmin
+#
+- include: core_sa_tools.yml
+
+# Developer
+
+- include: core_developer_tools.yml
+- include: java.yml
+- include: python.yml
+- include: javascript.yml
 

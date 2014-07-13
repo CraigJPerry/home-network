@@ -1,7 +1,21 @@
-## Home Network ##
+Bootstrap a host against this ansible repository:
 
-An [Ansible](http://www.ansibleworks.com) v1.4+ repo to manage a small home network.
+    [you@host ~]$ ansible-playbook --connection=local --inventory-file=localhost, playbooks/bootstrap.yml
 
-Comes with re-usable [roles](roles/), a small [role testing framework](roles/tests/framework/) and [tests](roles/tests).
+Or, if you have many remote hosts to bootstrap over SSH:
 
-Requires [Vagrant](http://www.vagrantup.com) for running tests.
+    [you@host ~]$ ansible-playbook --inventory-file=hosts playbooks/bootstrap.yml
+
+This will automatically:
+
+* Use sudo if you are not root. If you are root, sudo will not be used
+* Ensure ansible and git are installed
+* Create an ansible user account
+* Provision the ansible user account with required sudo access
+* Establish a crontab to download and play local.yml every hour
+
+### Notes ###
+
+All my roles come with a tests.yml, there is no widely adopted
+convention for tests as yet. This works for me, so far.
+

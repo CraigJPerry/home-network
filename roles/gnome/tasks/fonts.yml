@@ -1,0 +1,30 @@
+---
+
+# Configure fonts
+
+- name: Install fixed width, powerline patched, terminal font
+  copy: src=LiberationMono
+        dest=/usr/share/fonts
+        owner=root group=root mode=0755
+  register: fonts_installed
+
+- name: Update system font cache
+  command: '/usr/bin/fc-cache -f'
+  when: fonts_installed|changed
+
+# TODO: Need to recompile the gnome interface schema for this to apply to all users
+# - name: Set the default terminal font face
+#   command: '/usr/bin/gsettings set org.gnome.desktop.interface monospace-font-name "Liberation Mono for Powerline 10"'
+- name: Set the default terminal font face
+  debug: msg="TODO: Set the default terminal font face"
+
+- name: Configure sub pixel rendering
+  file: src=/usr/share/fontconfig/conf.avail/10-sub-pixel-rgb.conf
+        dest=/etc/fonts/conf.d/10-sub-pixel-rgb.conf
+        owner=root group=root state=link
+
+- name: Configure LCD filtering
+  file: src=/usr/share/fontconfig/conf.avail/11-lcdfilter-light.conf
+        dest=/etc/fonts/conf.d/11-lcdfilter-light.conf
+        owner=root group=root state=link
+

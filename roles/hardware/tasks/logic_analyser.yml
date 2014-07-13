@@ -9,14 +9,14 @@
   register: logic_unzipped
 
 - name: Install logic analyser software
-  unarchive: src=logic_analyser/Logic-1.1.15-x64.zip dest=/opt/
+  unarchive: src=Logic-1.1.15-x64.zip dest=/opt/
   when: logic_unzipped.stdout.find("Logic") == -1
 
 - name: Add group for logic analyser access
   group: state=present name=usbftdi gid=1500
 
 - name: Configure udev rules
-  copy: src=logic_analyser/etc/udev/rules.d/99-libftdi.rules
+  copy: src=99-libftdi.rules
         dest=/etc/udev/rules.d/99-libftdi.rules
         owner=root
         group=root

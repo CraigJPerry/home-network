@@ -1,8 +1,0 @@
----
-
-# Install ansible in pull mode.
-
-- hosts: install_ansible_pull_hosts
-  roles:
-    - install_ansible_pull
-

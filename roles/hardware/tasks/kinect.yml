@@ -5,6 +5,7 @@
   with_items:
     - libfreenect-devel
     - libfreenect-opencv
+  when: install_graphical_tools
 
 - name: Install Kinect Python Binding Dependencies
   yum: state=present pkg={{ item }}
@@ -13,9 +14,10 @@
     - opencv-python
     - Cython
     - numpy
+  when: install_graphical_tools
 
 - name: Configure udev rules
-  copy: src=kinect/etc/udev/rules.d/66-kinect.rules
+  copy: src=66-kinect.rules
         dest=/etc/udev/rules.d/66-kinect.rules
         owner=root
         group=root
