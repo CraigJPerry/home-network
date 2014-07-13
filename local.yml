@@ -2,22 +2,7 @@
 
 - include: playbooks/bootstrap.yml
 
-- hosts: 'laptops:&user_root'
-  sudo: no
-  gather_facts: no
-  roles:
-    - common
-    - lan
-    - gnome
-    - virtualisation
-    - hardware
-    - chrome
-    - flash
-    - dropbox
-    - skype
-    - steam
-
-- hosts: 'laptops:!user_root'
+- hosts: 'laptops'
   sudo: yes
   gather_facts: no
   roles:

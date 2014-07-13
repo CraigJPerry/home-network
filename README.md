@@ -8,7 +8,7 @@ Or, if you have many remote hosts to bootstrap over SSH:
 
 This will automatically:
 
-* Use sudo if you are not root. If you are root, sudo will not be used
+* Use sudo if you are not root
 * Ensure ansible and git are installed
 * Create an ansible user account
 * Provision the ansible user account with required sudo access
@@ -31,6 +31,5 @@ convention for tests as yet. This works for me, so far.
    their ansible-pull configuration but nothing else. I.e. all they'll
    do is keep checking your repo.
 5. Assign your hostnames to as many groups as makes sense
-6. Set your groups to do things in local.yml remember to handle sudo use
-   for root / non-root users, see existing examples.
+6. Set your groups to do things in local.yml
 
