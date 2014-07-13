@@ -1,7 +1,11 @@
 localhost
 
 [onsite]
+d1.local
 r1.local
+
+[desktops]
+d1.local
 
 [laptops]
 r1.local

@@ -8,7 +8,7 @@
   roles:
     - lan
 
-- hosts: laptops
+- hosts: laptops:desktops
   sudo: yes
   gather_facts: no
   roles:
