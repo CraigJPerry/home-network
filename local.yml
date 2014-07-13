@@ -13,12 +13,7 @@
   gather_facts: no
   roles:
     - common
-    - gnome
+    - desktop
     - virtualisation
     - hardware
-    - chrome
-    - flash
-    - dropbox
-    - skype
-    - steam
 
