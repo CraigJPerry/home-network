@@ -1,5 +1,20 @@
 ---
 
+# Bootstrapping examples:
+#
+#   Bootstrap this host:
+#       [me@this-host ~]$ ansible-playbook --connection=local --inventory-file=localhost, playbooks/bootstrap.yml
+#     OR
+#       [root@this-host ~]$ ansible-playbook --connection=local --inventory-file=localhost, playbooks/bootstrap.yml
+#
+#   Use SSH to bootstrap a remote "r1.local" host (requires your pubkey
+#   to be in the remote authorized_keys file):
+#       [me@another-host ~]$ ansible-playbook --inventory-file=r1.local, playbooks/bootstrap.yml
+#
+#   Use SSH, with no trusted keypair to bootstrap a remote "s5.local" host:
+#       [me@another-host ~]$ ansible-playbook --inventory-file=s5.local, --ask-pass playbooks/bootstrap.yml
+#
+
 - hosts: all
   tasks:
     - group_by: key=user_{{ ansible_user_id }}
