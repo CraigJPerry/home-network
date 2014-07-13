@@ -4,6 +4,9 @@ localhost
 d1.local
 r1.local
 
+[virtual]
+v1.local
+
 [desktops]
 d1.local
 
