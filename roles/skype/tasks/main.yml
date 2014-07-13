@@ -1,0 +1,8 @@
+---
+
+- name: skype | Download skype
+  get_url: url="http://www.skype.com/go/getskype-linux-beta-fc10" dest=/opt/skype.rpm mode=0444
+
+- name: skype | Install Skype
+  yum: state=present name=/opt/skype.rpm
+
