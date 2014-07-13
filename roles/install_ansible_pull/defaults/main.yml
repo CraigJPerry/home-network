@@ -1,5 +1,6 @@
 ---
 
-pull_command: ansible-pull --url https://github.com/CraigJPerry/home-network --directory home-network --inventory-file hosts > $HOME/ansible-pull.$LOGNAME.$$.crontab 2>&1
-special_time: hourly
+pull_dir: home-network
+pull_repo: https://github.com/CraigJPerry/home-network
+pull_time: hourly
 

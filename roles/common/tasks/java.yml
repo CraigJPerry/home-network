@@ -39,3 +39,7 @@
         owner=root group=root state=link
   when: install_idea
 
+- name: Create IDEA desktop icon
+  copy: 'src=jetbrains-idea.desktop dest=/usr/share/applications/jetbrains-idea.desktop owner=root group=root'
+  when: install_idea
+

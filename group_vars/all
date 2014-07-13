@@ -1,5 +1,9 @@
 ---
 
+pull_dir: home-network
+pull_repo: https://github.com/CraigJPerry/home-network
+pull_time: hourly
+
 # LAN user accounts configuration
 users_list:
   - monika

@@ -51,3 +51,7 @@
         owner=root group=root state=link
   when: install_pycharm
 
+- name: Create PyCharm desktop icon
+  copy: 'src=jetbrains-pycharm.desktop dest=/usr/share/applications/jetbrains-pycharm.desktop owner=root group=root'
+  when: install_pycharm
+

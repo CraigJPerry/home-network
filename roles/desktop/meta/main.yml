@@ -1,0 +1,12 @@
+---
+
+# Ensure ansible & dependencies are pre-installed
+
+dependencies:
+  - { role: gnome }
+  - { role: chrome }
+  - { role: flash }
+  - { role: dropbox }
+  - { role: skype }
+  - { role: steam }
+
