@@ -4,7 +4,7 @@ Bootstrap a host against this ansible repository:
 
 Or, if you have many remote hosts to bootstrap over SSH:
 
-    [you@host ~]$ ansible-playbook --inventory-file=hosts playbooks/bootstrap.yml
+    [you@host ~]$ ansible-playbook --inventory-file=hosts [--limit=groupname] playbooks/bootstrap.yml
 
 This will automatically:
 
@@ -22,14 +22,13 @@ convention for tests as yet. This works for me, so far.
 ## Making It Your Own ##
 
 1. Fork this project
-2. Edit `group_vars/all`, see comments for how to set a default password
-   (you will be forced to choose a new one on login)
+2. Edit `group_vars/all`
 3. Update the `pull_command` variable to point to your forked repo (see
    `roles/install_ansible_pull/defaults/main.yml`)
 4. At this point, you can bootstrap hosts by running the bootstrap
-   playbook. You hosts will begin polling your repo and they'll maintain
+   playbook. Your hosts will begin polling your repo and they'll maintain
    their ansible-pull configuration but nothing else. I.e. all they'll
-   do is keep checking your repo.
+   do is keep checking your repo
 5. Assign your hostnames to as many groups as makes sense
 6. Set your groups to do things in local.yml
 
