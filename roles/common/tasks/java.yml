@@ -1,7 +1,7 @@
 ---
 
 - name: common | Download JDK
-  shell: '/usr/bin/wget --no-cookies --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com" "{{ jdk_download_root }}/{{ jdk_version_dir }}/{{ jdk_filename }}" chdir=/opt creates="/opt/{{ jdk_filename }}"'
+  shell: '/usr/bin/wget --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" "{{ jdk_download_root }}/{{ jdk_version_dir }}/{{ jdk_filename }}" chdir=/opt creates="/opt/{{ jdk_filename }}"'
 
 - name: common | Install JDK
   register: installed_jdk
