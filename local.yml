@@ -2,12 +2,17 @@
 
 - include: playbooks/bootstrap.yml
 
-- hosts: 'laptops'
+- hosts: onsite
+  sudo: yes
+  gather_facts: no
+  roles:
+    - lan
+
+- hosts: laptops
   sudo: yes
   gather_facts: no
   roles:
     - common
-    - lan
     - gnome
     - virtualisation
     - hardware
