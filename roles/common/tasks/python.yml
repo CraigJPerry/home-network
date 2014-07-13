@@ -31,7 +31,7 @@
     - python-pyside
   when: install_graphical_tools
 
-- name: Install more advanced requirements
+- name: Install Python Packages From PyPI
   pip: state=present name={{ item }}
   with_items:
     - seaborn
