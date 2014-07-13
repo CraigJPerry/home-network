@@ -70,11 +70,11 @@
   when: nvidia_loaded.rc != 0 and nouveau_loaded.rc != 0
 
 - name: Download latest driver
-  get_url: url="ftp://download.nvidia.com/XFree86/Linux-x86_64/{{ latest_version.stdout }}" dest="/var/tmp/nvidia-driver.run" mode=0755
+  get_url: url="ftp://download.nvidia.com/XFree86/Linux-x86_64/{{ latest_version.stdout }}" dest="/opt/nvidia-driver.run" mode=0755
   when: nvidia_loaded.rc != 0 and nouveau_loaded.rc != 0
 
 - name: Run to install nvidia driver
-  shell: '/var/tmp/nvidia-driver.run --silent --run-nvidia-xconfig'
+  shell: '/opt/nvidia-driver.run --silent --run-nvidia-xconfig'
   notify:
     - reboot to graphical
   when: nvidia_loaded.rc != 0 and nouveau_loaded.rc != 0
