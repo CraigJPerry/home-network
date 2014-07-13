@@ -14,3 +14,8 @@ This will automatically:
 * Provision the ansible user account with required sudo access
 * Establish a crontab to download and play local.yml every hour
 
+### Notes ###
+
+All my roles come with a tests.yml, there is no widely adopted
+convention for tests as yet. This works for me, so far.
+
