@@ -5,6 +5,7 @@
   with_items:
     - libfreenect-devel
     - libfreenect-opencv
+  when: install_graphical_tools
 
 - name: hardware | Install Kinect Python Binding Dependencies
   yum: state=present pkg={{ item }}
@@ -13,6 +14,7 @@
     - opencv-python
     - Cython
     - numpy
+  when: install_graphical_tools
 
 - name: hardware | Configure udev rules
   copy: src=66-kinect.rules

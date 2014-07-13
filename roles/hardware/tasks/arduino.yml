@@ -5,6 +5,7 @@
   with_items:
     - arduino
     - arduino-doc
+  when: install_graphical_tools
 
 - name: hardware | Permit users access to arduino devices
   user: name={{ item }} append=yes groups="lock,dialout"
