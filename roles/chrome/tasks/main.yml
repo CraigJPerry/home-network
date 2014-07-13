@@ -1,0 +1,15 @@
+---
+
+# Google chrome web browser
+
+- name: chrome | Configure repo
+  copy: src=chrome.repo
+        dest=/etc/yum.repos.d/chrome.repo
+        owner=root group=root
+
+- name: chrome | Install Browser
+  yum: state=present enablerepo="chrome" name="google-chrome-stable"
+
+- name: chrome | Install Talk Plugin
+  yum: state=present enablerepo="chrome" name="google-talkplugin"
+
