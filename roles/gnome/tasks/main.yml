@@ -1,0 +1,25 @@
+---
+
+# Install GNOME desktop environment & customisations
+
+- name: gnome | Install Desktop Environment
+  yum: state=present pkg={{ item }}
+  with_items:
+    - '@base-x'
+    - '@core'
+    - '@dial-up'
+    - '@firefox'
+    - '@fonts'
+    - '@gnome-desktop'
+    - '@guest-desktop-agents'
+    - '@hardware-support'
+    - '@input-methods'
+    - '@multimedia'
+    - '@printing'
+    - '@standard'
+    - '@gnome-games'
+    - '@libreoffice'
+
+- include: fonts.yml
+- include: citrix.yml
+
