@@ -1,4 +1,6 @@
 ---
 
-- include: users.yml
+users_list: []
+super_users_list: []
+password: $6$w0hK n31w$RxjfrTssYs/F0Q7lwPtDVFA1cJftAVaP3MiMUxEwZqFTijEIfBqdhVdW6Gj3fAjHcnUT1yR1zTEw.EbBYhMp61
 

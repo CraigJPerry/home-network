@@ -1,8 +1,0 @@
----
-
-install_graphical_tools: False
-install_pycharm: False
-pycharm_url: http://download.jetbrains.com/python/
-pycharm_name: pycharm-professional-3.4.1.tar.gz
-pycharm_unzipped: pycharm-3.4.1
-

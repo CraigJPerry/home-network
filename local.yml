@@ -2,9 +2,15 @@
 
 - include: playbooks/bootstrap.yml
 
-- hosts: laptops
+- hosts: 'laptops:&user_root'
+  sudo: no
   gather_facts: no
-  tasks:
-    - name: Run plays for laptops
-      debug: msg="Running plays for laptops..."
+  roles:
+    - common
+
+- hosts: 'laptops:!user_root'
+  sudo: yes
+  gather_facts: no
+  roles:
+    - common
 

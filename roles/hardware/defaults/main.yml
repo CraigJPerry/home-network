@@ -2,7 +2,9 @@
 
 install_graphical_tools: False
 
-- include: kinect.yml
-- include: logic_analyser.yml
-- include: arduino.yml
+kinect_users: []
+
+logic_analyser_users: []
+
+arduino_users: []
 
