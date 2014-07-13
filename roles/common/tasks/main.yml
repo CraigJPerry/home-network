@@ -9,6 +9,5 @@
 - include: core_developer_tools.yml
 - include: java.yml
 - include: python.yml
-- include: virtualisation.yml
 - include: javascript.yml
 
