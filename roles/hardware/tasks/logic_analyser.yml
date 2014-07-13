@@ -7,6 +7,7 @@
 - name: Check if logic analyser already unzipped
   command: find /opt -maxdepth 1 -type d -name 'Logic*'
   register: logic_unzipped
+  changed_when: False
 
 - name: Install logic analyser software
   unarchive: src=Logic-1.1.15-x64.zip dest=/opt/
