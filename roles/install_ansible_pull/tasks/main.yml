@@ -2,23 +2,23 @@
 
 # Install (or maintain) ansible pull mode
 
-- name: install_ansible_pull | Create ansible user
+- name: Create ansible user
   user: state="present" name="ansible" system="yes" createhome="yes" generate_ssh_key="yes" comment="Ansible Configuration Management"
 
-- name: install_ansible_pull | Add warning comment to ansible sudoers file
+- name: Add warning comment to ansible sudoers file
   lineinfile: state="present" dest="/etc/sudoers.d/ansible" create="yes" insertbefore="BOF" regexp="^#" line="## Automatically Managed by Ansible, Manual Changes Will Be Lost!"
 
-- name: install_ansible_pull | Disable requiretty restriction on ansible user
+- name: Disable requiretty restriction on ansible user
   # NB: Full line in quotes due to : char, see ansible YAML disclaimer
   lineinfile: 'state="present" dest="/etc/sudoers.d/ansible" create="yes" regexp="^Defaults" line="Defaults: ansible !requiretty"'
 
-- name: install_ansible_pull | Allow ansible user full sudo privs
+- name: Allow ansible user full sudo privs
   # NB: Full line in quotes due to : char, see ansible YAML disclaimer
   lineinfile: 'state="present" dest="/etc/sudoers.d/ansible" create="yes" regexp="^ansible" line="ansible ALL=(ALL) NOPASSWD: ALL"'
 
-- name: install_ansible_pull | Install ansible pull-mode crontab entry
+- name: Install ansible pull-mode crontab entry
   cron: state="present" name="ansible-pull" user="ansible" special_time="{{ special_time }}" job="{{ pull_command }}"
 
-- name: install_ansible_pull | Remove kickstart cronjob if present
+- name: Remove kickstart cronjob if present
   file: state=absent path="/etc/cron.d/ansible-pull-install"
 

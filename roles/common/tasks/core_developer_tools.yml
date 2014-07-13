@@ -1,6 +1,6 @@
 ---
 
-- name: common | Core Development Tools
+- name: Core Development Tools
   yum: state=present pkg={{ item }}
   with_items:
     - vim-enhanced

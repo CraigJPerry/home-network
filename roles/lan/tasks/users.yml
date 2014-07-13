@@ -2,31 +2,31 @@
 
 # LAN user accounts
 
-- name: lan | Create regular user accounts
+- name: Create regular user accounts
   user: state="present" name="{{ item }}" createhome="yes" update_password="on_create" password="{{ password }}"
   register: user_created
   with_items: users_list
 
-- name: lan | Force password change on first login
+- name: Force password change on first login
   command: /usr/bin/chage -d 0 {{ item }}
   with_items: users_list
   when: user_created|changed
 
-- name: lan | Create super user accounts
+- name: Create super user accounts
   user: state="present" name="{{ item }}" createhome="yes" update_password="on_create" password="{{ password }}"
   register: super_user_created
   with_items: super_users_list
 
-- name: lan | Force super user password change on first login
+- name: Force super user password change on first login
   command: /usr/bin/chage -d 0 {{ item }}
   with_items: super_users_list
   when: super_user_created|changed
 
-- name: lan | Add warning comment to super users sudoers file
+- name: Add warning comment to super users sudoers file
   lineinfile: state="present" dest="/etc/sudoers.d/{{ item }}" create="yes" insertbefore="BOF" regexp="^#" line="## Automatically Managed by Ansible, Manual Changes Will Be Lost!"
   with_items: super_users_list
 
-- name: lan | Allow super users full sudo privs
+- name: Allow super users full sudo privs
   # NB: Full line in quotes due to : char, see ansible YAML disclaimer
   lineinfile: 'state="present" dest="/etc/sudoers.d/{{ item }}" create="yes" regexp="^{{ item }}" line="{{ item }} ALL=(ALL) NOPASSWD: ALL"'
   with_items: super_users_list

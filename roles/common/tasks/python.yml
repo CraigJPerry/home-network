@@ -1,6 +1,6 @@
 ---
 
-- name: common | Install Basic Python 2.7 Elements
+- name: Install Basic Python 2.7 Elements
   yum: state=present pkg={{ item }}
   with_items:
     - python
@@ -21,7 +21,7 @@
     - python-statsmodels
     - fabric
 
-- name: common | Install Graphical Python2.7 Elements
+- name: Install Graphical Python2.7 Elements
   yum: state=present pkg={{ item }}
   with_items:
     - python-ipython-gui
@@ -31,22 +31,22 @@
     - python-pyside
   when: install_graphical_tools
 
-- name: common | Install more advanced requirements
+- name: Install more advanced requirements
   pip: state=present name={{ item }}
   with_items:
     - seaborn
   when: install_graphical_tools
 
-- name: common | Download PyCharm
+- name: Download PyCharm
   get_url: url="{{ pycharm_url }}{{ pycharm_name }}" dest="/opt/{{ pycharm_name }}" mode=0644
   register: downloaded_pycharm
   when: install_pycharm
 
-- name: common | Extract PyCharm
+- name: Extract PyCharm
   unarchive: src="/opt/{{ pycharm_name }}" dest=/opt/
   when: downloaded_pycharm|changed
 
-- name: common | Set current pycharm link
+- name: Set current pycharm link
   file: src=/opt/{{ pycharm_unzipped }} dest=/opt/pycharm
         owner=root group=root state=link
   when: install_pycharm

@@ -2,7 +2,7 @@
 
 # Configure Citrix ICA Client
 
-- name: gnome | Install ICAClient dependencies
+- name: Install ICAClient dependencies
   yum: state=present pkg={{ item }}
   with_items:
     - motif.i686
@@ -10,11 +10,11 @@
     - libXaw.i686
 
 # Workaround: unarchive doesn't check if already unzipped in 1.4
-- name: gnome | Check if ICAClient already unzipped
+- name: Check if ICAClient already unzipped
   command: find /usr/lib -maxdepth 1 -type d -name 'ICAClient'
   register: icaclient_unzipped
 
-- name: gnome | Install ICAClient
+- name: Install ICAClient
   unarchive: src=ICAClient.tar.gz dest=/usr/lib
   when: icaclient_unzipped.stdout.find("ICAClient") == -1
 

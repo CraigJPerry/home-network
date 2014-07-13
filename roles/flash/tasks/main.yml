@@ -1,11 +1,11 @@
 ---
 
-- name: flash | Configure adobe repo
+- name: Configure adobe repo
   copy: src=adobe.repo
         dest=/etc/yum.repos.d/adobe.repo
         owner=root group=root
 
-- name: flash | Install
+- name: Install
   yum: state=present enablerepo="adobe" pkg={{ item }}
   with_items:
     - "flash-plugin"

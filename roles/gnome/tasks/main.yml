@@ -2,7 +2,7 @@
 
 # Install GNOME desktop environment & customisations
 
-- name: gnome | Install Desktop Environment
+- name: Install Desktop Environment
   yum: state=present pkg={{ item }}
   with_items:
     - '@base-x'

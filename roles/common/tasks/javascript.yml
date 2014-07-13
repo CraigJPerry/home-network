@@ -1,6 +1,6 @@
 ---
 
-- name: common | Install NodeJS
+- name: Install NodeJS
   yum: state=present pkg={{ item }}
   with_items:
     - nodejs

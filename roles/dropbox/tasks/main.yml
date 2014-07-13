@@ -1,11 +1,11 @@
 ---
 
-- name: dropbox | Configure repo
+- name: Configure repo
   copy: src=dropbox.repo
         dest=/etc/yum.repos.d/dropbox.repo
         owner=root group=root
 
-- name: dropbox | Install
+- name: Install
   yum: state=present enablerepo="Dropbox" pkg={{ item }}
   with_items:
     - "nautilus-dropbox"

@@ -2,19 +2,19 @@
 
 # Network configuration for LAN
 
-- name: lan | Zeroconf (bonjour) network name services & diag tools
+- name: Zeroconf (bonjour) network name services & diag tools
   yum: state=present pkg={{ item }}
   sudo: yes
   with_items:
     - nss-mdns
     - avahi-tools
 
-- name: lan | Configure common LAN filesystem mounts comment
+- name: Configure common LAN filesystem mounts comment
   lineinfile: state="present" dest="/etc/fstab" regexp="^# HTPC" line="# HTPC Mounts"
 
-- name: lan | Create Apps mount point
+- name: Create Apps mount point
   file: path=/media/Apps state=directory
 
-- name: lan | Configure common LAN filesystem mounts
+- name: Configure common LAN filesystem mounts
   lineinfile: state="present" dest="/etc/fstab" insertafter="^# HTPC" regexp="^//htpc.local/Apps" line="//htpc.local/Apps /media/Apps cifs noauto,username=Craig 0 0"
 
