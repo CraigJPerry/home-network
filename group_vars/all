@@ -16,3 +16,18 @@ super_users_list:
 # '$6$choose-your-salt$//UF3xcFQRoDNciLvXE/ImsXONtiel6R6DwoUGeA9NGPbWGUGnCyIzjR9xP0LtrzlRrMwHfulk.9Q2J1SD.7q/'
 default_password: $6$w0hK n31w$RxjfrTssYs/F0Q7lwPtDVFA1cJftAVaP3MiMUxEwZqFTijEIfBqdhVdW6Gj3fAjHcnUT1yR1zTEw.EbBYhMp61
 
+# Kinect configuration
+kinect_users:
+  - craig
+  - dev
+
+# Logic Analyser configuration
+logic_analyser_users:
+  - craig
+  - dev
+
+# Arduino configuration
+arduino_users:
+  - craig
+  - dev
+
