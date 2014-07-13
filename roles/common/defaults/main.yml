@@ -1,11 +1,5 @@
 ---
 
-# User
-
-- include: steam.yml
-
-# Developer
-
 - include: java.yml
 - include: python.yml
 - include: virtualisation.yml

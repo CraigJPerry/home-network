@@ -3,9 +3,6 @@
 # User
 
 - include: core_tools.yml
-- include: dropbox.yml
-- include: adobe.yml
-- include: steam.yml
 
 # Developer
 
