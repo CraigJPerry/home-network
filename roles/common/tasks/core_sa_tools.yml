@@ -1,0 +1,26 @@
+---
+
+- name: common | Core SysAdmin Tools
+  yum: state=present pkg={{ item }}
+  with_items:
+    - sysstat
+    - dstat
+    - iotop
+    - htop
+    - parallel
+    - lm_sensors
+    - smartmontools
+    - ipmiutil
+    - nmap
+    - nmap-ncat
+    - oprofile
+    - procps-ng
+    - nicstat
+    - tcpdump
+    - blktrace
+    - perf
+    - lsof
+    - latencytop
+    - powertop
+    - tmux
+

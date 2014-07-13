@@ -4,6 +4,10 @@
 
 - include: core_tools.yml
 
+# SysAdmin
+#
+- include: core_sa_tools.yml
+
 # Developer
 
 - include: core_developer_tools.yml
