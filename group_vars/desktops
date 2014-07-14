@@ -4,4 +4,5 @@ install_idea: True
 install_virtualbox: True
 install_vagrant: True
 install_kvm: True
+install_sublime: True
 
