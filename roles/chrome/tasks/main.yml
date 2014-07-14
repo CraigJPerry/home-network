@@ -2,9 +2,14 @@
 
 # Google chrome web browser
 
-- name: Configure repo
-  copy: src=chrome.repo
-        dest=/etc/yum.repos.d/chrome.repo
+- name: Configure chrome repo
+  copy: src=google-chrome.repo
+        dest=/etc/yum.repos.d/google-chrome.repo
+        owner=root group=root
+
+- name: Configure google talk plugin repo
+  copy: src=google-talkplugin.repo
+        dest=/etc/yum.repos.d/google-talkplugin.repo
         owner=root group=root
 
 - name: Install Browser

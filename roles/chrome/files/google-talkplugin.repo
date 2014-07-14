@@ -1,0 +1,6 @@
+[google-talkplugin]
+name=Google Talk Plugin
+baseurl=http://dl.google.com/linux/talkplugin/rpm/stable/x86_64
+enabled=0
+gpgcheck=1
+
