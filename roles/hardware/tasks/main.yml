@@ -8,6 +8,7 @@
 - name: Check if any NVIDIA VGA Card is Present
   shell: '/usr/sbin/lspci | /usr/bin/grep -i "vga.*nvidia"'
   ignore_errors: yes
+  changed_when: False
   register: nvidia_vga_present
 
 - include: nvidia.yml
