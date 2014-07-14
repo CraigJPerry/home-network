@@ -4,7 +4,7 @@ install_kvm: False
 
 install_virtualbox: False
 virtualbox_package: VirtualBox-4.3
-virtualbox_extensions_url: http://download.virtualbox.org/virtualbox/4.3.12/Oracle_VM_VirtualBox_Extension_Pack-4.3.12-93733.vbox-extpack
+virtualbox_extensions_url: http://download.virtualbox.org/virtualbox/4.3.12/
 virtualbox_extensions_name: Oracle_VM_VirtualBox_Extension_Pack-4.3.12-93733.vbox-extpack
 virtualbox_users:
   - craig
