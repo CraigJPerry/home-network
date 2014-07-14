@@ -32,5 +32,5 @@
     - update xdg desktop db
 
 - name: Associate ICA mime type with handler
-  lineinfile: 'state="present" dest="/usr/share/applications/default.list" insertafter="EOF" regexp="^application/x-ica=wfica.desktop" line="application/x-ica=wfica.desktop"'
+  lineinfile: 'state="present" dest="/usr/share/applications/defaults.list" insertafter="EOF" regexp="^application/x-ica=wfica.desktop" line="application/x-ica=wfica.desktop"'
 
