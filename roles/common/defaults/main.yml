@@ -1,5 +1,12 @@
 ---
 
+# Sublime text editor
+
+install_sublime: False
+sublime_url: https://www.dropbox.com/s/0nvncgxcdwx5j40/
+sublime_name: sublime_text_3_build_3059_x64.tar.bz2
+sublime_unzipped: sublime_text_3
+
 # Python
 
 install_graphical_tools: False
