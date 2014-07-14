@@ -1,0 +1,8 @@
+---
+
+- name: update gnome db
+  shell: '/usr/bin/update-desktop-database'
+
+- name: update mime db
+  shell: '/usr/bin/update-mime-database'
+
