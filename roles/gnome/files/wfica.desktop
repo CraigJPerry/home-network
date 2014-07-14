@@ -1,0 +1,12 @@
+[Desktop Entry]
+Name=Citrix ICA client
+GenericName=Citrix ICA Client
+Comment=Citrix nFuse session file
+Categories=Application
+Encoding=UTF-8
+Exec=/usr/lib/ICAClient/wfica.sh
+Icon=wfica
+Terminal=false
+Type=Application
+MimeType=application/x-ica
+
