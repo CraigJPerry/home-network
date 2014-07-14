@@ -19,3 +19,18 @@
   unarchive: src=ICAClient.tar.gz dest=/usr/lib
   when: icaclient_unzipped.stdout.find("ICAClient") == -1
 
+- name: Define ICA mime type
+  copy: src=ica.xml dest=/usr/share/mime/packages/ica.xml owner=root group=root mode=0644
+  notify:
+    - update gnome mime db
+    - update xdg mime db
+
+- name: Define ICA application
+  copy: src=wfica.desktop dest=/usr/share/applications/wfica.desktop owner=root group=root mode=0644
+  notify:
+    - update gnome desktop db
+    - update xdg desktop db
+
+- name: Associate ICA mime type with handler
+  lineinfile: 'state="present" dest="/usr/share/applications/default.list" insertafter="EOF" regexp="^application/x-ica=wfica.desktop" line="application/x-ica=wfica.desktop"'
+

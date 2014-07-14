@@ -1,8 +1,14 @@
 ---
 
-- name: update gnome db
+- name: update gnome mime db
+  shell: '/usr/bin/update-mime-database'
+
+- name: update gnome desktop db
   shell: '/usr/bin/update-desktop-database'
 
-- name: update mime db
-  shell: '/usr/bin/update-mime-database'
+- name: update xdg mime db
+  shell: '/usr/bin/xdg-mime install --novendor /usr/share/mime/packages/ica.xml'
+
+- name: update xdg desktop db
+  shell: '/usr/bin/xdg-mime default wfica.desktop application/x-ica'
 
