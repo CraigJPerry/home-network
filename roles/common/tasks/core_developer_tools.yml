@@ -23,3 +23,21 @@
     - wget
     - curl
 
+- name: Download sublime text
+  shell: '/usr/bin/wget "{{ sublime_url }}{{ sublime_name }}" chdir=/opt creates="/opt/{{ sublime_name }}"'
+  register: downloaded_sublime
+  when: install_sublime
+
+- name: Extract sublime text
+  unarchive: src="/opt/{{ sublime_name }}" dest=/opt/
+  when: downloaded_sublime|changed
+
+- name: Set current sublime link
+  file: src=/opt/{{ sublime_unzipped }} dest=/opt/sublime_text
+        owner=root group=root state=link
+  when: install_sublime
+
+- name: Create sublime desktop icon
+  copy: 'src=sublime_text.desktop dest=/usr/share/applications/sublime_text.desktop owner=root group=root'
+  when: install_sublime
+
