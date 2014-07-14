@@ -3,4 +3,5 @@ install_pycharm: True
 install_idea: True
 install_virtualbox: True
 install_vagrant: True
+install_sublime: True
 
