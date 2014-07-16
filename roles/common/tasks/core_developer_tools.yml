@@ -37,6 +37,10 @@
         owner=root group=root state=link
   when: install_sublime
 
+- name: Link Sublime Text executable into /opt/bin
+  file: src=/opt/sublime_text/sublime_text dest=/opt/bin/sublime_text owner=root group=root state=link
+  when: install_sublime
+
 - name: Create sublime desktop icon
   copy: 'src=sublime_text.desktop dest=/usr/share/applications/sublime_text.desktop owner=root group=root'
   when: install_sublime
