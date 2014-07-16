@@ -1,0 +1,10 @@
+---
+
+- name: Download Vagrant
+  get_url: url="{{ vagrant_url }}{{ vagrant_name }}" dest="/opt/{{ vagrant_name }}" mode=0644
+  when: install_vagrant
+
+- name: Install Vagrant
+  yum: state=present pkg=/opt/{{ vagrant_name }}
+  when: install_vagrant
+

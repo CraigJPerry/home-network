@@ -1,11 +1,5 @@
 ---
 
-- name: Install KVM & libvirt
-  yum: state=present pkg='@virtualization'
-  when: install_kvm
-
-# Virtualbox
-
 - name: Configure virtualbox repo
   copy: src=virtualbox.repo
         dest=/etc/yum.repos.d/virtualbox.repo
@@ -25,33 +19,12 @@
   shell: '/usr/bin/VBoxManage extpack install /opt/{{ virtualbox_extensions_name }}'
   when: vbe_downloaded|changed
 
+- name: Install virtualbox kernel driver
+  shell: '/etc/init.d/vboxdrv setup'
+  when: vbe_downloaded|changed
+
 - name: Maintain vboxusers
   user: name={{ item }} append=yes groups=vboxusers
   with_items: virtualbox_users
   when: install_virtualbox
-
-# Vagrant
-
-- name: Download Vagrant
-  get_url: url="{{ vagrant_url }}{{ vagrant_name }}" dest="/opt/{{ vagrant_name }}" mode=0644
-  when: install_vagrant
-
-- name: Install Vagrant
-  yum: state=present pkg=/opt/{{ vagrant_name }}
-  when: install_vagrant
-
-# Docker
-
-- name: Install Docker
-  yum: state=present name="docker-io"
-  when: install_docker
-
-- name: Add docker users to docker group
-  user: name={{ item }} append=yes groups=docker
-  with_items: docker_users
-  when: install_docker
-
-- name: Start docker
-  service: name=docker enabled=yes state=started
-  when: install_docker
 

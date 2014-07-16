@@ -12,24 +12,6 @@
   ignore_errors: yes
   register: nvidia_loaded
 
-- name: Ensure normal kernel is present
-  yum: state=present pkg={{ item }}
-  with_items:
-    - kernel
-    - kernel-modules-extra
-    - kernel-devel
-  notify:
-    - reboot to multi user
-
-- name: Ensure incompatible debug kernel is removed
-  yum: state=absent pkg={{ item }}
-  with_items:
-    - kernel-debug
-    - kernel-debug-modules-extra
-    - kernel-debug-devel
-  notify:
-    - reboot to multi user
-
 - name: Ensure dependencies and tools are present
   yum: state=present pkg={{ item }}
   with_items:
