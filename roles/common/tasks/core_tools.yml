@@ -9,3 +9,6 @@
 - name: Make an /opt/bin directory
   file: state="directory" path="/opt/bin" owner="root" group="root" mode="0755"
 
+- name: Add /opt/bin to profile
+  copy: src=optbin.sh dest=/etc/profile.d/optbin.sh owner=root group=root mode=0644
+
