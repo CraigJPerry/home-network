@@ -1,0 +1,7 @@
+---
+
+dependencies:
+  - { role: kvm }
+  - { role: virtualbox }
+  - { role: vagrant }
+
