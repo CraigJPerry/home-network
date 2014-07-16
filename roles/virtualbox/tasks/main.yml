@@ -4,16 +4,13 @@
   copy: src=virtualbox.repo
         dest=/etc/yum.repos.d/virtualbox.repo
         owner=root group=root
-  when: install_virtualbox
 
 - name: Install virtualbox
   yum: state=present enablerepo="virtualbox" name="{{ virtualbox_package }}"
-  when: install_virtualbox
 
 - name: Download virtualbox extensions
   get_url: url="{{ virtualbox_extensions_url }}{{ virtualbox_extensions_name }}" dest="/opt/{{ virtualbox_extensions_name }}" mode=0644
   register: vbe_downloaded
-  when: install_virtualbox
 
 - name: Install virtualbox extensions
   shell: '/usr/bin/VBoxManage extpack install /opt/{{ virtualbox_extensions_name }}'
@@ -26,5 +23,4 @@
 - name: Maintain vboxusers
   user: name={{ item }} append=yes groups=vboxusers
   with_items: virtualbox_users
-  when: install_virtualbox
 
