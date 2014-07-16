@@ -6,3 +6,6 @@
     - keepassx
     - conky
 
+- name: Make an /opt/bin directory
+  file: state="directory" path="/opt/bin" owner="root" group="root" mode="0755"
+
