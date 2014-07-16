@@ -1,0 +1,5 @@
+---
+
+- name: Unlock ThinkPad manual fan speed control
+  lineinfile: state="present" dest="/etc/modprobe.d/thinkpad.conf" create="yes" insertbefore="BOF" regexp="^options" line="options thinkpad_acpi fan_control=1"
+
