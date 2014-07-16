@@ -1,0 +1,14 @@
+#!/bin/bash
+#
+# TITLE
+#   tpfan
+# DESCRIPTION
+#   Control ThinkPad fan speed
+#
+
+if [[ "x$1" == "x" ]]; then
+    cat /proc/acpi/ibm/fan
+else
+    echo level $1 | sudo tee cat /proc/acpi/ibm/fan
+fi
+
