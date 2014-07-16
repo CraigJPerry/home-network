@@ -4,7 +4,6 @@
 
 - name: Zeroconf (bonjour) network name services & diag tools
   yum: state=present pkg={{ item }}
-  sudo: yes
   with_items:
     - nss-mdns
     - avahi-tools
