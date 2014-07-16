@@ -2,6 +2,7 @@
 
 dependencies:
   - { role: kvm }
+  - { role: docker }
   - { role: virtualbox }
   - { role: vagrant }
 

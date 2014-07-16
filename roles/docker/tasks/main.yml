@@ -1,0 +1,15 @@
+---
+
+- name: Install Docker
+  yum: state=present name="docker-io"
+  when: install_docker
+
+- name: Add docker users to docker group
+  user: name={{ item }} append=yes groups=docker
+  with_items: docker_users
+  when: install_docker
+
+- name: Start docker
+  service: name=docker enabled=yes state=started
+  when: install_docker
+
