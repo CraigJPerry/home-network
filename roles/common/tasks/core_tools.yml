@@ -5,6 +5,26 @@
   with_items:
     - keepassx
     - conky
+    - transmission
+    - inkscape
+    - inkscape-docs
+    - gimp
+    - gimp-help-en_GB
+    - audacity
+    - audacity-manual
+    - darktable
+    - pitivi
+    - calibre
+    - dia
+    - dia-gnomeDIAicons
+    - dia-CMOS
+    - dia-Digital
+    - dia-electric2
+    - dia-electronic
+    - dia-optics
+    - fritzing
+    - kicad
+  when: install_graphical_tools
 
 - name: Make an /opt/bin directory
   file: state="directory" path="/opt/bin" owner="root" group="root" mode="0755"
