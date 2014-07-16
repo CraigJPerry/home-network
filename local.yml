@@ -14,8 +14,15 @@
   roles:
     - common
     - desktop
-    - virtualisation
     - hardware
+    - vagrant
+
+- hosts: servers
+  sudo: yes
+  gather_facts: no
+  roles:
+    - kvm
+    - docker
 
 - hosts: virtual
   sudo: yes

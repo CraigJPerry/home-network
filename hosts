@@ -7,6 +7,9 @@ r1.local
 [virtual]
 v1.local
 
+[servers]
+d1.local
+
 [desktops]
 d1.local
 
