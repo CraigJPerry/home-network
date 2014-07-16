@@ -1,6 +1,5 @@
 ---
 
-install_vagrant: False
 vagrant_url: http://dl.bintray.com:80/mitchellh/vagrant/
 vagrant_name: vagrant_1.6.3_x86_64.rpm
 
