@@ -3,3 +3,5 @@
 - name: reboot
   shell: '/usr/sbin/reboot'
 
+- name: restart ntp
+  service: name=ntpd state=restarted
