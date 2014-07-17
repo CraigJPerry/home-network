@@ -33,6 +33,12 @@
 - name: Enable and start gpsd
   service: name=gpsd enabled=yes state=started
 
+- name: Set gps device
+  lineinfile: state=present dest=/etc/sysconfig/gpsd create=no regexp="^OPTIONS=" line='OPTIONS="/dev/ttyUSB2"'
+
+- name: Disable usb triggered gpsd auto startup
+  lineinfile: state=present dest=/etc/sysconfig/gpsd create=no regexp="^USBAUTO=" line='USBAUTO="false"'
+
   # Verify gpsd connectivity:
   # gpsctl
 
