@@ -45,6 +45,9 @@
 - name: Declare GPS device as NMEA 0183 time source
   lineinfile: state="present" dest="/etc/ntp.conf" create="no" insertafter="EOF" regexp="^fudge 127" line="fudge 127.127.28.0 time1 0.183 refid NMEA"
 
+- name: Disable Fedora time sources
+  lineinfile: state=absent dest=/etc/ntp.conf create=no regexp="^server.*(fedora|ntp)"
+
 - name: Enable and start ntpd
   service: name=ntpd enabled=yes state=started
 
