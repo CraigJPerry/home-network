@@ -45,5 +45,8 @@
 - name: Declare GPS device as NMEA 0183 time source
   lineinfile: state="present" dest="/etc/ntp.conf" create="no" insertafter="EOF" regexp="^fudge 127" line="fudge 127.127.28.0 time1 0.183 refid NMEA"
 
+- name: Enable and start ntpd
+  service: name=ntpd enabled=yes state=started
+
   # ntpq -c peers
 
