@@ -6,3 +6,15 @@
 - name: Install tpfan helper
   copy: src=tpfan dest=/opt/bin/tpfan owner=root group=root mode=0755
 
+- name: Install firmware helper for built in Gobi 2000 3G modem
+  yum: state=present pkg=gobi_loader
+
+- name: Install Gobi 2000 WWAN firmware
+  copy: src={{ item }} dest=/lib/firmware/gobi/ owner=root group=root mode=0666
+  with_items:
+    - UQCN.mbn
+    - amss.mbn
+    - apps.mbn
+  notify:
+    - reboot
+
