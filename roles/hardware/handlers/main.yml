@@ -3,4 +3,5 @@
 # Hardware setup and support
 
 - include: nvidia.yml
+- include: thinkpad.yml
 

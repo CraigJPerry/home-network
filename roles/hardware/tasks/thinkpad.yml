@@ -6,3 +6,44 @@
 - name: Install tpfan helper
   copy: src=tpfan dest=/opt/bin/tpfan owner=root group=root mode=0755
 
+- name: Install firmware helper for built in Gobi 2000 3G modem
+  yum: state=present pkg=gobi_loader
+
+- name: Install Gobi 2000 WWAN firmware
+  copy: src={{ item }} dest=/lib/firmware/gobi/ owner=root group=root mode=0666
+  with_items:
+    - UQCN.mbn
+    - amss.mbn
+    - apps.mbn
+  notify:
+    - reboot
+
+  # Needs "Auto Tracking" enabled in the windows GUI (only to be done once)
+  # echo "\$GPS_START" > /dev/ttyUSB2
+  # gpscat /dev/ttyUSB2
+  # echo "\$GPS_STOP" > /dev/ttyUSB2
+
+- name: Install gps software
+  yum: state=present pkg={{ item }}
+  with_items:
+    - gpsd
+    - gpsd-clients
+    - foxtrotgps
+
+- name: Enable and start gpsd
+  service: name=gpsd enabled=yes state=started
+
+  # Verify gpsd connectivity:
+  # gpsctl
+
+- name: Enable GPS time synchronisation
+  yum: state=present pkg=ntp
+
+- name: Set GPS device as time source
+  lineinfile: state="present" dest="/etc/ntp.conf" create="no" insertafter="EOF" regexp="^server 127" line="server 127.127.28.0 minpoll 4 prefer"
+
+- name: Declare GPS device as NMEA 0183 time source
+  lineinfile: state="present" dest="/etc/ntp.conf" create="no" insertafter="EOF" regexp="^fudge 127" line="fudge 127.127.28.0 time1 0.183 refid NMEA"
+
+  # ntpq -c peers
+

@@ -1,5 +1,5 @@
 ---
 
 - name: reboot
-  shell: '/usr/bin/reboot'
+  shell: '/usr/sbin/reboot'
 
