@@ -24,6 +24,11 @@
   lineinfile: state="present" dest="/etc/sudoers.d/{{ item }}" create="yes" insertbefore="BOF" regexp="^#" line="## Automatically Managed by Ansible, Manual Changes Will Be Lost!"
   with_items: super_users_list
 
+- name: Allow super users sudo without requiring a tty
+  # NB: Full line in quotes due to : char, see ansible YAML disclaimer
+  lineinfile: 'state="present" dest="/etc/sudoers.d/{{ item }}" create="yes" regexp="^Defaults" line="Defaults: {{ item }} !requiretty"'
+  with_items: super_users_list
+
 - name: Allow super users full sudo privs
   # NB: Full line in quotes due to : char, see ansible YAML disclaimer
   lineinfile: 'state="present" dest="/etc/sudoers.d/{{ item }}" create="yes" regexp="^{{ item }}" line="{{ item }} ALL=(ALL) NOPASSWD: ALL"'

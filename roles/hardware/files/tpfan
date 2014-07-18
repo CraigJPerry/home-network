@@ -6,9 +6,15 @@
 #   Control ThinkPad fan speed
 #
 
-if [[ "x$1" == "x" ]]; then
-    cat /proc/acpi/ibm/fan
-else
-    echo level $1 | sudo tee /proc/acpi/ibm/fan
+current_speed=$( awk '/^level/{print $2}' /proc/acpi/ibm/fan )
+new_speed="disengaged"
+
+if [[ "x$1" != "x" ]]; then
+    new_speed=$1
+elif echo $current_speed | grep "disengaged" > /dev/null ; then
+    new_speed=7
 fi
+
+echo level $new_speed | sudo tee /proc/acpi/ibm/fan
+notify-send --icon=emblem-favorite "Fan Speed" "Was $current_speed now $new_speed"
 
