@@ -20,6 +20,7 @@
     - python-scikit-learn
     - python-statsmodels
     - fabric
+    - pydot
 
 - name: Install Graphical Python2.7 Elements
   yum: state=present pkg={{ item }}

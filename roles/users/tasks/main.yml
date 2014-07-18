@@ -1,7 +1,5 @@
 ---
 
-# LAN user accounts
-
 - name: Create regular user accounts
   user: state="present" name="{{ item }}" createhome="yes" update_password="on_create" password="{{ password }}"
   register: user_created

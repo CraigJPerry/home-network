@@ -1,18 +1,37 @@
 localhost
 
+# By Location
+
 [onsite]
 d1.local
+d2.local
+
+[roaming]
 r1.local
+
+[offsite]
+s1.local
 
 [virtual]
 v1.local
+v2.local
 
-[servers]
+
+# By graphical capabilities
+
+[headed]
 d1.local
-
-[desktops]
-d1.local
-
-[laptops]
+d2.local
 r1.local
+v1.local
+
+[headless]
+v2.local
+s1.local
+
+
+# By application
+
+[virtualisation-host]
+d1.local
 
