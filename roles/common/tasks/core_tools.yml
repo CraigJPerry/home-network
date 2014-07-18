@@ -4,6 +4,8 @@
   yum: state=present pkg={{ item }}
   with_items:
     - irssi
+    - graphviz
+    - gnuplot
 
 - name: Core Graphical User Tools
   yum: state=present pkg={{ item }}
