@@ -2,7 +2,7 @@
 
 - include: playbooks/bootstrap.yml
 
-- hosts: all
+- hosts: 'all:!localhost'
   sudo: yes
   gather_facts: no
   roles:
