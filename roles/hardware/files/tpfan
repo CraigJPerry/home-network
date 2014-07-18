@@ -16,5 +16,5 @@ elif echo $current_speed | grep "disengaged" > /dev/null ; then
 fi
 
 echo level $new_speed | sudo tee /proc/acpi/ibm/fan
-notify-send --icon=emblem-favorite "Fan Speed" "Was $current_speed now $new_speed"
+notify-send --hint=int:transient:1 --icon=emblem-favorite "Fan Speed" "Was $current_speed now $new_speed"
 
