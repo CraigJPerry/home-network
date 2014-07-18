@@ -2,31 +2,30 @@
 
 - include: playbooks/bootstrap.yml
 
-- hosts: onsite
+- hosts: all
+  sudo: yes
+  gather_facts: no
+  roles:
+    - users
+    - common
+
+- hosts: onsite:roaming
   sudo: yes
   gather_facts: no
   roles:
     - lan
 
-- hosts: laptops:desktops
+- hosts: headed
   sudo: yes
   gather_facts: no
   roles:
-    - common
-    - desktop
     - hardware
-    - vagrant
+    - desktop
 
-- hosts: servers
+- hosts: virtualisation-host
   sudo: yes
   gather_facts: no
   roles:
     - kvm
     - docker
-
-- hosts: virtual
-  sudo: yes
-  gather_facts: no
-  roles:
-    - common
 
