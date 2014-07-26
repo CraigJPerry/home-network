@@ -60,3 +60,14 @@
   copy: 'src=jetbrains-pycharm.desktop dest=/usr/share/applications/jetbrains-pycharm.desktop owner=root group=root'
   when: install_pycharm
 
+- name: Download the Google App Engine Python SDK
+  get_url: url="{{ google_appengine_sdk_url }}{{ google_appengine_sdk_name }}" dest="/opt/{{ google_appengine_sdk_name }}" mode=0644
+  register: downloaded_google_appengine_sdk
+
+- name: Extract Google App Engine SDK
+  unarchive: src="/opt/{{ google_appengine_sdk_name }}" dest=/opt/
+  when: downloaded_google_appengine_sdk|changed
+
+- name: Add /opt/google_appengine to profile
+  copy: src=gae.sh dest=/etc/profile.d/gae.sh owner=root group=root mode=0644
+
