@@ -26,6 +26,6 @@ jdk_filename: jdk-8u5-linux-x64.rpm
 install_idea: False
 idea_url: http://download.jetbrains.com/python/
 idea_url: http://download.jetbrains.com/idea/
-idea_name: ideaIU-13.1.3.tar.gz
-idea_unzipped: idea-IU-135.909
+idea_name: ideaIU-13.1.4b.tar.gz
+idea_unzipped: idea-IU-135.1230
 
