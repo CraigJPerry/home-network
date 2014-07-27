@@ -6,19 +6,29 @@
         owner=root group=root
 
 - name: Install virtualbox
-  yum: state=present enablerepo="virtualbox" name="{{ virtualbox_package }}"
+  yum: state=latest enablerepo="virtualbox" name="{{ virtualbox_package }}"
+  register: virtualbox_installed
+
+- name: Check virtualbox version
+  shell: "/usr/bin/vboxmanage --version"
+  register: virtualbox_version
+  when: virtualbox_installed|changed
 
 - name: Download virtualbox extensions
-  get_url: url="{{ virtualbox_extensions_url }}{{ virtualbox_extensions_name }}" dest="/opt/{{ virtualbox_extensions_name }}" mode=0644
-  register: vbe_downloaded
+  get_url: url="http://download.virtualbox.org/virtualbox/{{ virtualbox_version.stdout.split("r")[0] }}/Oracle_VM_VirtualBox_Extension_Pack-{{ virtualbox_version.stdout.split("r")[0] }}-{{ virtualbox_version.stdout.split("r")[1] }}.vbox-extpack" dest="/opt/Oracle_VM_VirtualBox_Extension_Pack-{{ virtualbox_version.stdout.split("r")[0] }}-{{ virtualbox_version.stdout.split("r")[1] }}.vbox-extpack" mode=0644
+  when: virtualbox_installed|changed
 
 - name: Install virtualbox extensions
-  shell: '/usr/bin/VBoxManage extpack install /opt/{{ virtualbox_extensions_name }}'
-  when: vbe_downloaded|changed
+  shell: '/usr/bin/VBoxManage extpack install /opt/Oracle_VM_VirtualBox_Extension_Pack-{{ virtualbox_version.stdout.split("r")[0] }}-{{ virtualbox_version.stdout.split("r")[1] }}.vbox-extpack'
+  when: virtualbox_installed|changed
 
 - name: Install virtualbox kernel driver
   shell: '/etc/init.d/vboxdrv setup'
-  when: vbe_downloaded|changed
+  when: virtualbox_installed|changed
+
+- name: Restart vbox driver service
+  service: name=vboxdrv state=restarted enabled=yes
+  when: virtualbox_installed|changed
 
 - name: Maintain vboxusers
   user: name={{ item }} append=yes groups=vboxusers
