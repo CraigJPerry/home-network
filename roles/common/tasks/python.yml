@@ -71,3 +71,6 @@
 - name: Add /opt/google_appengine to profile
   copy: src=gae.sh dest=/etc/profile.d/gae.sh owner=root group=root mode=0644
 
+- name: Add iPython Notebook launcher
+  copy: src="iPython Notebook.desktop" dest=/usr/share/applications/ owner=root group=root mode=0644
+
