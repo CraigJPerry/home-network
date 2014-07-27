@@ -1,0 +1,9 @@
+---
+
+- name: Install GNU Radio
+  yum: state=present pkg={{ item }}
+  with_items:
+    - gqrx
+    - rtl-sdr
+  when: install_graphical_tools
+
