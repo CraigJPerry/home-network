@@ -1,11 +1,11 @@
 ---
 
 - name: rebuild initramfs
-  shell: 'dracut -f'
+  shell: '/usr/bin/dracut -f'
 
 - name: reboot to multi user
-  shell: 'ln -sf /usr/lib/systemd/system/multi-user.target /etc/systemd/system/default.target && /usr/sbin/reboot'
+  shell: '/bin/ln -sf /usr/lib/systemd/system/multi-user.target /etc/systemd/system/default.target && /usr/sbin/reboot'
 
 - name: reboot to graphical
-  shell: 'ln -sf /usr/lib/systemd/system/graphical.target /etc/systemd/system/default.target && /usr/sbin/reboot'
+  shell: '/bin/ln -sf /usr/lib/systemd/system/graphical.target /etc/systemd/system/default.target && /usr/sbin/reboot'
 

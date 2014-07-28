@@ -45,7 +45,7 @@
     - reboot to multi user
 
 - name: Find latest nvidia driver version
-  shell: 'wget ftp://download.nvidia.com/XFree86/Linux-x86_64/latest.txt -qO- | cut -f2 -d" "'
+  shell: '/usr/bin/wget ftp://download.nvidia.com/XFree86/Linux-x86_64/latest.txt -qO- | cut -f2 -d" "'
   register: latest_version
   when: nvidia_loaded.rc != 0 and nouveau_loaded.rc != 0
 

@@ -15,7 +15,7 @@
     changed_when: False
 
   - name: Test install_ansible_pull | The ansible user should exist
-    shell: grep ansible /etc/passwd
+    shell: /bin/grep ansible /etc/passwd
     changed_when: False
 
   - name: Test install_ansible_pull | A sudoers include file should exist for the anisble user
