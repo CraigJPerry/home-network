@@ -1,7 +1,14 @@
 ---
 
-- name: Install Docker
-  yum: state=present name="docker-io"
+- name: Install Docker and tools
+  yum: state=present pkg={{ item }}
+  with_items:
+    - docker-io
+    - geard
+    - fedora-dockerfiles
+
+- name: Install fig
+  pip: state=present pkg=fig
 
 - name: Add docker users to docker group
   user: name={{ item }} append=yes groups=docker
