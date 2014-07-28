@@ -1,0 +1,7 @@
+---
+
+# Ensure ansible & dependencies are pre-installed
+
+dependencies:
+  - { role: rpmfusion }
+

@@ -2,15 +2,8 @@
 
 # Steam Gaming Platform & Game Tweaks / Fixes / Workarounds
 
-- name: Configure RPM Fusion repo
-  copy: src=rpmfusion.repo
-        dest=/etc/yum.repos.d/rpmfusion.repo
-        owner=root group=root
-
 - name: Configure Fedora Steam repo
-  copy: src=steam.repo
-        dest=/etc/yum.repos.d/steam.repo
-        owner=root group=root
+  copy: src=steam.repo dest=/etc/yum.repos.d/steam.repo owner=root group=root mode=0644
 
 - name: Ensure Steam is not running
   shell: "/bin/ps -ef | /bin/grep /usr/bin/steam | /bin/grep -v grep"
