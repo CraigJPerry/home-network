@@ -1,0 +1,19 @@
+---
+
+- name: Install grub starfield theme
+  yum: pkg=grub2-starfield-theme state=present
+
+- name: Set grub theme
+  lineinfile: state="present" dest="/etc/default/grub" create="no" regexp="^GRUB_THEME" line='GRUB_THEME="/usr/share/grub/themes/starfield/theme.txt"'
+  notify:
+    - rebuild grub config
+
+- name: Set grub terminal output
+  lineinfile: state="present" dest="/etc/default/grub" create="no" regexp="^GRUB_TERMINAL_OUTPUT" line='GRUB_TERMINAL_OUTPUT="gfxterm"'
+  notify:
+    - rebuild grub config
+
+- name: Set grub timeout
+  lineinfile: state="present" dest="/etc/default/grub" create="no" regexp="^GRUB_TIMEOUT" line='GRUB_TIMEOUT="2"'
+  notify:
+    - rebuild grub config

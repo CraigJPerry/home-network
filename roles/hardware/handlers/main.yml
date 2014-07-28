@@ -4,4 +4,4 @@
 
 - include: nvidia.yml
 - include: thinkpad.yml
-
+- include: grub.yml
