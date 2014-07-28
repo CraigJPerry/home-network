@@ -1,5 +1,15 @@
 ---
 
+- name: Configure chrome repo
+  copy: src=google-chrome.repo
+        dest=/etc/yum.repos.d/google-chrome.repo
+        owner=root group=root
+
+- name: Configure google talk plugin repo
+  copy: src=google-talkplugin.repo
+        dest=/etc/yum.repos.d/google-talkplugin.repo
+        owner=root group=root
+
 - name: Ensure Chrome is not running
   shell: "/bin/ps -ef | /bin/grep /opt/google/chrome/chrome | /bin/grep -v grep"
   ignore_errors: yes
