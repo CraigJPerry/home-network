@@ -35,7 +35,7 @@
   register: wakeup_copied
 
 - name: Apply selinux policy edits to gpsd
-  script: gpsd-device-hook-selinux.sh
+  shell: /usr/sbin/semodule -i roles/hardware/files/gpsd-device-hook-*.pp
   when: wakeup_copied|changed
 
 - name: Enable and start gpsd

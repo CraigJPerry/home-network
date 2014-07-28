@@ -7,3 +7,4 @@
 #
 
 echo "\$GPS_START\n" > /dev/ttyUSB2
+
