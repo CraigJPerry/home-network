@@ -30,6 +30,9 @@
     - gpsd-clients
     - foxtrotgps
 
+- name: Wake up GPS device on gpsd startup
+  copy: src="device-hook" dest="/etc/gpsd/" owner=root group=root mode=0555
+
 - name: Enable and start gpsd
   service: name=gpsd enabled=yes state=started
 
