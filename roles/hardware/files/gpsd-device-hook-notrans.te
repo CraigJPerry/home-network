@@ -1,0 +1,26 @@
+
+module gpsd-device-hook-notrans 1.0;
+
+require {
+	type user_tmp_t;
+	type etc_t;
+	type proc_t;
+	type shell_exec_t;
+	type gpsd_t;
+	class file { execute read open getattr execute_no_trans };
+}
+
+#============= gpsd_t ==============
+allow gpsd_t etc_t:file execute_no_trans;
+
+#!!!! This avc is allowed in the current policy
+allow gpsd_t etc_t:file execute;
+
+#!!!! This avc is allowed in the current policy
+allow gpsd_t proc_t:file { read getattr open };
+
+#!!!! This avc is allowed in the current policy
+allow gpsd_t shell_exec_t:file { execute execute_no_trans };
+
+#!!!! This avc is allowed in the current policy
+allow gpsd_t user_tmp_t:file execute;
