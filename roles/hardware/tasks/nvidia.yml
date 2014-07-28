@@ -5,11 +5,13 @@
 - name: Check if the nouveau driver is loaded
   shell: '/usr/sbin/lsmod | /usr/bin/grep nouveau'
   ignore_errors: yes
+  changed_when: False
   register: nouveau_loaded
 
 - name: Check if the nvidia driver is loaded
   shell: '/usr/sbin/lsmod | /usr/bin/grep nvidia'
   ignore_errors: yes
+  changed_when: False
   register: nvidia_loaded
 
 - name: Ensure dependencies and tools are present
