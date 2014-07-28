@@ -10,4 +10,5 @@ dependencies:
   - { role: skype }
   - { role: steam }
   - { role: vagrant }
+  - { role: docker }
 
