@@ -30,6 +30,14 @@
     - gpsd-clients
     - foxtrotgps
 
+- name: Wake up GPS device on gpsd startup
+  copy: src="device-hook" dest="/etc/gpsd/" owner=root group=root mode=0555
+  register: wakeup_copied
+
+- name: Apply selinux policy edits to gpsd
+  script: gpsd-device-hook-selinux.sh
+  when: wakeup_copied|changed
+
 - name: Enable and start gpsd
   service: name=gpsd enabled=yes state=started
 

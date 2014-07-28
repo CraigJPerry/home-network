@@ -1,0 +1,9 @@
+#!/bin/bash
+#
+# TITLE
+#   device-hook
+# DESCRIPTION
+#   Enable GPS hardware on gpsd startup
+#
+
+echo "\$GPS_START\n" > /dev/ttyUSB2
