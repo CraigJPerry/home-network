@@ -24,4 +24,5 @@
 - include: bus_pirate.yml
 - include: arduino.yml
 - include: sdr.yml
+- include: grub.yml
 
