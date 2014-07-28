@@ -1,6 +1,20 @@
 ---
 
-# Google chrome web browser
+- name: Ensure Chrome is not running
+  shell: "/bin/ps -ef | /bin/grep /opt/google/chrome/chrome | /bin/grep -v grep"
+  ignore_errors: yes
+  changed_when: False
+  register: chrome_running
+
+- name: Update Chrome browser
+  yum: state=latest enablerepo="chrome" name="google-chrome-stable"
+  when: chrome_running.rc != 0
+
+- name: Update Google Talk plugin for Chrome
+  yum: state=latest enablerepo="google-talkplugin" name="google-talkplugin"
+  when: chrome_running.rc != 0
+
+# NB: If we performed an install above, the below will reset "enabled=0"
 
 - name: Configure chrome repo
   copy: src=google-chrome.repo
@@ -11,10 +25,4 @@
   copy: src=google-talkplugin.repo
         dest=/etc/yum.repos.d/google-talkplugin.repo
         owner=root group=root
-
-- name: Install Browser
-  yum: state=present enablerepo="chrome" name="google-chrome-stable"
-
-- name: Install Talk Plugin
-  yum: state=present enablerepo="google-talkplugin" name="google-talkplugin"
 
