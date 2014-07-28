@@ -8,7 +8,7 @@
     - fedora-dockerfiles
 
 - name: Install fig
-  pip: state=present pkg=fig
+  pip: state=present name=fig
 
 - name: Add docker users to docker group
   user: name={{ item }} append=yes groups=docker
