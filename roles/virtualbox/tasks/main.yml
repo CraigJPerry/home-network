@@ -5,9 +5,16 @@
         dest=/etc/yum.repos.d/virtualbox.repo
         owner=root group=root
 
-- name: Install virtualbox
+- name: Ensure Virtualbox is not running
+  shell: "ps -ef | grep /usr/lib/virtualbox/VBoxSVC | grep -v grep"
+  ignore_errors: yes
+  changed_when: False
+  register: virtualbox_running
+
+- name: Update virtualbox
   yum: state=latest enablerepo="virtualbox" name="{{ virtualbox_package }}"
   register: virtualbox_installed
+  when: virtualbox_running.rc != 0
 
 - name: Check virtualbox version
   shell: "/usr/bin/vboxmanage --version"
