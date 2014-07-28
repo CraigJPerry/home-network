@@ -20,6 +20,16 @@
     - '@gnome-games'
     - '@libreoffice'
 
+- name: Install vlc and codecs
+  yum: state=present enablerepo="rpmfusion-free,rpmfusion-free-updates,rpmfusion-nonfree,rpmfusion-nonfree-updates" pkg={{ item }}
+  with_items:
+    - gstreamer-plugins-ugly
+    - gstreamer-ffmpeg
+    - gstreamer-plugins-bad-nonfree
+    - gstreamer-plugins-bad-free
+    - gstreamer-plugins-bad
+    - vlc
+
 - include: fonts.yml
 - include: citrix.yml
 
