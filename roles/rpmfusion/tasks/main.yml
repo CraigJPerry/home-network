@@ -1,0 +1,5 @@
+---
+
+- name: Configure RPM Fusion repo
+  copy: src=rpmfusion.repo dest=/etc/yum.repos.d/rpmfusion.repo owner=root group=root mode=0644
+
