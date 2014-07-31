@@ -50,6 +50,9 @@
   # Verify gpsd connectivity:
   # gpsctl
 
+- name: Remove Chrony to avoid conflicts with ntp
+  yum: state=absent pkg=chrony
+
 - name: Enable GPS time synchronisation
   yum: state=present pkg=ntp
 
