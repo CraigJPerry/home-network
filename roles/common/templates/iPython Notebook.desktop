@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=iPython Notebook
 Comment=Local web app for interactive Python development
-Path=/home/craig/Code/r1.local/notebooks
+Path=/home/craig/Code/{{ template_host }}/notebooks
 Exec=ipython notebook
 Icon=web-browser
 Terminal=true
