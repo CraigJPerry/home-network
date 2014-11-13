@@ -1,0 +1,8 @@
+Set-ExplorerOptions -showHiddenFilesFoldersDrives -showFileExtensions
+Set-StartScreenOptions -EnableBootToDesktop 
+
+cinst Gow
+
+Install-ChocolateyPinnedTaskBarItem "$env:windir\system32\mstsc.exe"
+Install-WindowsUpdate -AcceptEula
+Enable-MicrosoftUpdate
