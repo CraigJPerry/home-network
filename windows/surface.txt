@@ -11,7 +11,7 @@ Install-WindowsUpdate -AcceptEula
 Enable-MicrosoftUpdate
 
 Set-StartScreenOptions -EnableBootToDesktop 
-Set-WindowsExplorerOptions -showHiddenFilesFoldersDrives -showFileExtensions
+Set-WindowsExplorerOptions -EnableShowHiddenFilesFoldersDrives -EnableShowFileExtensions
 
 cinst Silverlight
 cinst javaruntime
