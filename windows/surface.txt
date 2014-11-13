@@ -1,4 +1,4 @@
-Set-ExplorerOptions -showHiddenFilesFoldersDrives -showFileExtensions
+Set-WindowsExplorerOptions -showHiddenFilesFoldersDrives -showFileExtensions
 Set-StartScreenOptions -EnableBootToDesktop 
 
 cinst Gow
