@@ -12,6 +12,7 @@ Enable-MicrosoftUpdate
 
 Set-StartScreenOptions -EnableBootToDesktop 
 Set-WindowsExplorerOptions -EnableShowHiddenFilesFoldersDrives -EnableShowFileExtensions
+Set-TaskbarOptions -Dock Top
 
 cinst Silverlight
 cinst javaruntime
