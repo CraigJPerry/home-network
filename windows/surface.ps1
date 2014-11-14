@@ -2,7 +2,7 @@
 #
 # Open this URL in Internet Explorer on a freshly installed machine:
 #
-# http://boxstarter.org/package/url?https://raw.github.com/CraigJPerry/home-network/windows/surface.txt
+# http://boxstarter.org/package/url?https://raw.github.com/CraigJPerry/home-network/windows/surface.ps1
 #
 
 Update-ExecutionPolicy Unrestricted
