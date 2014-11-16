@@ -18,6 +18,7 @@ cinst Silverlight
 cinst javaruntime
 
 cinst Gow
+cinst mingw
 cinst sysinternals
 
 cinst autohotkey
