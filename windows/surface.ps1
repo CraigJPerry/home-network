@@ -75,3 +75,8 @@ cinst vlc
 cinst audacity
 
 cinst deluge
+
+easy_install pip
+pip install pylint pep8 virtualenv
+
+npm install -g gulp bower
