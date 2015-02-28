@@ -12,20 +12,20 @@ sublime_unzipped: sublime_text_3
 install_graphical_tools: False
 install_pycharm: False
 pycharm_url: http://download.jetbrains.com/python/
-pycharm_name: pycharm-professional-3.4.1.tar.gz
-pycharm_unzipped: pycharm-3.4.1
+pycharm_name: pycharm-professional-4.0.4.tar.gz
+pycharm_unzipped: pycharm-4.0.4
 google_appengine_sdk_url: https://storage.googleapis.com/appengine-sdks/featured/
-google_appengine_sdk_name: google_appengine_1.9.7.zip
+google_appengine_sdk_name: google_appengine_1.9.18.zip
 
 # Java
 
 jdk_download_root: http://download.oracle.com/otn-pub/java/jdk
-jdk_version_dir: 8u5-b13
-jdk_filename: jdk-8u5-linux-x64.rpm
+jdk_version_dir: 8u31-b13
+jdk_filename: jdk-8u31-linux-x64.rpm
 
 install_idea: False
 idea_url: http://download.jetbrains.com/python/
 idea_url: http://download.jetbrains.com/idea/
-idea_name: ideaIU-13.1.5.tar.gz
-idea_unzipped: idea-IU-135.1289
+idea_name: ideaIU-14.0.3.tar.gz
+idea_unzipped: idea-IU-139.1117.1
 
