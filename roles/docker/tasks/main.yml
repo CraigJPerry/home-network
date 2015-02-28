@@ -4,7 +4,6 @@
   yum: state=present pkg={{ item }}
   with_items:
     - docker-io
-    - geard
     - fedora-dockerfiles
 
 - name: Install fig
