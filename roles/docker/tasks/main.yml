@@ -10,7 +10,7 @@
   pip: state=present name=fig
 
 - name: Add docker users to docker group
-  user: name={{ item }} append=yes groups=docker
+  user: name={{ item }} append=yes groups=dockerroot
   with_items: docker_users
 
 - name: Start docker
