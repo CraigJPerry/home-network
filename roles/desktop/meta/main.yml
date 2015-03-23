@@ -8,7 +8,7 @@ dependencies:
   - { role: flash }
   - { role: dropbox }
   - { role: skype }
-  - { role: steam }
+#  - { role: steam }
   - { role: vagrant }
   - { role: docker }
 
