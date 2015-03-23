@@ -8,6 +8,7 @@ d2.local
 
 [roaming]
 r1.local
+surface.local
 
 [offsite]
 s1.local
@@ -24,6 +25,7 @@ d1.local
 d2.local
 r1.local
 v1.local
+surface.local
 
 [headless]
 v2.local
