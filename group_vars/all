@@ -9,11 +9,11 @@ pull_time: hourly
 
 # users role
 
-users_list:
-  - monika
-  - photo
-  - dev
-  - presenter
+# users_list:
+#   - monika
+#   - photo
+#   - dev
+#   - presenter
 
 super_users_list:
   - craig
