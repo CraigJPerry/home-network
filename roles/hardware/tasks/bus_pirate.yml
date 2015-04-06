@@ -1,6 +1,6 @@
 ---
 
 - name: Serial terminal software
-  yum: state=present pkg=moserial
+  dnf: state=present pkg=moserial
   when: install_graphical_tools
 

@@ -17,11 +17,11 @@
   register: chrome_running
 
 - name: Update Chrome browser
-  yum: state=latest enablerepo="chrome" name="google-chrome-stable"
+  dnf: state=latest enablerepo="chrome" name="google-chrome-stable"
   when: chrome_running.rc != 0
 
 - name: Update Google Talk plugin for Chrome
-  yum: state=latest enablerepo="google-talkplugin" name="google-talkplugin"
+  dnf: state=latest enablerepo="google-talkplugin" name="google-talkplugin"
   when: chrome_running.rc != 0
 
 # NB: If we performed an install above, the below will reset "enabled=0"

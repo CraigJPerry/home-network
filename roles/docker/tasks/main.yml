@@ -1,7 +1,7 @@
 ---
 
 - name: Install Docker and tools
-  yum: state=present pkg={{ item }}
+  dnf: state=present pkg={{ item }}
   with_items:
     - docker-io
     - fedora-dockerfiles

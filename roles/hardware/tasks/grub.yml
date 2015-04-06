@@ -1,7 +1,7 @@
 ---
 
 - name: Install grub starfield theme
-  yum: pkg=grub2-starfield-theme state=present
+  dnf: pkg=grub2-starfield-theme state=present
 
 - name: Set grub theme
   lineinfile: state="present" dest="/etc/default/grub" create="no" regexp="^GRUB_THEME" line='GRUB_THEME="/usr/share/grub/themes/starfield/theme.txt"'

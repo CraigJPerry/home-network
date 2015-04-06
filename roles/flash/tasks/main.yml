@@ -6,7 +6,7 @@
         owner=root group=root
 
 - name: Install
-  yum: state=present enablerepo="adobe" pkg={{ item }}
+  dnf: state=present enablerepo="adobe" pkg={{ item }}
   with_items:
     - "flash-plugin"
 

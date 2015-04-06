@@ -5,7 +5,7 @@
 
 - name: Install JDK
   register: installed_jdk
-  yum: state=present name="/opt/{{ jdk_filename }}"
+  dnf: state=present name="/opt/{{ jdk_filename }}"
 
 - name: Register available java cmd
   shell: '/usr/sbin/alternatives --install /usr/bin/java java /usr/java/latest/bin/java 99'

@@ -1,5 +1,5 @@
 ---
 
 - name: Install KVM & libvirt
-  yum: state=present pkg='@virtualization'
+  dnf: state=present pkg='@virtualization'
 

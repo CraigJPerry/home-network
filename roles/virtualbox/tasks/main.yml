@@ -12,7 +12,7 @@
   register: virtualbox_running
 
 - name: Update virtualbox
-  yum: state=latest enablerepo="virtualbox" name="{{ virtualbox_package }}"
+  dnf: state=latest enablerepo="virtualbox" name="{{ virtualbox_package }}"
   register: virtualbox_installed
   when: virtualbox_running.rc != 0
 

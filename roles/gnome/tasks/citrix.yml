@@ -3,7 +3,7 @@
 # Configure Citrix ICA Client
 
 - name: Install ICAClient dependencies
-  yum: state=present pkg={{ item }}
+  dnf: state=present pkg={{ item }}
   with_items:
     - motif.i686
     - libXpm.i686

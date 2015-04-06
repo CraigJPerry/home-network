@@ -12,9 +12,9 @@
   register: steam_running
 
 - name: Update Steam
-  yum: state=latest enablerepo="rpmfusion-free,rpmfusion-free-updates,rpmfusion-nonfree,rpmfusion-nonfree-updates,steam" name="steam"
+  dnf: state=latest enablerepo="rpmfusion-free,rpmfusion-free-updates,rpmfusion-nonfree,rpmfusion-nonfree-updates,steam" name="steam"
   when: steam_running.rc != 0
 
 - name: Install libGLU 32bit for Surgeon Simulator 2013
-  yum: state=present name="mesa-libGLU.i686"
+  dnf: state=present name="mesa-libGLU.i686"
 

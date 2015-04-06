@@ -4,5 +4,5 @@
   get_url: url="{{ vagrant_url }}{{ vagrant_name }}" dest="/opt/{{ vagrant_name }}" mode=0644
 
 - name: Install Vagrant
-  yum: state=present pkg=/opt/{{ vagrant_name }}
+  dnf: state=present pkg=/opt/{{ vagrant_name }}
 

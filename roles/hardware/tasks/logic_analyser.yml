@@ -1,7 +1,7 @@
 ---
 
 - name: Ensure unzip binary is present
-  yum: state=present pkg=unzip
+  dnf: state=present pkg=unzip
 
 # Workaround: unarchive doesn't check if already unzipped in 1.4
 - name: Check if logic analyser already unzipped

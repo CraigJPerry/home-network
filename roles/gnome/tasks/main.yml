@@ -3,7 +3,7 @@
 # Install GNOME desktop environment & customisations
 
 - name: Install Desktop Environment
-  yum: state=present pkg={{ item }}
+  dnf: state=present pkg={{ item }}
   with_items:
     - '@base-x'
     - '@core'
@@ -21,7 +21,7 @@
     - '@libreoffice'
 
 # - name: Install vlc and codecs
-#   yum: state=present enablerepo="rpmfusion-free,rpmfusion-free-updates,rpmfusion-nonfree,rpmfusion-nonfree-updates" pkg={{ item }}
+#   dnf: state=present enablerepo="rpmfusion-free,rpmfusion-free-updates,rpmfusion-nonfree,rpmfusion-nonfree-updates" pkg={{ item }}
 #   with_items:
 #     - gstreamer-plugins-ugly
 #     - gstreamer-ffmpeg

@@ -15,7 +15,7 @@
   register: nvidia_loaded
 
 - name: Ensure dependencies and tools are present
-  yum: state=present pkg={{ item }}
+  dnf: state=present pkg={{ item }}
   with_items:
     - dkms
     - vdpauinfo

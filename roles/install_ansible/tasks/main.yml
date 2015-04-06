@@ -3,7 +3,7 @@
 # Install ansible and dependencies
 
 - name: Install ansible and dependencies
-  yum: state=present pkg={{ item }}
+  dnf: state=present pkg={{ item }}
   with_items:
     - git
     - ansible
