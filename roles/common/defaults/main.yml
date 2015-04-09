@@ -12,8 +12,8 @@ sublime_unzipped: sublime_text_3
 install_graphical_tools: False
 install_pycharm: False
 pycharm_url: http://download.jetbrains.com/python/
-pycharm_name: pycharm-professional-4.0.4.tar.gz
-pycharm_unzipped: pycharm-4.0.4
+pycharm_name: pycharm-professional-4.0.6.tar.gz
+pycharm_unzipped: pycharm-4.0.6
 google_appengine_sdk_url: https://storage.googleapis.com/appengine-sdks/featured/
 google_appengine_sdk_name: google_appengine_1.9.18.zip
 
