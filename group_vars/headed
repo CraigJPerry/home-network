@@ -4,6 +4,7 @@ install_graphical_tools: True
 install_pycharm: True
 install_idea: True
 install_sublime: True
+install_atom: True
 
 # Kinect configuration
 kinect_users:
