@@ -45,3 +45,11 @@
   copy: 'src=sublime_text.desktop dest=/usr/share/applications/sublime_text.desktop owner=root group=root'
   when: install_sublime
 
+- name: Download atom
+  get_url: url="{{ atom_url }}" dest="/opt/{{ atom_name }}" mode=0644
+  register: downloaded_atom
+  when: install_atom
+
+- name: Install atom
+  yum: state=present pkg=/opt/{{ atom_name }}
+  when: downloaded_atom|changed

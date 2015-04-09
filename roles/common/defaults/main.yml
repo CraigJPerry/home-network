@@ -7,6 +7,12 @@ sublime_url: https://www.dropbox.com/s/0nvncgxcdwx5j40/
 sublime_name: sublime_text_3_build_3059_x64.tar.bz2
 sublime_unzipped: sublime_text_3
 
+# Atom text editor
+
+install_atom: False
+atom_url: https://atom.io/download/rpm
+atom_name: atom.rpm
+
 # Python
 
 install_graphical_tools: False
@@ -28,4 +34,3 @@ idea_url: http://download.jetbrains.com/python/
 idea_url: http://download.jetbrains.com/idea/
 idea_name: ideaIU-14.1.1.tar.gz
 idea_unzipped: idea-IU-141.178.9
-
