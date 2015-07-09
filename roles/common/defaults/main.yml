@@ -18,10 +18,10 @@ atom_name: atom.rpm
 install_graphical_tools: False
 install_pycharm: False
 pycharm_url: http://download.jetbrains.com/python/
-pycharm_name: pycharm-professional-4.0.6.tar.gz
-pycharm_unzipped: pycharm-4.0.6
+pycharm_name: pycharm-professional-4.5.2.tar.gz
+pycharm_unzipped: pycharm-4.5.2
 google_appengine_sdk_url: https://storage.googleapis.com/appengine-sdks/featured/
-google_appengine_sdk_name: google_appengine_1.9.18.zip
+google_appengine_sdk_name: google_appengine_1.9.23.zip
 
 # Java
 
@@ -32,5 +32,5 @@ jdk_filename: jdk-8u31-linux-x64.rpm
 install_idea: False
 idea_url: http://download.jetbrains.com/python/
 idea_url: http://download.jetbrains.com/idea/
-idea_name: ideaIU-14.1.1.tar.gz
-idea_unzipped: idea-IU-141.178.9
+idea_name: ideaIU-14.1.4.tar.gz
+idea_unzipped: idea-IU-141.1532.4
